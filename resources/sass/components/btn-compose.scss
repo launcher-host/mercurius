@@ -1,0 +1,13 @@
+.btn_compose {
+    color:         $btn_compose;
+    position:      absolute;
+    bottom:        55px;
+    width:         60px;
+    height:        60px;
+    border-radius: 50px;
+    z-index:       $zindex-fixed + 1;
+    right:         35px;
+
+    @include media-breakpoint-up(md) {left: $sidebar__width__md - 95;}
+    @include media-breakpoint-up(lg) {left: $sidebar__width - 95;}
+}

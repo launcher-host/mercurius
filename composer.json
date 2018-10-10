@@ -1,6 +1,6 @@
 {
     "name": "launcher/mercurius",
-    "description": "A Laravel package ..",
+    "description": "A Laravel package w/ real-time messenger system",
     "type": "library",
     "license": "MIT",
     "homepage": "https://launcher.host/mercurius/",
@@ -9,6 +9,10 @@
         "source": "https://github.com/launcher-host/mercurius"
     },
     "keywords": [
+        "messenger",
+        "chat",
+        "pusher",
+        "web-sockets",
         "laravel",
         "vue"
     ],
@@ -19,21 +23,26 @@
     ],
     "require": {
         "php": "^7.0 || ^7.1",
-        "laravel/framework": "~5.5.0|~5.6.0|~5.7.0"
+        "laravel/framework": "~5.5.0|~5.6.0|~5.7.0",
+        "pusher/pusher-php-server": "^3.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.3",
         "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0",
+        "orchestra/database": "~3.5.0|~3.6.0",
+        "orchestra/testbench-core": "~3.5.0|~3.6.0",
+        "codeclimate/php-test-reporter": "dev-master",
         "mockery/mockery": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "Launcher\\Mercurius\\": "src/"
+            "Launcher\\Mercurius\\": "src/",
+            "Launcher\\Mercurius\\Database\\Seeds\\": "publishable/database/seeds/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Launcher\\Mercurius\\Tests\\": "tests"
+            "Launcher\\Mercurius\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable",
@@ -41,7 +50,10 @@
         "laravel": {
             "providers": [
                 "Launcher\\Mercurius\\MercuriusServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Mercurius": "Launcher\\Mercurius\\Facades\\Mercurius"
+            }
         }
     }
 }

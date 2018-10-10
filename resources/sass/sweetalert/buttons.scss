@@ -1,0 +1,32 @@
+.swal-button-container {
+    margin:   5px;
+    display:  inline-block;
+    position: relative;
+}
+
+.swal-button {
+    background-color: $swal-btn-confirm;
+    color:            white;
+    border-radius:    5px;
+    padding:          10px 24px;
+    margin:           0;
+
+    &--cancel {
+        color:            $swal-btn-cancel;
+        background-color: transparent !important;
+
+        &:not(.swal-button--loading):hover {
+            color: darken($swal-btn-cancel, 15%);
+        }
+    }
+
+    &--danger {
+        color:            $swal-btn-danger;
+        background-color: $swal-btn-danger-bg;
+
+        &:not(.swal-button--loading):hover  {
+            color:            darken($swal-btn-danger, 15%);
+            background-color: darken($swal-btn-danger-bg, 15%);
+        }
+    }
+}

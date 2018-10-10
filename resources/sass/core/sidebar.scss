@@ -1,0 +1,20 @@
+.mercurius__sidebar {
+    overflow:         visible;
+    position:         absolute;
+    top:              0;
+    bottom:           0;
+    left:             0;
+    width:            100%;
+    background-color: $sidebar__bg;
+    z-index:          $zindex-fixed;
+    transition:       left 0.25s ease-in-out;
+
+    &.closed {left: -100%;}
+
+    @include media-breakpoint-up(md) {
+        &.closed {left: 0;}
+        width: $sidebar__width__md;
+    }
+
+    @include media-breakpoint-up(lg) {width: $sidebar__width;}
+}

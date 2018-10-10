@@ -1,0 +1,36 @@
+{
+    "err_hd": "Oops.",
+
+    "err_conversations_load": "An error has occurred while loading the conversations",
+    "err_conversation_delete": "An error has occurred while deleting the conversation.",
+    "err_messages_load": "An error has occurred while loading messages.",
+    "err_message_send": "An error has occurred while sending the message.",
+    "err_message_delete": "An error has occurred while deleting the message.",
+    "err_profile_updating": "An error has occurred while update settings.",
+    "err_profile_notifications": "An error has occurred while loading notifications.",
+    "err_recipients": "An error has occurred while searching contacts.",
+
+    "conversations_empty": "You've got no conversations.",
+    "messages_empty": "You've got no messages.",
+
+    "loading_conversations": "loading conversations...",
+    "loading_messages": "loading messages...",
+
+    "conversation_delete_hd": "Delete conversation?",
+    "conversation_delete_alt": "This will permanently delete the conversation.",
+    "conversation_delete_btn": "Delete conversation",
+
+    "message_delete_hd": "Delete message?",
+    "message_delete_alt": "This will permanently delete the message.",
+    "message_delete_btn": "Delete message",
+
+    "search_messages": "Search messages",
+    "msg_status_read": "Read",
+    "type_message": "Type message...",
+    "new_message": "New message",
+    "to_message": "To",
+    "return": "Return",
+
+    "btn_cancel": "Cancel",
+    "btn_send": "Send"
+}

@@ -1,0 +1,29 @@
+.swal-icon--info {
+  border-color: $secondary;
+
+  /* "i"-letter body */
+  &::before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 29px;
+    left: 50%;
+    bottom: 17px;
+    border-radius: 2px;
+    margin-left: -2px;
+    background-color: $secondary;
+  }
+  /* "i"-letter dot */
+  &::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-left: -3px;
+    top: 19px;
+    background-color: $secondary;
+    left: 50%;
+  }
+}
+

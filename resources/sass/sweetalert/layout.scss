@@ -1,0 +1,82 @@
+.swal-overlay {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.swal-modal {
+    border-radius: $swal-border-radius;
+}
+
+
+.swal-title {
+    color:          rgba(0, 0, 0, 0.65);
+    display:        block;
+    font-size:      27px;
+    font-weight:    600;
+    padding:        15px 25px;
+    text-transform: none;
+
+    &:first-child,
+    &:not(:first-child),
+    &:not(:last-child) {
+        margin: 0;
+    }
+}
+
+
+.swal-text {
+    display:        block;
+    font-size:      15px;
+    vertical-align: top;
+    text-align:     center;
+    margin:         0;
+    padding:        0 25px 15px 25px;
+    font-weight:    400;
+    color:          rgba(0, 0, 0, 0.64);
+
+    &:first-child,
+    &:last-child {
+        margin: 0;
+    }
+}
+
+
+.swal-footer {
+    text-align:       right;
+    margin-top:       15px;
+    padding:          15px 25px;
+    border-radius:    0 0 $swal-border-radius $swal-border-radius;
+    background-color: $swal-footer-bg;
+}
+
+
+.swal-content {
+    padding:    0 20px;
+    margin-top: 20px;
+    font-size:  initial;
+
+    &:last-child { margin-bottom: 20px; }
+
+    &__input,
+    &__textarea {
+        -webkit-appearance: none;
+        background-color:   white;
+        border:             none;
+        font-size:          14px;
+        display:            block;
+        box-sizing:         border-box;
+        width:              100%;
+        border:             1px solid rgba(0, 0, 0, 0.14);
+        padding:            10px 13px;
+        border-radius:      2px;
+        transition:         border-color 0.2s;
+
+        &:focus {
+            outline:      none;
+            border-color: #6DB8FF;
+        }
+    }
+
+    &__textarea {
+        resize: vertical;
+    }
+}

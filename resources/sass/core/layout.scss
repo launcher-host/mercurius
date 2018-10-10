@@ -1,0 +1,18 @@
+.mercurius {
+    width: 100vw;
+    height: 100vh;
+
+    transition: all 0.25s linear;
+}
+
+.mercurius__container {
+    overflow: hidden;
+    position: absolute;
+    top:      0;
+    right:    0;
+    bottom:   0;
+    left:     0;
+
+    @include media-breakpoint-up(md) {left: $sidebar__width__md;}
+    @include media-breakpoint-up(lg) {left: $sidebar__width;}
+}

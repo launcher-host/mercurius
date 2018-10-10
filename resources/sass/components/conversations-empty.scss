@@ -1,0 +1,29 @@
+.conversations_empty {
+    background:      transparent url('/vendor/mercurius/img/globe.png') 50% 50% no-repeat;
+    background-size: 70% auto;
+    position:        absolute;
+    top:             0;
+    right:           0;
+    bottom:          0;
+    left:            0;
+
+
+    .title {
+        color:      $blue-light;
+        position:   absolute;
+        width:      100%;
+        text-align: center;
+        bottom:     25%;
+    }
+
+
+    @include media-breakpoint-up(md) {left: $sidebar__width__md;}
+    @include media-breakpoint-up(lg) {
+        left: $sidebar__width;
+        background-size: auto 50%;
+
+        .title {
+            bottom: 15%;
+        }
+    }
+}

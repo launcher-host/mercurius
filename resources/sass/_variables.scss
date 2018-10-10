@@ -1,0 +1,95 @@
+// ------------------------
+// MERCURIUS SCSS Variables
+// ------------------------
+
+// Bootstrap Colors
+// ------------------------------
+    $primary:       #5381FE !default;
+    $secondary:     #B1BDFF !default;
+    $success:       #00E300 !default;
+    $info:          #0066CC !default;
+    $warning:       #F58544 !default;
+    $danger:        #E33939 !default;
+    $light:         #f8f9fa !default;
+    $dark:          #1E1E1E !default;
+
+    $blue:         $primary !default;
+    $green:        $success !default;
+
+
+// Colors
+// ------------------------------
+    $body-bg: #222;
+
+    $blue-darken:  #151622 !default;
+    $blue-dark:    #343747 !default;
+    $blue-active:  #5381FE;
+    $blue-mid:     #474D74 !default;
+    $blue-light:   #B1BDFF !default;
+    $blue-lighter: #C2C8F1 !default;
+    $blue-grey:    #8E92A7 !default;
+
+
+// Layout
+// -----------------------------------------
+$sidebar__width:               400px;
+$sidebar__width__md:           350px;
+$composer__height:             70px;
+$search__recipient__border:    2px solid $blue-light;
+
+
+// General
+// -----------------------------------------
+$sidebar__bg:             $blue-dark;
+$border__color:           $blue-dark;
+
+
+// Search messenger
+// -----------------------------------------
+$search__bg:            darken($body-bg, 3) !default;
+$search__color:         $blue-mid !default;
+$search__input:         $blue-lighter !default;
+
+
+// Conversation
+// -----------------------------------------
+$conversation__hd__color:       $blue-light;
+$conversation__msg__color:      $blue-grey;
+$conversation__bg__active:      darken($blue-mid, 3);
+$conversation__icon:            $body-bg;
+$conversation__icon__hover:     $danger;
+
+
+// Messages
+// -----------------------------------------
+$message__avatar__bg:      #fff;
+$message__body:            $blue-grey;
+$message__body__bg:        darken($blue-dark, 3);
+$messages__date:           $blue-lighter;
+$message__date:            $blue-lighter;
+$message__icon:            $primary;
+$message__icon__hover:     $danger;
+
+
+// Compose Message
+// -----------------------------------------
+$btn_compose:         $blue-dark;
+
+$composer__input:           $blue-lighter;
+$composer__input_focus:     lighten($blue-lighter, 15);
+$composer__input_disabled:  lighten($blue-dark, 15);
+$composer__btn:             $blue-lighter;
+
+
+// Recipient
+// -----------------------------------------
+$search__recipient__input:              $blue-light;
+$search__recipient__item:               $blue-darken;
+$search__recipient__item__bg:           $blue-light;
+$search__recipient__item__hover:        $blue-darken;
+$search__recipient__item__bg__hover:    $blue-active;
+
+
+// Modal (settings, about, ...)
+// -----------------------------------------
+$modal__bg:             $blue-darken !default;

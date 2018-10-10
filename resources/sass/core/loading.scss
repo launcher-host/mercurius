@@ -1,0 +1,15 @@
+.mercurius__loading {
+    position:   absolute;
+    top:        40%;
+    right:      0;
+    left:       0;
+    // z-index:    -1;
+    text-align: center;
+    transition: all 0.2s;
+    color:      $primary !important;
+
+    .ic {
+        width:  80px;
+        height: 80px;
+    }
+}

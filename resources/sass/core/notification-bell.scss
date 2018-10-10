@@ -1,0 +1,23 @@
+.notification-bell {
+    width:           46px;
+    height:          100%;
+    position:        relative;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+}
+
+.notification-bell__total {
+    display:          flex;
+    position:         absolute;
+    top:              0;
+    right:            0;
+    align-items:      center;
+    justify-content:  center;
+    font-size:        12px;
+    width:            20px;
+    height:           20px;
+    border-radius:    60px;
+    color:            #fff;
+    background-color: $danger;
+}

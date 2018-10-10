@@ -1,0 +1,9 @@
+a:hover, a:active, a:focus,
+input:focus {
+    outline: none !important;
+}
+
+
+[v-cloak] {
+    display: none;
+}

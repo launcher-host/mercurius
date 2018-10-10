@@ -1,0 +1,54 @@
+.profile-modal {
+    &__body {
+        color:   $blue-dark !important;
+        padding: 0 30px 30px 30px ;
+    }
+    .profile-name {
+        color: $blue-grey;
+    }
+}
+
+.profile-option-btn {
+    width:      100%;
+    height:     80px;
+    padding:    0;
+    text-align: left;
+    position:   relative;
+
+    > * {
+        transition: all 0.15s linear;
+    }
+
+    .title {
+        line-height:    15px;
+        font-size:      0.9rem;
+        text-transform: uppercase;
+        color:       $blue-lighter;
+    }
+    .alt {
+        color:       $blue-mid;
+        font-size:   1.05rem;
+        display:     flex;
+        line-height: 24px;
+    }
+    .ic {
+        color:    $blue-mid !important;
+        position: absolute;
+        top:      26px;
+        right:    0;
+    }
+
+    &:hover , &:focus {
+        text-decoration:  none !important;
+
+        .alt { color: darken($blue-mid, 5); }
+        .ic  { color: darken($blue-mid, 5); }
+    }
+
+    &.active {
+        .ic { color: $blue-active !important;}
+        // &:hover, &:focus {
+
+        &:hover .ic { color: darken($blue-active, 5) !important; }
+    }
+}

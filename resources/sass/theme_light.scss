@@ -1,0 +1,89 @@
+// ---------------------
+// Mercurius Theme Light
+// ---------------------
+
+.mercurius.light {
+    background-color: #E5E8FB;
+
+    .btn_compose {
+        color: #E5E8FB;
+        background-color: $blue-active;
+    }
+
+
+    // ---------------------------------
+
+    .recipient_search {
+        &__wrap { border-bottom-color: $blue-active;}
+        .ic {color: $blue-active;}
+    }
+
+    .recipient__input {
+        color: $blue-active !important;
+        &:focus {color: $blue-active !important;}
+    }
+
+
+    // ---------------------------------
+
+    .mercurius__sidebar {background-color: $blue-lighter;}
+
+    .btn_sidebar_toggle {color: $primary;}
+
+
+    // .conversations_empty .title {color: $blue-light;}
+    .composer {border-top: 2px solid $blue-lighter;}
+
+    .composer__btn {
+        color: $blue-active;
+        &:hover, &:active, &:focus {color: darken($blue-lighter, 10);}
+    }
+
+    .composer__input {
+        color: $blue-mid;
+        &:focus     {color: $blue-dark;}
+        &.disabled  {color: $blue-lighter;}
+    }
+
+
+
+    .messages_wrap {
+        border-top: 1px solid $blue-lighter;
+
+        .messages__datetime {color: lighten($blue-mid, 20);}
+
+        .message {
+            &__datetime {color: $blue-mid;}
+            &__body     {color: $blue-dark; background-color: #D8DBEE;}
+        }
+    }
+
+
+    .conversation {
+        a {color: $blue-dark;}
+        &__message { color: $blue-dark; }
+        &__action {
+            .ic {color: $blue-active;}
+            &:hover .ic {color: $conversation__icon__hover;}
+        }
+
+        &.unseen {
+            .conversation__heading,
+            .conversation__message,
+            .conversation__date { color: lighten($blue-dark, 5); }
+        }
+
+        &.active, &:hover, &:active {background-color: #D8DBEE;}
+    }
+
+
+
+    .conversations_filter {color: $blue-dark;}
+
+    .conversations_filter__input {
+        color:            $blue-mid;
+        background-color: #E5E8FB;
+
+        &:focus {background-color: lighten(#E5E8FB, 2);}
+    }
+}

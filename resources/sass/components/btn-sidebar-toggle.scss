@@ -1,0 +1,21 @@
+.btn_sidebar_toggle {
+    color:    $secondary;
+    position: absolute;
+    top:      10px;
+    left:     10px;
+    width:    auto;
+    height:   40px;
+    z-index:  $zindex-fixed - 1;
+
+    &:hover, &:active, &:focus {
+        text-decoration: none;
+    }
+
+    .title {
+        vertical-align: middle;
+        display: inline;
+        margin: 0 0 0 15px;
+    }
+
+    @include media-breakpoint-up(md) {display: none;}
+}

@@ -1,0 +1,21 @@
+// Extends BS Variables
+// --------------------
+
+// Typography
+$font-family-sans-serif: "Open Sans", sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+
+// Modals
+$modal-content-bg:                  $modal__bg !default;
+$modal-backdrop-bg:                 #000 !default;
+$modal-backdrop-opacity:            .9 !default;
+$modal-content-border-width:        0 !default;
+$modal-header-border-color:         $blue-dark !default;
+$modal-sm:                          350px !default;
+
+
+// Close
+$close-color:                       $blue-light !default;
+$close-text-shadow:                 0 1px 0 $blue-dark !default;

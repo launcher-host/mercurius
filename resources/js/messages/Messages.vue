@@ -1,0 +1,196 @@
+<template>
+    <div class="messages_wrap">
+        <div v-show="is_loading" class="mercurius__loading">
+            <svg class="ic"><use xlink:href="#icon-ani-puff"></use></svg>
+        </div>
+
+
+        <vue-scroll
+            ref="wrap"
+            :ops="ops"
+            @handle-scroll="onScroll"
+        >
+            <div class="messages">
+                <template v-for="(msg, idx) in messages">
+                    <div
+                        class="message_row"
+                        :class="msgClass(msg, idx)"
+                        :key="msg.id"
+                        ref="msg"
+                    >
+
+                        <!-- Messages Datetime -->
+                        <div
+                            v-if="showDatetime(msg, idx)"
+                            class="messages__datetime"
+                        >{{msg.created_at | datetimeRow}}</div>
+
+
+                        <div class="message">
+                            <!-- Avatar -->
+                            <img
+                                v-if="showAvatar(msg, idx)"
+                                class="message__avatar"
+                                :alt="msg.sender"
+                                :src="conversation.avatar"
+                            />
+
+                            <!-- Message -->
+                            <div class="message__body"
+                                v-b-toggle="'aux'+msg.id"
+                                v-text="msg.message">
+                            </div>
+
+                            <!-- Delete btn -->
+                            <button
+                                class="message__action btn btn-link"
+                                title="Delete"
+                                type="button"
+                                v-show="msg.id > 0"
+                                @click="deleteMessage(msg)"
+                            ><svg class="ic ic-bin"><use xlink:href="#icon-bin"></use></svg>
+                            </button>
+                        </div>
+
+
+                        <!-- Message Datetime -->
+                        <b-collapse
+                            class="message__datetime"
+                            :id="'aux'+msg.id"
+                        >
+                            <svg class="ic ic-clock"><use xlink:href="#icon-clock"></use></svg>
+                            {{msg.created_at | datetimeSingle}}
+                        </b-collapse>
+                    </div>
+                </template>
+            </div>
+        </vue-scroll>
+    </div>
+</template>
+
+<script>
+import MessagesHttp from './messages-http';
+
+export default {
+    props: ['conversation'],
+
+
+    mixins: [
+        MessagesHttp,
+    ],
+
+
+    data() {
+        return {
+            ops: {
+                scrollPanel: {
+                    initialScrollY: true,
+                },
+                rail: {
+                    size: '10px',
+                    gutterOfSide: '0',
+                },
+            },
+        }
+    },
+
+
+    created() {
+        Bus.$on('mercuriusMessageReceived', (usr, sender, msg) => this.onMessageReceived(sender, msg))
+        Bus.$on('mercuriusMessageSent', (msg) => this.onMessageSent(msg))
+    },
+
+
+    filters: {
+        datetimeSingle(value) {
+            return moment.utc(value).local().format('D MMM YYYY HH:mm')
+        },
+
+        datetimeRow(value) {
+            let m = moment.utc(value).local()
+            let h = moment.utc().local().diff(m, 'hours', true)
+
+            if (h < 24) return m.format('HH:mm')            // 14:00
+            if (h < 24*7) return m.format('ddd HH:mm')      // Mon 14:00
+            if (h < 24*365) return m.format('D MMMM HH:mm') // 25 August 14:00
+            return m.format('DD/MM/YYYY HH:mm')             // 25/08/2017 14:00
+        },
+    },
+
+
+    watch: {
+        conversation: function (newV, oldV) {
+            if (newV === oldV) return;
+            (!newV) ? this.loadMessagesReset() : this.onLoadMessages(newV)
+        },
+    },
+
+
+    methods: {
+        // UI helpers
+        //
+        showDatetime(msg, idx) {
+            if (!this._hasMsg(idx+1)) return true;
+            return this._sameDay(msg, idx);
+        },
+        showAvatar(msg, idx) {
+            if (!this._received(msg)) return false;
+            return !this._sameSender(msg, idx) || this._sameDay(msg, idx);
+        },
+        msgClass(msg, idx) {
+            return (this._received(msg) ? 'msg_received' : 'msg_sent')
+                 + (this._sameSender(msg, idx) ? '' : ' new_sender')
+        },
+
+
+        // Private helpers
+        //
+        _scrollTo(scroll_y) {
+            setTimeout(() => {
+                this.$refs.wrap.scrollTo({x: 0, y: scroll_y+'%'}, false)
+            }, 300);
+        },
+        _hasMsg(idx) {
+            return (!!this.messages[idx]);
+        },
+        _appendMsg(msg) {
+            this.messages.unshift(msg)
+            this._scrollTo(10)
+        },
+        // Check if message was received or sent
+        _received(msg) {
+            return msg.sender_id !== Mercurius.user.id
+        },
+        // Check if message was sent on the same day
+        _sameDay(msg, idx) {
+            return !moment(msg.created_at)
+                   .isSame(moment(this.messages[idx+1].created_at), 'day');
+        },
+        // Check if message was sent by the same user
+        _sameSender(msg, idx) {
+            if (!this._hasMsg(idx+1)) return false;
+            return (this.messages[idx+1].sender_id === msg.sender_id);
+        },
+
+
+        // Event handlers
+        //
+        onMessageSent(msg) {
+            this._appendMsg(msg)
+        },
+        onMessageReceived(sender, msg) {
+            if (this.conversation.id === sender.id) this._appendMsg(msg)
+        },
+        onLoadMessages(usr) {
+            this.loadMessagesStart(usr.id)
+                .then(() => this._scrollTo(100));
+        },
+        onScroll(barY, barX, e) {
+            if (barY.scrollTop > 20 || this.offset < 0) return false;
+
+            this.loadMessages()
+                .then(() => this._scrollTo(15));
+        },
+    }
+}
+</script>

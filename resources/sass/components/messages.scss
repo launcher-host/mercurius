@@ -1,0 +1,101 @@
+.messages_wrap {
+    overflow:   hidden;
+    position:   absolute;
+    top:        70px;
+    right:      0;
+    bottom:     $composer__height;
+    left:       0;
+    border-top: 2px inset $border__color;
+
+    @include media-breakpoint-up(md) {
+        border-top: none;
+        top: 0;
+    }
+
+    .messages {
+        display:        flex;
+        flex-direction: column-reverse;
+        padding: 30px 25px 0 25px;
+
+        @include media-breakpoint-up(md) {
+            padding: 30px 35px 0 40px;
+        }
+
+        &__datetime {
+            text-align: center;
+            color:      $messages__date;
+            margin:     15px 0;
+        }
+    }
+
+    .message_row:first-child {padding-bottom: 30px;}
+
+
+    .message {
+        display:        flex;
+        flex-direction: row-reverse;
+        margin-bottom:  2px;
+
+        &__avatar {
+            position:         absolute;
+            width:            45px;
+            height:           45px;
+            border-radius:    50%;
+            background-color: $message__avatar__bg;
+        }
+
+        &__body {
+            max-width:        85%;
+            display:          inline-block;
+            cursor:           pointer;
+            border-radius:    10px;
+            padding:          12px 15px;
+            color:            $message__body;
+            font-size:        1.015rem;
+            background-color: $message__body__bg;
+
+            @include media-breakpoint-up(sm) { max-width: 75%; }
+            @include media-breakpoint-up(md) { max-width: 65%; }
+        }
+
+        &__datetime {
+            display:     block;
+            text-align:  right;
+            color:       $message__date;
+            font-size:   0.75rem;
+            line-height: 25px;
+            padding:     0 5px;
+            margin-bottom: 10px;
+
+            .ic { margin-right: 2px; }
+        }
+
+        &__action {
+            border:           0;
+            opacity:          0;
+            color:            $message__icon;
+            background-color: transparent;
+
+            &:hover {color: $message__icon__hover;}
+        }
+
+        &:hover .message__action {
+            opacity: 1;
+        }
+    }
+
+
+    .new_sender {margin-top: 25px;}
+
+
+    .msg_received .message {
+        flex-direction: row;
+
+        &__body,
+        &__datetime {
+            margin-left: 70px;
+        }
+
+        &__datetime { text-align: left !important; }
+    }
+}

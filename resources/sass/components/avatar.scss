@@ -1,0 +1,9 @@
+.mercurius_avatar {
+    &__status {transition: all 0.25s linear;}
+    &__bg     {fill: #fff;}
+    &__border {stroke: #fff;}
+    &__status {fill: #000;}
+
+    &__border.online {stroke: #fff;}
+    &__status.online {fill: #00E300;}
+}

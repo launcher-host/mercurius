@@ -1,0 +1,17 @@
+// Sweetalert variables
+//
+$swal-border-radius: 3px !default;
+
+$swal-footer-bg: #f5f8fa !default;
+
+
+$swal-btn-confirm:   $secondary !default;
+$swal-btn-cancel:    #555555 !default;
+$swal-btn-danger:    #f6f6f6 !default;
+$swal-btn-danger-bg: $danger !default;
+
+
+@import "buttons";
+@import "button-loader";
+@import "layout";
+@import "icons";

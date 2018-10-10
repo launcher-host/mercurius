@@ -1,0 +1,83 @@
+.recipient_search {
+    position:   absolute;
+    min-width:  50%;
+    max-height: 98%;
+    top:        10px;
+    left:       55px;
+    opacity:    0;
+    z-index:    1;
+    overflow:   hidden;
+
+    &__wrap { border-bottom: $search__recipient__border;}
+
+    &.active {
+        opacity: 1;
+        bottom:  $composer__height;
+
+        @include media-breakpoint-down(sm) {
+            top:   120px;
+            left:  14%;
+            right: 14%;
+        }
+    }
+
+    .ic {
+        position: absolute;
+        right:    5px;
+        top:      10px;
+        color:    $search__recipient__input !important;
+    }
+}
+
+
+
+.recipient__input {
+    width:            100%;
+    min-height:       50px;
+    padding:          15px 0 3px 0;
+    font-size:        1.6rem;
+    border:           0;
+    color:            $search__recipient__input !important;
+    background-color: transparent;
+
+    &:focus {
+        color:      lighten($search__recipient__input, 3) !important;
+        box-shadow: none;
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding: 10px 0;
+    }
+}
+
+
+.recipient__results {
+    &__item {
+        display:          block;
+        padding:          15px 20px;
+        color:            $search__recipient__item;
+        background-color: $search__recipient__item__bg;
+        line-height:      40px;
+        font-size:        1.2rem;
+
+        &:hover, &:active, &:focus {
+            text-decoration:  none;
+            color:            $search__recipient__item__hover;
+            background-color: $search__recipient__item__bg__hover;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding:   25px 20px;
+            font-size: 1.35rem;
+        }
+    }
+
+    &__avatar {
+        display:          inline-block;
+        width:            40px;
+        height:           40px;
+        border-radius:    50%;
+        background-color: $message__avatar__bg;
+        margin-right:     10px;
+    }
+}

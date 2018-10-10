@@ -1,0 +1,36 @@
+.swal-icon--warning {
+  border-color: $danger;
+  animation: pulseWarning 0.75s infinite alternate;
+
+  /* Exclamation mark */
+  &__body {
+    position: absolute;
+    width: 5px;
+    height: 47px;
+    left: 50%;
+    top: 10px;
+    border-radius: 2px;
+    margin-left: -2px;
+    background-color: $danger;
+  }
+
+  &__dot {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-left: -4px;
+    left: 50%;
+    bottom: -11px;
+    background-color: $danger;
+  }
+}
+
+@keyframes pulseWarning {
+  from {
+    border-color: $danger;
+  }
+  to {
+    border-color: $danger;
+  }
+}

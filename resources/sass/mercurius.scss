@@ -1,0 +1,33 @@
+// Variables Mercurius components
+@import "variables";
+@import "theme_light";
+
+
+// Custom Bootstrap components
+@import "bootstrap-variables";
+@import "bootstrap-custom";
+
+
+// Mercurius components
+@import "core/base";
+@import "core/sidebar";
+@import "core/layout";
+@import "core/icons";
+@import "core/loading";
+@import "core/profile-dropdown";
+@import "core/profile-modal";
+@import "core/notification-bell";
+
+@import "components/avatar";
+@import "components/conversations";
+@import "components/conversations-filter";
+@import "components/conversations-empty";
+@import "components/messages";
+@import "components/composer";
+@import "components/btn-compose";
+@import "components/btn-sidebar-toggle";
+@import "components/recipient-search";
+
+
+// Sweet alert
+@import "sweetalert/swal";

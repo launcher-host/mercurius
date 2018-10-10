@@ -1,0 +1,99 @@
+.conversations {
+    display:  block;
+    position: absolute;
+    top:      80px;
+    bottom:   0;
+    left:     0;
+    right:    0;
+    overflow: hidden;
+
+    &::after {
+        content: ' ';
+        display: block;
+        height: 80px;
+    }
+
+
+    @include media-breakpoint-up(sm) {
+        top: 100px;
+
+        &::after {
+            height: 100px;
+        }
+    }
+}
+
+.conversation {
+    display:    block;
+    position:   relative;
+    transition: all 0.15s linear;
+
+    a {
+        color:           $conversation__hd__color;
+        height:          110px;
+        display:         block;
+        padding:         25px 25px 25px 20px;
+        text-decoration: none;
+    }
+
+    &__heading {
+        margin:      6px 0 4px 0;
+        height:      23px;
+        line-height: 23px;
+        font-size:   0.985rem;
+    }
+
+    &__date {
+        float:      right;
+        opacity:    1;
+        font-size:  90%;
+    }
+
+    &__message {
+        margin-right: 40px;
+        max-width:     70%;
+        overflow:      hidden;
+        text-overflow: ellipsis;
+        white-space:   nowrap;
+        color:         $conversation__msg__color;
+    }
+
+    &__action {
+        border:           0;
+        opacity:          0;
+        background-color: transparent;
+        position:         absolute;
+        right:            10px;
+        top:              25px;
+        height:           30px;
+        cursor:           pointer;
+        padding:          15px;
+
+        .ic {
+            width:  30px;
+            height: 30px;
+            color:  $conversation__icon;
+        }
+
+        &:hover .ic {color: $conversation__icon__hover;}
+    }
+
+
+    &.unseen {
+        .conversation__heading,
+        .conversation__message,
+        .conversation__date {
+            font-weight: 600 !important;
+            color: lighten($blue-light, 5);
+        }
+    }
+
+    &.active, &:hover, &:active {
+        background-color: $conversation__bg__active;
+    }
+
+    &:hover, &:active {
+        .conversation__date  { opacity: 0; }
+        .conversation__action{ opacity: 1; }
+    }
+}

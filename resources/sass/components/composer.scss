@@ -1,0 +1,55 @@
+.composer {
+    display:        flex;
+    position:       absolute;
+    right:          0;
+    bottom:         0;
+    left:           0;
+    border-top:     2px solid $border__color;
+    padding:        6px 10px;
+    min-height: $composer__height - 30;
+
+    @include media-breakpoint-up(sm) {
+        padding:    10px 30px;
+        min-height: $composer__height;
+    }
+}
+
+
+.composer__input {
+    flex-shrink:      1 !important;
+    border:           0;
+    padding:          10px 0;
+    box-shadow:       none;
+    font-size:        1.15rem;
+    background-color: transparent;
+    color:            $composer__input;
+    width:            100%;
+    transition:       all 0.15s linear;
+    height:           40px;
+    line-height:      40px;
+    vertical-align:   middle !important;
+
+    &:focus     {color: $composer__input_focus;}
+    &.disabled  {color: $composer__input_disabled;}
+}
+
+
+.composer__btn {
+    color:            darken($composer__btn, 10);
+    font-size:        1.3rem;
+    font-weight:      600;
+    float:            right;
+    border:           0;
+    cursor:           pointer;
+    padding:          8px;
+    text-transform:   uppercase;
+    background-color: transparent;
+
+    &:hover, &:active, &:focus {
+        box-shadow:       none;
+        color:            $composer__btn;
+        outline:          none;
+        text-decoration:  none;
+        background-color: transparent;
+    }
+}

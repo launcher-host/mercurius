@@ -1,0 +1,33 @@
+/**
+ * Icons SVG
+ */
+svg {
+    fill:           currentColor;
+    stroke:         currentColor;
+    vertical-align: middle;
+}
+
+.ic {
+    display:      inline-block;
+    width:        32px;
+    height:       32px;
+    stroke-width: 0;
+}
+
+.ic-42 {
+    width:  42px;
+    height: 42px;
+}
+
+
+/**
+ * »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+ * Icons variations
+ * »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+ */
+.ic-clock  { width: 12px; height: 12px;}
+
+.ic-search,
+.ic-bell,
+.ic-bin,
+.ic-plus { width: 21px; height: 21px;}
