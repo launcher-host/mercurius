@@ -77,7 +77,7 @@ Open `config/app.php` and uncomment the line `App\Providers\BroadcastServiceProv
 
 
 ##### 2. Laravel Authentication
-Skip this step if authentication is already setup.
+Skip this step if authentication is already setup, otherwise type:
 ```bash
 php artisan make:auth
 ```
@@ -97,7 +97,7 @@ php artisan vendor:publish --tag=mercurius-config
 ```
 
 
-##### 5. Configuration
+##### 5. Configuration (optional)
 
 For changing the default configuration, open `/config/mercurius.php` and add your own.
 
@@ -126,6 +126,7 @@ return [
 
 ```bash
 php artisan mercurius:install
+composer dump-autoload
 ```
 
 
