@@ -57,10 +57,11 @@ Desktop version (left) and Mobile version (right)
 If you don't have an account, create a free account on [pusher.com website](https://pusher.com/). Go to the dashboard, create a new app and take note of the API credentials.
 
 Now, let's add the keys to the `.env` file.
-
+Also, change the `BROADCAST_DRIVER` to `pusher` (default is `log`).
 ```php
 ...
-
+BROADCAST_DRIVER=pusher
+...
 PUSHER_APP_ID="xxxxxx"
 PUSHER_APP_KEY="xxxxxxxxxxxxxxxxxxxx"
 PUSHER_APP_SECRET="xxxxxxxxxxxxxxxxxxxx"
@@ -71,7 +72,7 @@ PUSHER_APP_CLUSTER="xx"
 
 ## Installation
 
-##### 1. Uncomment `BroadcastServiceProvider`
+##### 1. Register `BroadcastServiceProvider`
 Open `config/app.php` and uncomment the line `App\Providers\BroadcastServiceProvider::class,`.
 
 
