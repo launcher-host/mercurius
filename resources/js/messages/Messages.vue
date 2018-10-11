@@ -15,7 +15,7 @@
                     <div
                         class="message_row"
                         :class="msgClass(msg, idx)"
-                        :key="msg.id"
+                        :key="idx"
                         ref="msg"
                     >
 

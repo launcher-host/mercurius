@@ -116,12 +116,13 @@ module.exports = {
 
         /**
          * When user change his status going Online/Offline.
+         * To be done.
          *
          * @param {object} user
          */
         onUserStatusChanged(user) {
-            console.log('onUserStatusChanged');
-            console.log(e);
+            // console.log('onUserStatusChanged');
+            // console.log(user.name, user.is_online);
         },
     },
 };

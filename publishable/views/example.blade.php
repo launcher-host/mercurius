@@ -11,7 +11,7 @@
             </a>
 
 
-            <!-- Right Side Of Navbar -->
+            <!-- Right Side Navbar -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a
@@ -61,24 +61,13 @@
 
     <div class="container text-white-50">
         <div class="d-block my-5">
-            <h2>Mercurius Page Example</h2>
-            <p>Shows the usage of the notification icon and alert for new messages incoming</p>
+            <h2>Page Example</h2>
+            <p>Shows the usage of the notification icon and the avatars.</p>
         </div>
 
 
 
         {{-- Avatar examples --}}
-        <div class="row text-center">
-            <div class="col mb-5">
-                <mercurius-avatar
-                    :name="user.name"
-                    size="150"
-                    border="3"
-                    :image="user.avatar"
-                    :is_online="user.online"
-                ></mercurius-avatar>
-            </div>
-        </div>
         <div class="row text-center mb-5">
             <div class="col col-xs-4">
                 <mercurius-avatar
