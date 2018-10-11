@@ -19,7 +19,6 @@ class MercuriusServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $this->registerPublishable();
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadViewsFrom(__DIR__.'/../publishable/views', 'mercurius');
         $this->loadTranslationsFrom(__DIR__.'/../publishable/lang', 'mercurius');
@@ -35,6 +34,7 @@ class MercuriusServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerPublishable();
         $this->mergeConfigFrom(__DIR__.'/../publishable/config/mercurius.php', 'mercurius');
 
         $this->loadHelpers();
