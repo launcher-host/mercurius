@@ -84,7 +84,7 @@ export default {
         return {
             ops: {
                 scrollPanel: {
-                    initialScrollY: true,
+                    initialScrollY: 100,
                 },
                 rail: {
                     size: '10px',
