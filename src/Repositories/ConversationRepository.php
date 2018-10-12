@@ -28,12 +28,12 @@ class ConversationRepository
             ->where([
                 ['sender_id', $sender],
                 ['receiver_id', $receiver],
-                ['deleted_by_sender', '=', 0],
+                ['deleted_by_sender', '=', false],
             ])
             ->orWhere([
                 ['sender_id', $receiver],
                 ['receiver_id', $sender],
-                ['deleted_by_receiver', '=', 0],
+                ['deleted_by_receiver', '=', false],
             ])
             ->orderBy('created_at', 'desc')
             ->offset($offset)
@@ -92,10 +92,10 @@ class ConversationRepository
             '    FROM',
             '        (',
             '        SELECT receiver_id as usr, MAX(id) AS id FROM '.$tbl_messages,
-            '        WHERE deleted_by_sender IS NOT TRUE AND sender_id ='.$user.' GROUP BY usr',
+            '        WHERE deleted_by_sender IS FALSE AND sender_id ='.$user.' GROUP BY usr',
             '        UNION ALL',
             '        SELECT sender_id as usr, MAX(id) as id FROM '.$tbl_messages,
-            '        WHERE deleted_by_receiver IS NOT TRUE AND receiver_id ='.$user.' GROUP BY usr',
+            '        WHERE deleted_by_receiver IS FALSE AND receiver_id ='.$user.' GROUP BY usr',
             '        ) u',
             '    GROUP BY u.usr',
             '    ) mm',
@@ -127,10 +127,10 @@ class ConversationRepository
             'FROM',
             '    (',
             '    SELECT receiver_id as id FROM '.$tbl_messages,
-            '    WHERE sender_id ='.$user.' AND deleted_by_receiver IS NOT TRUE',
+            '    WHERE sender_id ='.$user.' AND deleted_by_receiver IS FALSE',
             '    UNION ALL',
             '    SELECT sender_id as id FROM '.$tbl_messages,
-            '    WHERE receiver_id ='.$user.' AND deleted_by_sender IS NOT TRUE',
+            '    WHERE receiver_id ='.$user.' AND deleted_by_sender IS FALSE',
             ') u',
         ]));
 
@@ -183,26 +183,26 @@ class ConversationRepository
                     ['sender_id', $senderId],
                     ['receiver_id', $receiverId],
                 ])
-                ->update(['deleted_by_sender' => 1]);
+                ->update(['deleted_by_sender' => true]);
 
             (new $_mdl())
                 ->where([
                     ['sender_id', $receiverId],
                     ['receiver_id', $senderId],
                 ])
-                ->update(['deleted_by_receiver' => 1]);
+                ->update(['deleted_by_receiver' => true]);
 
             // Deletes messages, if removed from both users
             $res = (new $_mdl())
                 ->where([
                     ['sender_id', $senderId],
                     ['receiver_id', $receiverId],
-                    ['deleted_by_sender', '=', 1],
+                    ['deleted_by_sender', '=', true],
                 ])
                 ->Where([
                     ['sender_id', $receiverId],
                     ['receiver_id', $senderId],
-                    ['deleted_by_receiver', '=', 1],
+                    ['deleted_by_receiver', '=', true],
                 ])
                 ->delete();
 
@@ -227,12 +227,12 @@ class ConversationRepository
             ->where([
                 ['sender_id', $sender],
                 ['receiver_id', $receiver],
-                ['deleted_by_sender', '=', 0],
+                ['deleted_by_sender', '=', false],
             ])
             ->orWhere([
                 ['sender_id', $receiver],
                 ['receiver_id', $sender],
-                ['deleted_by_receiver', '=', 0],
+                ['deleted_by_receiver', '=', false],
             ]);
     }
 }

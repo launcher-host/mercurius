@@ -57,14 +57,14 @@ class MessageRepository
         try {
             // Set message 'deleted' for the current user only
             if ($msg->sender_id == $user) {
-                $msg->deleted_by_sender = 1;
+                $msg->deleted_by_sender = true;
             } else {
-                $msg->deleted_by_receiver = 1;
+                $msg->deleted_by_receiver = true;
             }
 
             // If message is marked deleted for both users (sender and receiver)
             // we remove the message from the database.
-            if ($msg->deleted_by_sender == 1 && $msg->deleted_by_receiver == 1) {
+            if ($msg->deleted_by_sender === true && $msg->deleted_by_receiver === true) {
                 $msg->delete();
             } else {
                 $msg->save();

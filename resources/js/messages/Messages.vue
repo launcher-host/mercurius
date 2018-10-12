@@ -37,7 +37,7 @@
 
                             <!-- Message -->
                             <div class="message__body"
-                                v-b-toggle="'aux'+msg.id"
+                                v-b-toggle="'aux'+idx"
                                 v-text="msg.message">
                             </div>
 
@@ -56,7 +56,7 @@
                         <!-- Message Datetime -->
                         <b-collapse
                             class="message__datetime"
-                            :id="'aux'+msg.id"
+                            :id="'aux'+idx"
                         >
                             <svg class="ic ic-clock"><use xlink:href="#icon-clock"></use></svg>
                             {{msg.created_at | datetimeSingle}}
@@ -145,17 +145,8 @@ export default {
 
         // Private helpers
         //
-        _scrollTo(scroll_y) {
-            setTimeout(() => {
-                this.$refs.wrap.scrollTo({x: 0, y: scroll_y+'%'}, false)
-            }, 300);
-        },
         _hasMsg(idx) {
             return (!!this.messages[idx]);
-        },
-        _appendMsg(msg) {
-            this.messages.unshift(msg)
-            this._scrollTo(10)
         },
         // Check if message was received or sent
         _received(msg) {
@@ -170,6 +161,15 @@ export default {
         _sameSender(msg, idx) {
             if (!this._hasMsg(idx+1)) return false;
             return (this.messages[idx+1].sender_id === msg.sender_id);
+        },
+        _scrollTo(scroll_y) {
+            setTimeout(() => {
+                this.$refs.wrap.scrollTo({x: 0, y: scroll_y+'%'}, false)
+            }, 300);
+        },
+        _appendMsg(msg) {
+            this.messages.unshift(msg)
+            this._scrollTo(100)
         },
 
 
@@ -189,7 +189,7 @@ export default {
             if (barY.scrollTop > 20 || this.offset < 0) return false;
 
             this.loadMessages()
-                .then(() => this._scrollTo(15));
+                .then(() => this._scrollTo(25));
         },
     }
 }
