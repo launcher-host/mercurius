@@ -3,6 +3,7 @@
 ## [0.0.5] - 2018-10-12
 - Fix when sending/receiving a message, scroll to the bottom.
 - Fix ensure use of boolean types in order to support PostgreSQL.
+- Changed documentation.
 
 
 ## [0.0.4] - 2018-10-11

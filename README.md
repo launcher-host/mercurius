@@ -21,18 +21,6 @@ Mercurius is a real-time messenger system developed with Laravel and Vue.js. It 
 
 
 
-## Features
-
-- Real-time chat
-- Browser notifications
-- Multilingual
-- Lazy load messages
-- Remove conversations and messages
-- Search recipients with auto-complete
-- Unique design, with dark and light theme
-
-
-
 ## Preview
 
 <p align="center">
@@ -42,6 +30,30 @@ Mercurius is a real-time messenger system developed with Laravel and Vue.js. It 
 </p>
 Desktop version (left) and Mobile version (right)
 
+
+
+## Features
+
+- Real-time Messenger
+- Responsive
+- Multilingual
+- Browser notifications
+- Unique UX, with dark and light theme
+- Lazy load messages
+- Remove conversations and messages
+- Search recipients with auto-complete
+
+
+
+## Demo
+
+[Check here](http://mercurius-demo.herokuapp.com/login) to try a demo, and use the following credentials to authenticate.
+
+- Ian: `ian@launcher.host`
+- Noa: `noa@launcher.host`
+- Lua: `lua@launcher.host`
+
+Password: `password`
 
 
 ## Requirements
@@ -158,6 +170,12 @@ Password: `password`
 - Upload photos and attach files
 - Preview images and videos
 - Emoji support
+
+
+
+## Support
+- Create a [new issue](../../issues)
+- Join us on [Slack Channel](http://mercurius-demo.herokuapp.com/join-slack-launcher-host)
 
 
 
