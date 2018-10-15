@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.0.6] - 2018-10-15
+- Fix scroll to the bottom when sending/receiving a message.
+
+
 ## [0.0.5] - 2018-10-12
 - Fix when sending/receiving a message, scroll to the bottom.
 - Fix ensure use of boolean types in order to support PostgreSQL.

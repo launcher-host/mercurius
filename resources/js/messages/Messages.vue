@@ -162,14 +162,12 @@ export default {
             if (!this._hasMsg(idx+1)) return false;
             return (this.messages[idx+1].sender_id === msg.sender_id);
         },
-        _scrollTo(scroll_y) {
-            setTimeout(() => {
-                this.$refs.wrap.scrollTo({x: 0, y: scroll_y+'%'}, false)
-            }, 300);
+        _scrollTo(y_val) {
+            this.$refs.wrap.scrollTo({x: 0, y: y_val})
         },
         _appendMsg(msg) {
             this.messages.unshift(msg)
-            this._scrollTo(100)
+            this._scrollTo('100%')
         },
 
 
@@ -183,13 +181,13 @@ export default {
         },
         onLoadMessages(usr) {
             this.loadMessagesStart(usr.id)
-                .then(() => this._scrollTo(100));
+                .then(() => this._scrollTo('100%'));
         },
         onScroll(barY, barX, e) {
             if (barY.scrollTop > 20 || this.offset < 0) return false;
 
             this.loadMessages()
-                .then(() => this._scrollTo(25));
+                .then(() => this._scrollTo('25%'));
         },
     }
 }
