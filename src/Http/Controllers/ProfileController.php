@@ -2,7 +2,6 @@
 
 namespace Launcher\Mercurius\Http\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
 use Launcher\Mercurius\Events\UserOnlineStatus;
 use Launcher\Mercurius\Facades\Mercurius;
@@ -49,11 +48,11 @@ class ProfileController extends Controller
             $inp = $request->only('setting_key', 'setting_val');
             $_key = (string) $inp['setting_key'];
             $_val = (bool) $inp['setting_val'];
-            $user = Auth::user();
+            $user = $request->user();
 
             // Validate request
             $allowedSettings = ['is_online', 'be_notified'];
-            if (!in_array($_key, $allowedSettings)) {
+            if (!in_array($_key, $allowedSettings, true)) {
                 return response(['success' => false]);
             }
 

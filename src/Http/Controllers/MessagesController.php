@@ -2,7 +2,6 @@
 
 namespace Launcher\Mercurius\Http\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
 use Launcher\Mercurius\Models\Message;
 use Launcher\Mercurius\Repositories\MessageRepository;
@@ -30,11 +29,10 @@ class MessagesController extends Controller
     public function send(MessageRepository $repo, Request $request)
     {
         $inp = $request->only('recipient', 'message');
-        $sender = Auth::user()->id;
         $receiver = $inp['recipient'];
         $message = $inp['message'];
 
-        $result = $repo->send($sender, $receiver, $message);
+        $result = $repo->send($request->user()->id, $receiver, $message);
 
         return response($result);
     }
@@ -44,14 +42,14 @@ class MessagesController extends Controller
      *
      * @param int               $message
      * @param MessageRepository $repo
+     * @param Request           $request
      *
      * @return array
      */
-    public function destroy($message, MessageRepository $repo)
+    public function destroy($message, MessageRepository $repo, Request $request)
     {
-        $user = Auth::user();
         $msg = Message::findOrFail($message);
 
-        return $repo->delete($msg, $user->id);
+        return $repo->delete($msg, $request->user()->id);
     }
 }
