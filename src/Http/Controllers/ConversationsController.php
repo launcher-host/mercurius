@@ -2,7 +2,6 @@
 
 namespace Launcher\Mercurius\Http\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
 use Launcher\Mercurius\Repositories\ConversationRepository;
 
@@ -69,13 +68,13 @@ class ConversationsController extends Controller
      *
      * @param int                    $receiver
      * @param ConversationRepository $conversation
+     * @param Request                $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($receiver, ConversationRepository $conversation)
+    public function destroy($receiver, ConversationRepository $conversation, Request $request)
     {
-        $user = Auth::user();
-        $res = $conversation->delete($user->id, $receiver);
+        $res = $conversation->delete($request->user()->id, $receiver);
 
         return response($res);
     }
