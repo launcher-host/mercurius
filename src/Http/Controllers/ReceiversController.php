@@ -3,6 +3,8 @@
 namespace Launcher\Mercurius\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Launcher\Mercurius\Repositories\UserRepository;
 
 class ReceiversController extends Controller
 {
@@ -19,36 +21,31 @@ class ReceiversController extends Controller
     /**
      * Search for receivers.
      *
-     * @param Request $request
+     * @param Request        $request
+     * @param UserRepository $userRepository
      *
      * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
      */
-    public function search(Request $request)
+    public function search(Request $request, UserRepository $userRepository): Response
     {
         try {
-            $query = $request->input('q', '');
-
-            $result = [
-                'hits'  => [],
-                'total' => 0,
-            ];
-
-            if ($query == '') {
-                return response($result);
+            if (($query = $request->input('q')) === null) {
+                return response([
+                    'hits'  => [],
+                    'total' => 0,
+                ]);
             }
 
-            $_usr = config('mercurius.models.user');
-            $_where = ['name', 'LIKE', '%'.$query.'%'];
+            $paginator = $userRepository->search($query);
 
-            $result['total'] = $_usr::where(...$_where)->count();
-            $result['hits'] = $_usr::select('id', 'name', 'avatar', 'is_online')
-                                    ->where(...$_where)
-                                    ->limit(6)
-                                    ->get();
+            $result = [
+                'total' => $paginator->total(),
+                'hits'  => $paginator->items(),
+            ];
 
             return response($result);
         } catch (\Exception $e) {
-            return [$e->getMessage()];
+            return response();
         }
     }
 }
