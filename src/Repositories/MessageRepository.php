@@ -30,7 +30,6 @@ class MessageRepository
             $msg->save();
 
             // Load sender with avatar
-            $sender = $msg->sender->only('id', 'name');
             $sender = $msg->sender->only('id', 'name', 'avatar');
 
             broadcast(new MessageSent($msg->receiver, $sender, $msg))->toOthers();
@@ -47,7 +46,7 @@ class MessageRepository
      * Messages are permanently removed from the system when removed from
      * both users: Sender and Receiver.
      *
-     * @param Launcher\Mercurius\Models\Message $message
+     * @param \Launcher\Mercurius\Models\Message $message
      * @param int                               $user
      *
      * @return \Illuminate\Support\Collection
