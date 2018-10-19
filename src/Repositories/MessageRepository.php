@@ -57,7 +57,7 @@ class MessageRepository
             if (!in_array($user, [$msg->sender_id, $msg->receiver_id])) {
                 return ['status' => false, 'message' => 'Unauthorized'];
             }
-            
+
             // Set message 'deleted' for the current user only
             if ($msg->sender_id == $user) {
                 $msg->deleted_by_sender = true;
