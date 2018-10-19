@@ -54,7 +54,7 @@ class MessageRepository
     public function delete($msg, $user)
     {
         try {
-            if (!in_array($user, [$msg->sender_id, $msg->receiver_id]) {
+            if (!in_array($user, [$msg->sender_id, $msg->receiver_id])) {
                 return ['status' => false, 'message' => 'Unauthorized'];
             }
             
