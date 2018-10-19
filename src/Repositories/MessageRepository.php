@@ -47,7 +47,7 @@ class MessageRepository
      * both users: Sender and Receiver.
      *
      * @param \Launcher\Mercurius\Models\Message $message
-     * @param int                               $user
+     * @param int                                $user
      *
      * @return \Illuminate\Support\Collection
      */
