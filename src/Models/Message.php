@@ -3,22 +3,22 @@
 namespace Launcher\Mercurius\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Message extends Model
 {
+    /**
+     * {@inheritdoc}
+     */
     protected $table = 'mercurius_messages';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $fillable = ['seen_at'];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'deleted_by_sender'   => 'boolean',
@@ -28,7 +28,7 @@ class Message extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sender()
+    public function sender(): BelongsTo
     {
         return $this->belongsTo(config('mercurius.models.user'), 'sender_id');
     }
@@ -36,7 +36,7 @@ class Message extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver()
+    public function receiver(): BelongsTo
     {
         return $this->belongsTo(config('mercurius.models.user'), 'receiver_id');
     }
