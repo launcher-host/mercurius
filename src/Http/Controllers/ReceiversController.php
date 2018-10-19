@@ -2,7 +2,6 @@
 
 namespace Launcher\Mercurius\Http\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
 
 class ReceiversController extends Controller
@@ -22,7 +21,7 @@ class ReceiversController extends Controller
      *
      * @param Request $request
      *
-     * @return JSON
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
      */
     public function search(Request $request)
     {
