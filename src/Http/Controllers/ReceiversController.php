@@ -28,24 +28,20 @@ class ReceiversController extends Controller
      */
     public function search(Request $request, UserRepository $userRepository): Response
     {
-        try {
-            if (($query = $request->input('q')) === null) {
-                return response([
-                    'hits'  => [],
-                    'total' => 0,
-                ]);
-            }
-
-            $paginator = $userRepository->search($query);
-
-            $result = [
-                'total' => $paginator->total(),
-                'hits'  => $paginator->items(),
-            ];
-
-            return response($result);
-        } catch (\Exception $e) {
-            return response();
+        if (($query = $request->input('q')) === null) {
+            return response([
+                'hits'  => [],
+                'total' => 0,
+            ]);
         }
+
+        $paginator = $userRepository->search($query);
+
+        $result = [
+            'total' => $paginator->total(),
+            'hits'  => $paginator->items(),
+        ];
+
+        return response($result);
     }
 }
