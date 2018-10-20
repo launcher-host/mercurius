@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.0.7] - 2018-10-20
+- Changed Improve receivers controller #6
+- Fix MessageModel: add return types #5
+- Fix composer: set fixed versions and other configs #4
+- Fix MessageRepository: Check user for deletion #3
+- Fix some stuff #2
+
+
 ## [0.0.6] - 2018-10-15
 - Fix scroll to the bottom when sending/receiving a message.
 
