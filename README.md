@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://www.github.com/launcher-host/mercurius/" target="_blank">
-        <img width="400px" src="docs/logo-mercurius-bold_alt.png" title="mercurius logo">
+        <img width="500px" src="docs/logo-mercurius_alt.png" title="mercurius logo">
     </a>
 </p>
 
@@ -17,19 +17,9 @@
 
 ## About
 
-Mercurius is a real-time messenger system developed with Laravel and Vue.js. It features a complete application, and you can easily install with any Laravel project.
+Mercurius is a real-time messenger system using Laravel and Vue.js, featuring a complete application that you can easily install with any Laravel project.
 
-
-
-## Preview
-
-<p align="center">
-    <a href="docs/mercurius_preview_2018-oct.gif" target="_blank">
-        <img width="100%" src="docs/mercurius_preview_2018-oct.gif" title="mercurius preview">
-    </a>
-</p>
-Desktop version (left) and Mobile version (right)
-
+<br>
 
 
 ## Features
@@ -44,10 +34,39 @@ Desktop version (left) and Mobile version (right)
 - Search recipients with auto-complete
 
 
+<br>
+
+
+### Screenshots
+<small>Click thumbs to display larger image</small>
+<p align="center">
+    <a href="docs/mercurius_01_home.png" target="_blank" title="screenshot mercurius - no conversations"><img src="docs/mercurius_01_home.png" width="33%"></a>
+    <a href="docs/mercurius_02_view_conversation.png" target="_blank" title="screenshot mercurius - view conversation"><img src="docs/mercurius_02_view_conversation.png" width="33%"></a>
+    <a href="docs/mercurius_03_messages_hover.png" target="_blank" title="screenshot mercurius - messages hover"><img src="docs/mercurius_03_messages_hover.png" width="33%"></a>
+</p>
+<p align="center">
+    <a href="docs/mercurius_04_compose_message.png" target="_blank" title="screenshot mercurius - compose message"><img src="docs/mercurius_04_compose_message.png" width="33%"></a>
+    <a href="docs/mercurius_05_find_recipient_results.png" target="_blank" title="screenshot mercurius - find recipient results"><img src="docs/mercurius_05_find_recipient_results.png" width="33%"></a>
+    <a href="docs/mercurius_06_user_settings.png" target="_blank" title="screenshot mercurius - user settings"><img src="docs/mercurius_06_user_settings.png" width="33%"></a>
+</p>
+
+<br>
+
+### Preview
+<small>Desktop version</small>
+<small style="float: right; text-align: right;">Mobile version</small>
+<a href="docs/mercurius_preview_2018-oct.gif" target="_blank">
+    <img width="100%" src="docs/mercurius_preview_2018-oct.gif" title="mercurius preview">
+</a>
+<small style="text-align: right; float: right;">Desktop notifications</small>
+
+
+<br>
 
 ## Demo
 
-[Check here](http://mercurius-demo.herokuapp.com/login) to try a demo, and use the following credentials to authenticate.
+A demo version is available for testing, [click here](http://mercurius-demo.herokuapp.com/login) to try Mercurius.
+For authenticate use any of the following credentials:
 
 - Ian: `ian@launcher.host`
 - Noa: `noa@launcher.host`
@@ -55,6 +74,9 @@ Desktop version (left) and Mobile version (right)
 
 Password: `password`
 
+Tip: open 2 different browsers and login with distinct users.
+
+<br>
 
 ## Requirements
 
@@ -63,12 +85,12 @@ Password: `password`
 - Vue.js 2.0
 - BS 4
 
+<br>
 
+## Setup Pusher
+If you don't have an account, create a free one on [pusher.com website](https://pusher.com/). Go to the dashboard, create a new app and take note of the API credentials.
 
-## Setting up Pusher
-If you don't have an account, create a free account on [pusher.com website](https://pusher.com/). Go to the dashboard, create a new app and take note of the API credentials.
-
-Now, let's add the keys to the `.env` file.
+Now, let's add the API keys to the `.env` file.
 Also, change the `BROADCAST_DRIVER` to `pusher` (default is `log`).
 ```php
 ...
@@ -88,7 +110,6 @@ PUSHER_APP_CLUSTER="xx"
 Open `config/app.php` and uncomment the line `App\Providers\BroadcastServiceProvider::class,`.
 
 
-
 ##### 2. Laravel Authentication
 Skip this step if authentication is already setup, otherwise type:
 ```bash
@@ -96,12 +117,10 @@ php artisan make:auth
 ```
 
 
-
-##### 3. Install using composer
+##### 3. Install Mercurius
 ```bash
 composer require launcher/mercurius
 ```
-
 
 
 ##### 4. Publish the config file
