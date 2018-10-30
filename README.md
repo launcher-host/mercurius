@@ -19,7 +19,15 @@
 
 Mercurius is a real-time messenger system using Laravel and Vue.js, featuring a complete application that you can easily install with any Laravel project.
 
-<br>
+
+
+## Requirements
+
+- Laravel 5.6 or 5.7
+- Pusher account
+- Vue.js 2.0
+- BS 4
+
 
 
 ## Features
@@ -34,38 +42,34 @@ Mercurius is a real-time messenger system using Laravel and Vue.js, featuring a 
 - Search recipients with auto-complete
 
 
-<br>
+## Preview
+<div>
+    <a href="docs/mercurius_01_home.png" target="_target" title="screenshot mercurius - no conversations"><img src="docs/mercurius_01_home_tb.png"></a>
+    <a href="docs/mercurius_02_view_conversation.png" target="_target" title="screenshot mercurius - view conversation"><img src="docs/mercurius_02_view_conversation_tb.png"></a>
+    <a href="docs/mercurius_03_messages_hover.png" target="_target" title="screenshot mercurius - messages hover"><img src="docs/mercurius_03_messages_hover_tb.png"></a>
+</div>
+<div>
+    <a href="docs/mercurius_04_compose_message.png" target="_target" title="screenshot mercurius - compose message"><img src="docs/mercurius_04_compose_message_tb.png"></a>
+    <a href="docs/mercurius_05_find_recipient_results.png" target="_target" title="screenshot mercurius - find recipient results"><img src="docs/mercurius_05_find_recipient_results_tb.png"></a>
+    <a href="docs/mercurius_06_user_settings.png" target="_target" title="screenshot mercurius - user settings"><img src="docs/mercurius_06_user_settings_tb.png"></a>
+</div>
+<small>Click thumbs to display a larger screenshot</small>
 
 
-### Screenshots
-<small>Click thumbs to display larger image</small>
-<p align="center">
-    <a href="docs/mercurius_01_home.png" target="_blank" title="screenshot mercurius - no conversations"><img src="docs/mercurius_01_home.png" width="33%"></a>
-    <a href="docs/mercurius_02_view_conversation.png" target="_blank" title="screenshot mercurius - view conversation"><img src="docs/mercurius_02_view_conversation.png" width="33%"></a>
-    <a href="docs/mercurius_03_messages_hover.png" target="_blank" title="screenshot mercurius - messages hover"><img src="docs/mercurius_03_messages_hover.png" width="33%"></a>
-</p>
-<p align="center">
-    <a href="docs/mercurius_04_compose_message.png" target="_blank" title="screenshot mercurius - compose message"><img src="docs/mercurius_04_compose_message.png" width="33%"></a>
-    <a href="docs/mercurius_05_find_recipient_results.png" target="_blank" title="screenshot mercurius - find recipient results"><img src="docs/mercurius_05_find_recipient_results.png" width="33%"></a>
-    <a href="docs/mercurius_06_user_settings.png" target="_blank" title="screenshot mercurius - user settings"><img src="docs/mercurius_06_user_settings.png" width="33%"></a>
-</p>
 
-<br>
-
-### Preview
-<small>Desktop version</small>
-<small style="float: right; text-align: right;">Mobile version</small>
+## Screenshots
+Desktop version / Mobile version
 <a href="docs/mercurius_preview_2018-oct.gif" target="_blank">
     <img width="100%" src="docs/mercurius_preview_2018-oct.gif" title="mercurius preview">
 </a>
-<small style="text-align: right; float: right;">Desktop notifications</small>
+<div align="right">Desktop notifications</div>
 
 
-<br>
 
 ## Demo
 
 A demo version is available for testing, [click here](http://mercurius-demo.herokuapp.com/login) to try Mercurius.
+
 For authenticate use any of the following credentials:
 
 - Ian: `ian@launcher.host`
@@ -76,16 +80,6 @@ Password: `password`
 
 Tip: open 2 different browsers and login with distinct users.
 
-<br>
-
-## Requirements
-
-- Laravel 5.6 or 5.7
-- Pusher account
-- Vue.js 2.0
-- BS 4
-
-<br>
 
 ## Setup Pusher
 If you don't have an account, create a free one on [pusher.com website](https://pusher.com/). Go to the dashboard, create a new app and take note of the API credentials.
