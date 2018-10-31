@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [0.0.8] - 2018-10-31
+- Updated documentation in general.
+- Added make SCSS + JS publishable, and updated docs on mobile, make the delete icon in messages always visible.
+- Added instructions how to customize Mercurius (Views, SCSS, JS).
+- Fix style, on mobile, make the delete icon in messages always visible.
+
+
 ## [0.0.7] - 2018-10-20
 - Changed Improve receivers controller #6
 - Fix MessageModel: add return types #5
