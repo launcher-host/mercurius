@@ -22,7 +22,7 @@
 * [Demo](#demo)
 * [Requirements](#requirements)
 * [Installation](#installation)
-* [Customizing](#customizing)
+* [Customizing Mercurius](#customizing-mercurius)
 * [Roadmap](#roadmap)
 * [Support](#support)
 * [Contributing](#contributing)
