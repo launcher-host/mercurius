@@ -76,6 +76,10 @@
             color:            $message__icon;
             background-color: transparent;
 
+            @include media-breakpoint-down(sm) {
+                opacity: 1;
+            }
+
             &:hover {color: $message__icon__hover;}
         }
 
