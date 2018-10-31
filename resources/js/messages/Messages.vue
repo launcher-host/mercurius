@@ -121,7 +121,7 @@ export default {
     watch: {
         conversation: function (newV, oldV) {
             if (newV === oldV) return;
-            (!newV) ? this.loadMessagesReset() : this.onLoadMessages(newV)
+            _.isEmpty(newV) ? this.loadMessagesReset() : this.onLoadMessages(newV);
         },
     },
 
