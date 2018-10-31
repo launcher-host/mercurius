@@ -104,8 +104,8 @@ export default {
 
     filters: {
         toDatetime(value) {
-            let m = moment().utc(value).local()
-            let h = moment().utc().local().diff(m, 'hours', true)
+            let m = moment.utc(value).local()
+            let h = moment.utc().local().diff(m, 'hours', true)
 
             if (h <= 24) return m.format('HH:mm')       // 14:00
             if (h <= 24*7) return m.format('ddd')       // Mon
