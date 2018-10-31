@@ -2,7 +2,7 @@
 
 ## [0.0.8] - 2018-10-31
 - Updated documentation in general.
-- Added make SCSS + JS publishable, and updated docs on mobile, make the delete icon in messages always visible.
+- Added make SCSS + JS publishable.
 - Added instructions how to customize Mercurius (Views, SCSS, JS).
 - Fix style, on mobile, make the delete icon in messages always visible.
 - Fix #7 conversations date.
