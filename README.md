@@ -1,10 +1,8 @@
 <p align="center">
     <a href="https://www.github.com/launcher-host/mercurius/" target="_blank">
-        <img width="500px" src="docs/logo-mercurius_alt.png" title="mercurius logo">
+        <img width="450px" src="docs/logo-mercurius-bold.png" title="Mercurius - Messenger for Laravel">
     </a>
 </p>
-
-<h2 align="center">Messenger for Laravel</h2>
 
 <p align="center">
 <a href="https://travis-ci.org/launcher-host/mercurius"><img src="https://travis-ci.org/launcher-host/mercurius.svg?branch=master" alt="Build Status"></a>
@@ -15,20 +13,34 @@
 </p>
 
 
-## About
+## Table of Contents
 
+* [About](#about)
+* [Preview](#preview)
+* [Features](#features)
+* [Screenshots](#screenshots)
+* [Demo](#demo)
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Customizing](#customizing)
+* [Roadmap](#roadmap)
+* [Support](#support)
+* [Contributing](#contributing)
+* [Changelog](#changelog)
+* [Credits](#credits)
+* [Copyright & License](#copyright-and-license)
+
+
+## About
 Mercurius is a real-time messenger system using Laravel and Vue.js, featuring a complete application that you can easily install with any Laravel project.
 
 
+## Preview
+<a href="docs/mercurius_preview_2018-oct.gif" target="_blank">
+    <img width="100%" src="docs/mercurius_preview_2018-oct.gif" title="mercurius preview">
+</a>
 
-## Requirements
-
-- Laravel 5.6 or 5.7
-- Pusher account
-- Vue.js 2.0
-- BS 4
-
-
+<br>
 
 ## Features
 
@@ -41,8 +53,9 @@ Mercurius is a real-time messenger system using Laravel and Vue.js, featuring a 
 - Remove conversations and messages
 - Search recipients with auto-complete
 
+<br>
 
-## Preview
+## Screenshots
 <div>
     <a href="docs/mercurius_01_home.png" target="_target" title="screenshot mercurius - no conversations"><img src="docs/mercurius_01_home_tb.png"></a>
     <a href="docs/mercurius_02_view_conversation.png" target="_target" title="screenshot mercurius - view conversation"><img src="docs/mercurius_02_view_conversation_tb.png"></a>
@@ -53,36 +66,40 @@ Mercurius is a real-time messenger system using Laravel and Vue.js, featuring a 
     <a href="docs/mercurius_05_find_recipient_results.png" target="_target" title="screenshot mercurius - find recipient results"><img src="docs/mercurius_05_find_recipient_results_tb.png"></a>
     <a href="docs/mercurius_06_user_settings.png" target="_target" title="screenshot mercurius - user settings"><img src="docs/mercurius_06_user_settings_tb.png"></a>
 </div>
-<small>Click thumbs to display a larger screenshot</small>
+<small>Click thumbs to enlarge image</small>
 
-
-
-## Screenshots
-Desktop version / Mobile version
-<a href="docs/mercurius_preview_2018-oct.gif" target="_blank">
-    <img width="100%" src="docs/mercurius_preview_2018-oct.gif" title="mercurius preview">
-</a>
-<div align="right">Desktop notifications</div>
-
-
+<br>
 
 ## Demo
 
-A demo version is available for testing, [click here](http://mercurius-demo.herokuapp.com/login) to try Mercurius.
+You can [try a demo](http://mercurius-demo.herokuapp.com/login) of Mercurius. Authenticate using any of the following credentials:
 
-For authenticate use any of the following credentials:
-
-- Ian: `ian@launcher.host`
-- Noa: `noa@launcher.host`
-- Lua: `lua@launcher.host`
+- `ian@launcher.host`
+- `noa@launcher.host`
+- `lua@launcher.host`
 
 Password: `password`
 
-Tip: open 2 different browsers and login with distinct users.
+
+Tip: Open 2 different browsers and login with different usernames, so you can test send/receiving messages.
 
 
-## Setup Pusher
-If you don't have an account, create a free one on [pusher.com website](https://pusher.com/). Go to the dashboard, create a new app and take note of the API credentials.
+<br>
+
+## Requirements
+
+- Laravel 5.6 or 5.7
+- Pusher account
+- Vue.js 2.0
+- Bootstrap 4
+
+<br>
+
+## Installation
+
+##### 1. Setup Pusher
+If you don't have an account, create a free one on [pusher.com website](https://pusher.com/).
+Go to the dashboard, create a new app and take note of the API credentials.
 
 Now, let's add the API keys to the `.env` file.
 Also, change the `BROADCAST_DRIVER` to `pusher` (default is `log`).
@@ -96,36 +113,30 @@ PUSHER_APP_SECRET="xxxxxxxxxxxxxxxxxxxx"
 PUSHER_APP_CLUSTER="xx"
 ```
 
-
-
-## Installation
-
-##### 1. Register `BroadcastServiceProvider`
+##### 2. Register `BroadcastServiceProvider`
 Open `config/app.php` and uncomment the line `App\Providers\BroadcastServiceProvider::class,`.
 
 
-##### 2. Laravel Authentication
+##### 3. Laravel Authentication
 Skip this step if authentication is already setup, otherwise type:
 ```bash
 php artisan make:auth
 ```
 
 
-##### 3. Install Mercurius
+##### 4. Install Mercurius
 ```bash
 composer require launcher/mercurius
 ```
 
 
-##### 4. Publish the config file
+##### 5. Configuration (optional)
+If you want to change the default configuration, publish the config file, by typing the command:
 ```bash
 php artisan vendor:publish --tag=mercurius-config
 ```
 
-
-##### 5. Configuration (optional)
-
-For changing the default configuration, open `/config/mercurius.php` and add your own.
+For editing the config, open `/config/mercurius.php` and add your own values.
 
 ```php
 return [
@@ -162,6 +173,8 @@ php artisan db:seed --class=MercuriusDatabaseSeeder
 ```
 
 
+<br>
+
 
 ## Demo Accounts
 If you seed the dummy data, you will get 3 demo accounts for test the system.
@@ -173,40 +186,56 @@ If you seed the dummy data, you will get 3 demo accounts for test the system.
 Password: `password`
 
 
+<br>
+
+
+## Customizing Mercurius
+Please see [Customizing-Mercurius](CUSTOMIZING-MERCURIUS.md) for more information.
+
+
+<br>
+
 
 ## Roadmap
-- Unit tests
+Check the [roadmap](https://github.com/launcher-host/mercurius/issues/8) for more information.
+
+- Unit Tests
 - Typing indicator
 - Broadcast user status (when he goes on/off)
 - Conversation with multiple users
-- Search messages content
+- Search in messages content
 - Upload photos and attach files
 - Preview images and videos
 - Emoji support
+- Video Chat
+- Support socket.io
+- Web Hooks
 
 
+
+<br>
 
 ## Support
 - Create a [new issue](../../issues)
 - Join us on [Slack Channel](http://mercurius-demo.herokuapp.com/join-slack-launcher-host)
 
-
+<br>
 
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for more information.
 
-
+<br>
 
 ## Changelog
 We keep a [CHANGELOG](CHANGELOG.md) with the information that has changed.
 
-
+<br>
 
 ## Credits
 - [Bruno Torrinha](https://torrinha.com)
 - [All Contributors](../../contributors)
 
+<br>
 
-
-## License
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+## Copyright and license
+Copyright 2018 [Bruno Torrinha](https://torrinha.com). Mercurius is released under the [MIT License](LICENSE.md).
