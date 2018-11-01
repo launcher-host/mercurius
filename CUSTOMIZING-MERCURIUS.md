@@ -15,18 +15,18 @@ Views are published at `/resources/views/vendor/mercurius/`.
 
 <br>
 
-#### Changing Styles
+#### Styles (SASS)
 ##### 1. Publish `.scss` files:
 ```bash
 php artisan vendor:publish --tag=mercurius-sass
 ```
-Will publish `.scss` files at `/resources/scss/vendor/mercurius/`.
+Will publish `.scss` files at `/resources/sass/vendor/mercurius/`.
 
 ##### 2. WebPack config
 Open the `webpack.mix.js` and place the following:
 
 ```javascript
-mix.sass('resources/sass/mercurius/mercurius.scss', 'public/vendor/mercurius/css/mercurius.css')
+mix.sass('resources/sass/vendor/mercurius/mercurius.scss', 'public/vendor/mercurius/css/mercurius.css')
    .options({processCssUrls: false});
 ```
 
@@ -43,7 +43,7 @@ Will publish `JS` files at `/resources/js/vendor/mercurius/`.
 Open `webpack.mix.js` and place the following:
 
 ```javascript
-mix.js('resources/js/mercurius/bootstrap.js', 'public/vendor/mercurius/js/mercurius.js');
+mix.js('resources/js/vendor/mercurius/bootstrap.js', 'public/vendor/mercurius/js/mercurius.js');
 ```
 
 ##### 3. Add node packages
