@@ -60,8 +60,8 @@ class MercuriusServiceProvider extends ServiceProvider
         $publishable = [
             'mercurius-config' => ["{$_path}config/mercurius.php" => config_path('mercurius.php')],
             'mercurius-public' => ["{$_path}public" => public_path('vendor/mercurius')],
-            'mercurius-sass'   => [__DIR__.'/../resources/sass/' => resource_path('sass/mercurius')],
-            'mercurius-js'     => [__DIR__.'/../resources/js/' => resource_path('js/mercurius')],
+            'mercurius-sass'   => [__DIR__.'/../resources/sass/' => resource_path('sass/vendor/mercurius')],
+            'mercurius-js'     => [__DIR__.'/../resources/js/' => resource_path('js/vendor/mercurius')],
             'mercurius-seeds'  => ["{$_path}database/seeds/" => database_path('seeds')],
             'mercurius-lang'   => ["{$_path}lang/" => resource_path('lang')],
             'mercurius-views'  => ["{$_path}views/" => resource_path('views/vendor/mercurius')],

@@ -171,13 +171,9 @@ composer dump-autoload
 ```bash
 php artisan db:seed --class=MercuriusDatabaseSeeder
 ```
+Will add Messages and Users to the system, like in the [demo example](#demo):
 
-
-<br>
-
-
-## Demo Accounts
-If you seed the dummy data, you will get 3 demo accounts for test the system.
+Demo Users:
 
 - Ian: `ian@launcher.host`
 - Noa: `noa@launcher.host`
