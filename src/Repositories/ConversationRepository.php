@@ -122,19 +122,21 @@ class ConversationRepository
         $mdl_messages = config('mercurius.models.messages');
         $tbl_messages = (new $mdl_messages())->getTable();
 
-        $sql = implode(' ', array_map('trim', [
-            'SELECT DISTINCT u.id',
-            'FROM',
-            '    (',
-            '    SELECT receiver_id as id FROM '.$tbl_messages,
-            '    WHERE sender_id ='.$user.' AND deleted_by_receiver IS FALSE',
-            '    UNION ALL',
-            '    SELECT sender_id as id FROM '.$tbl_messages,
-            '    WHERE receiver_id ='.$user.' AND deleted_by_sender IS FALSE',
-            ') u',
-        ]));
+        $_first = DB::table($tbl_messages)
+                    ->select('receiver_id as id')
+                    ->where([
+                        ['sender_id', $user],
+                        ['deleted_by_receiver', '=', false],
+                    ]);
 
-        return DB::select(DB::raw($sql));
+        return DB::table($tbl_messages)
+                 ->select('sender_id as id')
+                 ->where([
+                     ['receiver_id', $user],
+                     ['deleted_by_sender', '=', false],
+                 ])
+                 ->union($_first)
+                 ->get();
     }
 
     /**
