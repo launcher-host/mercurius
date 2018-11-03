@@ -3,7 +3,9 @@
 namespace Launcher\Mercurius\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Launcher\Mercurius\Events\UserOnlineStatus;
+use Launcher\Mercurius\Events\UserGoesActive;
+use Launcher\Mercurius\Events\UserGoesInactive;
+use Launcher\Mercurius\Events\UserStatusChanged;
 use Launcher\Mercurius\Facades\Mercurius;
 use Launcher\Mercurius\Repositories\ConversationRepository;
 
@@ -60,11 +62,16 @@ class ProfileController extends Controller
             $user->{$_key} = $_val;
             $result = $user->save();
 
-            // When user status goes on/off line, we broadcast the change
-            //
+            // If User changes his status (active/inactive)
             if ($_key === 'is_online') {
-                // broadcast(new UserOnlineStatus($user->id, $_val));
-                broadcast(new UserOnlineStatus($user->id, $_val))->toOthers();
+                // Fire event with new User status
+                $eventName = $_val ? UserGoesActive::class : UserGoesInactive::class;
+                event(new $eventName($user->id));
+
+                // Broadcast event to the Users holding conversations with the
+                // current User
+                $newStatus = ($_val ? 'active' : 'inactive');
+                broadcast(new UserStatusChanged($user->id, $newStatus))->toOthers();
             }
 
             return response([$result]);
