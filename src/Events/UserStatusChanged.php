@@ -67,7 +67,7 @@ class UserStatusChanged implements ShouldBroadcast
      */
     public function broadcastWhen()
     {
-        return sizeof($this->recipients->c) > 0;
+        return sizeof($this->recipients) > 0;
     }
 
     /**
