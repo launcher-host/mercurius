@@ -22,7 +22,7 @@
 * [Demo](#demo)
 * [Requirements](#requirements)
 * [Installation](#installation)
-* [Customizing Mercurius](#customizing-mercurius)
+* [Customization](#customization)
 * [Roadmap](#roadmap)
 * [Support](#support)
 * [Contributing](#contributing)
@@ -185,8 +185,8 @@ Password: `password`
 <br>
 
 
-## Customizing Mercurius
-Please see [Customizing-Mercurius](CUSTOMIZING-MERCURIUS.md) for more information.
+## Customization
+Please see [Customization](docs/customization.md) for more information.
 
 
 <br>

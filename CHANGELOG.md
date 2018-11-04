@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [0.0.x] - 2018-11-04
+- Feature #12 Broadcast User Status.
+- Added Events:
+    * UserGoesActive
+    * UserGoesInactive
+    * UserStatusChanged
+- Fix ConversationRepository->recipients() to return a Collection.
+- Updated documentation.
+
+
 ## [0.0.8] - 2018-10-31
 - Updated documentation in general.
 - Added make SCSS + JS publishable.

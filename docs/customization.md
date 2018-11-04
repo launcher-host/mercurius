@@ -1,8 +1,10 @@
 <p align="center">
-    <img width="450px" src="docs/logo-mercurius.png" title="mercurius logo">
+    <a href="https://www.github.com/launcher-host/mercurius/">
+        <img width="450px" src="logo-mercurius.png" title="mercurius logo">
+    </a>
 </p>
 
-## Customizing Mercurius
+## Customization
 You can change several parts of Mercurius, like any other Laravel package.
 
 <br>
