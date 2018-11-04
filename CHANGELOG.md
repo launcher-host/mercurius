@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.0.10] - 2018-11-04
+- Fix Chrome error, Promise was not loading.
+- Fix replace sizeof() to count() on event UserStatusChanged.
+
 ## [0.0.9] - 2018-11-04
 - Feature #12 Broadcast User Status.
 - Added Events:
