@@ -7,13 +7,14 @@ import vuescroll    from 'vuescroll/dist/vuescroll-native';
 
 import 'vuescroll/dist/vuescroll.css';
 
-window._      = require('lodash');
-window.Vue    = Vue;
-window.swal   = swal;
-window.Bus    = new Vue();
-window.axios  = axios;
-window.moment = moment;
-window.Pusher = require('pusher-js');
+window._       = require('lodash');
+window.Vue     = Vue;
+window.swal    = swal;
+window.Bus     = new Vue();
+window.axios   = axios;
+window.moment  = moment;
+window.Promise = require('promise');
+window.Pusher  = require('pusher-js');
 
 
 require('./bootstrap-mercurius');
