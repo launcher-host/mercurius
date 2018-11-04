@@ -51,7 +51,7 @@ module.exports = {
         listen() {
             Echo.private('mercurius.'+this.user.id)
                 .listen('.mercurius.message.sent', e => this.onMessageReceived(e))
-                .listen('.mercurius.user.status', user => this.onUserStatusChanged(user));
+                .listen('.mercurius.user.status.changed', user => this.onUserStatusChanged(user));
         },
 
 
@@ -115,14 +115,15 @@ module.exports = {
 
 
         /**
-         * When user change his status going Online/Offline.
-         * To be done.
+         * When the User changes his status Active/Inactive/Idle.
          *
          * @param {object} user
          */
-        onUserStatusChanged(user) {
-            // console.log('onUserStatusChanged');
-            // console.log(user.name, user.is_online);
+        onUserStatusChanged(ev) {
+            let _c = _.find(this.conversations, ['id', ev.user])
+            if (!_c) return
+
+            _c.is_online = (ev.status === 'active')
         },
     },
 };
