@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [0.0.x] - 2018-11-04
+## [0.0.9] - 2018-11-04
 - Feature #12 Broadcast User Status.
 - Added Events:
     * UserGoesActive
