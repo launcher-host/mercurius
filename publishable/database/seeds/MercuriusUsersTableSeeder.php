@@ -22,7 +22,7 @@ class MercuriusUsersTableSeeder extends Seeder
             'is_online'   => array_rand([true, false]),
             'be_notified' => array_rand([true, false]),
         ])->each(function ($usr) {
-            $usr->slug = str_slug($usr->name);
+            $usr->slug = str_slug($usr->name, '_');
             $usr->save();
         });
     }
@@ -39,7 +39,7 @@ class MercuriusUsersTableSeeder extends Seeder
             'email' => $email,
         ], [
             'name'           => $name,
-            'slug'           => str_slug($name),
+            'slug'           => str_slug($name, '_'),
             'avatar'         => 'vendor/mercurius/img/avatar/'.$avatar,
             'password'       => bcrypt('password'),
             'remember_token' => null,
