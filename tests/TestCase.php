@@ -4,6 +4,7 @@ namespace Launcher\Mercurius\Tests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
+use Launcher\Mercurius\Models\Message;
 use Illuminate\Support\Facades\Artisan;
 use Launcher\Mercurius\MercuriusServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -39,6 +40,11 @@ class TestCase extends OrchestraTestCase
     protected function userFactory()
     {
     	return factory(User::class);
+    }
+
+    protected function messageFactory()
+    {
+    	return factory(Message::class);
     }
 
     protected function migrate()
