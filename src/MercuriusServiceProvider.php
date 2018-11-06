@@ -4,7 +4,6 @@ namespace Launcher\Mercurius;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Launcher\Mercurius\Commands\InstallCommand;
 use Launcher\Mercurius\Setup\MigrationsHandler;
@@ -86,7 +85,7 @@ class MercuriusServiceProvider extends ServiceProvider
             'add_slug_mercurius_user_table',
         ];
 
-        $_publishable = (new MigrationsHandler)->processMigrations($_migrations);
+        $_publishable = (new MigrationsHandler())->processMigrations($_migrations);
 
         if ($_publishable && count($_publishable) > 0) {
             $this->publishes($_publishable, 'mercurius-migrations');

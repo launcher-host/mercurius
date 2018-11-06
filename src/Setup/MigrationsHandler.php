@@ -20,14 +20,14 @@ class MigrationsHandler
     /**
      * Migrations currently on system.
      *
-     * @var Array
+     * @var array
      */
     private $migrations;
 
     /**
      * The migrations to be publishable.
      *
-     * @var Array
+     * @var array
      */
     private $publishable;
 
@@ -46,7 +46,8 @@ class MigrationsHandler
     /**
      * Process migrations.
      *
-     * @param  string|array  $migration
+     * @param string|array $migration
+     *
      * @return array
      */
     public function processMigrations($migration)
@@ -61,7 +62,8 @@ class MigrationsHandler
     /**
      * Process a single migration file.
      *
-     * @param  string $migration
+     * @param string $migration
+     *
      * @return void
      */
     private function processMigration(string $migration)
@@ -84,7 +86,8 @@ class MigrationsHandler
     /**
      * Check if a migration exists on system.
      *
-     * @param  string $migration
+     * @param string $migration
+     *
      * @return bool
      */
     private function migrationExists(string $migration)
