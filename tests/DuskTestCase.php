@@ -6,9 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Artisan;
 use Launcher\Mercurius\MercuriusServiceProvider;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Orchestra\Testbench\Dusk\TestCase as TestCase;
 
-class TestCase extends OrchestraTestCase
+class DuskTestCase extends TestCase
 {
 	use HandlesExceptions;
 

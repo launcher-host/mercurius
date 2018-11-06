@@ -23,6 +23,7 @@
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Customizing Mercurius](#customizing-mercurius)
+* [Testing](#testing)
 * [Roadmap](#roadmap)
 * [Support](#support)
 * [Contributing](#contributing)
@@ -187,6 +188,25 @@ Password: `password`
 
 ## Customizing Mercurius
 Please see [Customizing-Mercurius](CUSTOMIZING-MERCURIUS.md) for more information.
+
+
+<br>
+
+
+## Testing
+There are 2 different testsuites
+
+### Application Testsuite
+Run the following command to test the general application testsuite.
+```
+vendor/bin/phpunit
+```
+
+### Dusk Testsuite
+Run the following command to test the Dusk testsuite.
+```
+vendor/bin/phpunit --testsuite=dusk
+```
 
 
 <br>

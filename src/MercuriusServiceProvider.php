@@ -2,6 +2,7 @@
 
 namespace Launcher\Mercurius;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Schema;
@@ -55,16 +56,16 @@ class MercuriusServiceProvider extends ServiceProvider
      */
     protected function registerPublishable()
     {
-        $_path = __DIR__.'/../publishable/';
+        $path = __DIR__.'/../publishable/';
 
         $publishable = [
-            'mercurius-config' => ["{$_path}config/mercurius.php" => config_path('mercurius.php')],
-            'mercurius-public' => ["{$_path}public" => public_path('vendor/mercurius')],
+            'mercurius-config' => ["{$path}config/mercurius.php" => config_path('mercurius.php')],
+            'mercurius-public' => ["{$path}public" => public_path('vendor/mercurius')],
             'mercurius-sass'   => [__DIR__.'/../resources/sass/' => resource_path('sass/vendor/mercurius')],
             'mercurius-js'     => [__DIR__.'/../resources/js/' => resource_path('js/vendor/mercurius')],
-            'mercurius-seeds'  => ["{$_path}database/seeds/" => database_path('seeds')],
-            'mercurius-lang'   => ["{$_path}lang/" => resource_path('lang')],
-            'mercurius-views'  => ["{$_path}views/" => resource_path('views/vendor/mercurius')],
+            'mercurius-seeds'  => ["{$path}database/seeds/" => database_path('seeds')],
+            'mercurius-lang'   => ["{$path}lang/" => resource_path('lang')],
+            'mercurius-views'  => ["{$path}views/" => resource_path('views/vendor/mercurius')],
         ];
 
         foreach ($publishable as $group => $paths) {
@@ -79,17 +80,17 @@ class MercuriusServiceProvider extends ServiceProvider
      */
     private function registerPublishableMigrations()
     {
-        if (!Schema::hasTable('mercurius_messages')) {
-            $_date = date('Y_m_d_His', time());
-            $_path = __DIR__.'/../publishable/database/migrations/';
+        //if (!Schema::hasTable('mercurius_messages')) {
+            $date = Carbon::now()->format('Y_m_d_His');
+            $path = __DIR__ . '/../publishable/database/migrations/';
 
             $_migrations = [
-                "${_path}add_mercurius_user_fields.php"       => database_path("migrations/${_date}_add_mercurius_user_fields.php"),
-                "${_path}create_mercurius_messages_table.php" => database_path("migrations/${_date}_create_mercurius_messages_table.php"),
+                "${path}add_mercurius_user_fields.php"       => database_path("migrations/${date}_add_mercurius_user_fields.php"),
+                "${path}create_mercurius_messages_table.php" => database_path("migrations/${date}_create_mercurius_messages_table.php"),
             ];
 
             $this->publishes($_migrations, 'mercurius-migrations');
-        }
+        //}
     }
 
     /**
