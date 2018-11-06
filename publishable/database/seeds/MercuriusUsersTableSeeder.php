@@ -17,12 +17,14 @@ class MercuriusUsersTableSeeder extends Seeder
         $this->createUser('Noa Robison', 'noa@launcher.host', 'avatar_noa.png');
         $this->createUser('Lua Adison', 'lua@launcher.host', 'avatar_lua.png');
 
-        // Seed dummy users to test Conversations scroll
-        //
+        // Seed random dummy users
         factory(config('mercurius.models.user'), 20)->create([
             'is_online'   => array_rand([true, false]),
             'be_notified' => array_rand([true, false]),
-        ]);
+        ])->each(function ($usr) {
+            $usr->slug = str_slug($usr->name);
+            $usr->save();
+        });
     }
 
     /**
@@ -37,6 +39,7 @@ class MercuriusUsersTableSeeder extends Seeder
             'email' => $email,
         ], [
             'name'           => $name,
+            'slug'           => str_slug($name),
             'avatar'         => 'vendor/mercurius/img/avatar/'.$avatar,
             'password'       => bcrypt('password'),
             'remember_token' => null,

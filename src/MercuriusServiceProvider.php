@@ -7,6 +7,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Launcher\Mercurius\Commands\InstallCommand;
+use Launcher\Mercurius\Setup\MigrationsHandler;
 
 class MercuriusServiceProvider extends ServiceProvider
 {
@@ -79,16 +80,16 @@ class MercuriusServiceProvider extends ServiceProvider
      */
     private function registerPublishableMigrations()
     {
-        if (!Schema::hasTable('mercurius_messages')) {
-            $_date = date('Y_m_d_His', time());
-            $_path = __DIR__.'/../publishable/database/migrations/';
+        $_migrations = [
+            'add_mercurius_user_fields',
+            'create_mercurius_messages_table',
+            'add_slug_mercurius_user_table',
+        ];
 
-            $_migrations = [
-                "${_path}add_mercurius_user_fields.php"       => database_path("migrations/${_date}_add_mercurius_user_fields.php"),
-                "${_path}create_mercurius_messages_table.php" => database_path("migrations/${_date}_create_mercurius_messages_table.php"),
-            ];
+        $_publishable = (new MigrationsHandler)->processMigrations($_migrations);
 
-            $this->publishes($_migrations, 'mercurius-migrations');
+        if ($_publishable && count($_publishable) > 0) {
+            $this->publishes($_publishable, 'mercurius-migrations');
         }
     }
 
