@@ -87,7 +87,7 @@ class MercuriusServiceProvider extends ServiceProvider
 
         $_publishable = (new MigrationsHandler())->processMigrations($_migrations);
 
-        if ($_publishable && count($_publishable) > 0) {
+        if (count($_publishable) > 0) {
             $this->publishes($_publishable, 'mercurius-migrations');
         }
     }
