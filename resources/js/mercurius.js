@@ -49,7 +49,7 @@ module.exports = {
          * Setup event listener using Laravel Echo and Pusher.
          */
         listen() {
-            Echo.private('mercurius.'+this.user.id)
+            Echo.private('mercurius.'+this.user.slug)
                 .listen('.mercurius.message.sent', e => this.onMessageReceived(e))
                 .listen('.mercurius.user.status.changed', user => this.onUserStatusChanged(user));
         },

@@ -27,9 +27,7 @@ class ConversationsController extends Controller
      */
     public function index(ConversationRepository $conversation)
     {
-        $conversations = $conversation->all();
-
-        return response($conversations);
+        return response($conversation->all());
     }
 
     /**
@@ -41,9 +39,7 @@ class ConversationsController extends Controller
      */
     public function recipients(ConversationRepository $conversation)
     {
-        $recipients = $conversation->recipients();
-
-        return response($recipients);
+        return response($conversation->recipients());
     }
 
     /**
@@ -57,6 +53,10 @@ class ConversationsController extends Controller
      */
     public function show($recipient, Request $request, ConversationRepository $conversation)
     {
+        $request->validate([
+            'offset'   => 'required|numeric',
+            'pagesize' => 'required|numeric',
+        ]);
         $recipient = Mercurius::findUserOrFail($recipient);
 
         return response(

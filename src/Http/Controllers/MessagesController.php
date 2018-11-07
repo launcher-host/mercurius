@@ -31,7 +31,7 @@ class MessagesController extends Controller
     {
         $request->validate([
             'recipient' => 'required|string',
-            'message' => 'required|string',
+            'message'   => 'required|string',
         ]);
 
         $from = $request->user()->id;
