@@ -5,8 +5,10 @@ namespace Launcher\Mercurius\Setup;
 use Illuminate\Support\Carbon;
 
 /**
- * Handle Migrations with current timestamped, excluding migration files located
- * at `database/migrations`.
+ * Handles timestamped migrations featuring:
+ * - provides list of publishable migrations files
+ * - timestamp files with the current datetime
+ * - exclude migrations already published at `database/migrations`
  */
 class MigrationsHandler
 {

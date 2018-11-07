@@ -40,8 +40,6 @@ class ConversationRepository
             ->limit($limit)
             ->get();
 
-// dd($msg);
-
         if ($offset === 0) {
             $this->makeSeen($receiver, $sender);
         }
@@ -121,7 +119,7 @@ class ConversationRepository
      *
      * @return array
      */
-    public function recipients($user = null): Array
+    public function recipients($user = null): array
     {
         $user = is_null($user) ? Auth::user()->id : $user;
         $mdl_messages = config('mercurius.models.messages');
