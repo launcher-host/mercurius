@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
  * Handles timestamped migrations featuring:
  * - provides list of publishable migrations files
  * - timestamp files with the current datetime
- * - exclude migrations already published at `database/migrations`
+ * - exclude migrations already published at `database/migrations`.
  */
 class MigrationsHandler
 {
