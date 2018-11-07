@@ -20,7 +20,7 @@ class UserRepository
 
         return $userFqcn::where('name', 'LIKE', '%'.$query.'%')
             ->paginate($limit, [
-                'id',
+                'slug',
                 'name',
                 'avatar',
                 'is_online',

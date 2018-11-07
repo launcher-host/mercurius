@@ -33,12 +33,27 @@ class Mercurius
         $user = Auth::user();
 
         return [
-            'id'          => $user->id,
+            'slug'        => $user->slug,
             'name'        => $user->name,
             'avatar'      => $user->avatar,
             'is_online'   => (bool) $user->is_online,
             'be_notified' => (bool) $user->be_notified,
             'dark_mode'   => true,  // This is saved at LocalStorage
         ];
+    }
+
+    /**
+     * Return User id for a given slug or fails.
+     *
+     * @param int|string $val
+     *
+     * @return Illuminate\Database\Eloquent\Model;
+     */
+    public static function findUserOrFail(string $slug)
+    {
+        $userFqcn = config('mercurius.models.user');
+        $usr = $userFqcn::where('slug', $slug)->firstOrFail();
+
+        return $usr->id;
     }
 }

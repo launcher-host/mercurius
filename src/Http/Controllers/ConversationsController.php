@@ -3,6 +3,7 @@
 namespace Launcher\Mercurius\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Launcher\Mercurius\Mercurius;
 use Launcher\Mercurius\Repositories\ConversationRepository;
 
 class ConversationsController extends Controller
@@ -48,34 +49,35 @@ class ConversationsController extends Controller
     /**
      * Display a single conversation for a given user.
      *
-     * @param Request                $request
-     * @param int                    $receiver
+     * @param string                 $recipient
      * @param ConversationRepository $conversation
+     * @param Request                $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $receiver, ConversationRepository $conversation)
+    public function show($recipient, Request $request, ConversationRepository $conversation)
     {
-        $inp = $request->only('offset', 'pagesize');
+        $recipient = Mercurius::findUserOrFail($recipient);
 
-        $conversations = $conversation->get($receiver, $inp['offset'], $inp['pagesize']);
-
-        return response($conversations);
+        return response(
+            $conversation->get($recipient, $request->offset, $request->pagesize)
+        );
     }
 
     /**
      * Remove a conversation.
      *
-     * @param int                    $receiver
+     * @param string                 $recipient
      * @param ConversationRepository $conversation
      * @param Request                $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($receiver, ConversationRepository $conversation, Request $request)
+    public function destroy($recipient, Request $request, ConversationRepository $conversation)
     {
-        $res = $conversation->delete($request->user()->id, $receiver);
+        $owner = $request->user()->id;
+        $recipient = Mercurius::findUserOrFail($recipient);
 
-        return response($res);
+        return response($conversation->delete($owner, $recipient));
     }
 }
