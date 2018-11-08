@@ -81198,14 +81198,13 @@ var render = function() {
                                   directives: [
                                     {
                                       name: "b-tooltip",
-                                      rawName: "v-b-tooltip.hover",
-                                      value: _vm.deliveryStatus(msg),
-                                      expression: "deliveryStatus(msg)",
-                                      modifiers: { hover: true }
+                                      rawName: "v-b-tooltip.topleft",
+                                      modifiers: { topleft: true }
                                     }
                                   ],
                                   staticClass:
-                                    "text-secondary btn btn-link p-0 pb-1"
+                                    "text-secondary btn btn-link p-0 pb-1",
+                                  attrs: { title: _vm.deliveryStatus(msg) }
                                 },
                                 [
                                   !msg.seen_at
@@ -81447,7 +81446,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this5.is_open = true;
             }).catch(function () {
                 return swal(__('err_hd'), __('err_recipients'), 'error');
-            }).then(function () {
+            }).finally(function () {
                 return _this5.loading = false;
             });
         }
@@ -81576,7 +81575,7 @@ var render = function() {
               _c("img", {
                 staticClass: "recipient__results__avatar",
                 attrs: {
-                  alt: recipient.sender,
+                  alt: recipient.name,
                   src: recipient.avatar || _vm.placeholder
                 }
               }),

@@ -18,12 +18,8 @@ class UserRepository
     {
         $userFqcn = config('mercurius.models.user');
 
-        return $userFqcn::where('name', 'LIKE', '%'.$query.'%')
-            ->paginate($limit, [
-                'slug',
-                'name',
-                'avatar',
-                'is_online',
-            ]);
+        return $userFqcn::select('slug as id', 'name', 'avatar', 'is_online')
+            ->where('name', 'LIKE', '%'.$query.'%')
+            ->paginate($limit);
     }
 }

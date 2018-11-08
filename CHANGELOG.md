@@ -1,7 +1,7 @@
 # CHANGELOG
 
 ## [1.0.0-alpha] - 2018-11-xx
-- Feature Message status to inform if a message was `seen`/`sent`.
+- Feature Sent Messages Status to inform if a message was `seen`/`sent`.
 - Feature MigrationsHandler for publishing timestamped migrations.
 - Feature #22 User slug logic.
 
