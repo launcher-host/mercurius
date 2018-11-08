@@ -80197,7 +80197,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                         }).catch(function (err) {
                                             swal(__('err_hd'), __('err_messages_load') + '\n' + error.response.data.message, 'error');
                                             reject(errors);
-                                        }).finally(function () {
+                                        }).then(function () {
                                             _this.is_loading = false;
                                         });
                                     }, 500);

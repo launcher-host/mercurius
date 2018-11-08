@@ -147,7 +147,7 @@ export default {
             Bus.$emit('mercuriusOpenConversation', this.active);
         },
         refreshMessage(msg) {
-            this.active.sender     = msg.sender_id
+            this.active.sender     = msg.sender
             this.active.message    = msg.message
             this.active.created_at = msg.created_at
         },

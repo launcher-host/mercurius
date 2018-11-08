@@ -24,7 +24,7 @@ class ConversationRepository
         $_mdl = config('mercurius.models.messages');
 
         $msg = (new $_mdl())
-            ->select('id', 'message', 'sender_id', 'receiver_id', 'created_at')
+            ->select('id', 'message', 'sender_id as sender', 'seen_at', 'created_at')
             ->where([
                 ['sender_id', $sender],
                 ['receiver_id', $receiver],
