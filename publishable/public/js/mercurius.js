@@ -79959,6 +79959,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -80022,11 +80028,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this._sameDay(msg, idx);
         },
         showAvatar: function showAvatar(msg, idx) {
-            if (!this._received(msg)) return false;
+            if (!this.received(msg)) return false;
             return !this._sameSender(msg, idx) || this._sameDay(msg, idx);
         },
         msgClass: function msgClass(msg, idx) {
-            return (this._received(msg) ? 'msg_received' : 'msg_sent') + (this._sameSender(msg, idx) ? '' : ' new_sender');
+            return (this.received(msg) ? 'msg_received' : 'msg_sent') + (this._sameSender(msg, idx) ? '' : ' new_sender');
+        },
+        deliveryStatus: function deliveryStatus(msg) {
+            return !!msg.seen_at ? __('msg_seen_at') + ' ' + moment.utc(msg.seen_at).local().format('D MMM YYYY HH:mm') : __('msg_sent');
+        },
+
+        // check if message was received or sent
+        received: function received(msg) {
+            return msg.sender !== Mercurius.user.id;
         },
 
 
@@ -80034,11 +80048,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //
         _hasMsg: function _hasMsg(idx) {
             return !!this.messages[idx];
-        },
-
-        // Check if message was received or sent
-        _received: function _received(msg) {
-            return msg.sender !== Mercurius.user.id;
         },
 
         // Check if message was sent on the same day
@@ -81174,19 +81183,57 @@ var render = function() {
                         "b-collapse",
                         {
                           staticClass: "message__datetime",
-                          attrs: { id: "aux" + idx }
+                          attrs: { id: "aux" + idx, nofade: "" }
                         },
                         [
-                          _c("svg", { staticClass: "ic ic-clock" }, [
-                            _c("use", {
-                              attrs: { "xlink:href": "#icon-clock" }
-                            })
-                          ]),
                           _vm._v(
                             "\n                        " +
                               _vm._s(_vm._f("datetimeSingle")(msg.created_at)) +
-                              "\n                    "
-                          )
+                              "\n                        "
+                          ),
+                          !_vm.received(msg)
+                            ? _c(
+                                "button",
+                                {
+                                  directives: [
+                                    {
+                                      name: "b-tooltip",
+                                      rawName: "v-b-tooltip.hover",
+                                      value: _vm.deliveryStatus(msg),
+                                      expression: "deliveryStatus(msg)",
+                                      modifiers: { hover: true }
+                                    }
+                                  ],
+                                  staticClass:
+                                    "text-secondary btn btn-link p-0 pb-1"
+                                },
+                                [
+                                  !msg.seen_at
+                                    ? _c(
+                                        "svg",
+                                        { staticClass: "ic ic-clock" },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href": "#icon-clock"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _c(
+                                        "svg",
+                                        { staticClass: "ic ic-check" },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href": "#icon-check"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                ]
+                              )
+                            : _vm._e()
                         ]
                       )
                     ],

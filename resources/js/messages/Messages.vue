@@ -4,7 +4,6 @@
             <svg class="ic"><use xlink:href="#icon-ani-puff"></use></svg>
         </div>
 
-
         <vue-scroll
             ref="wrap"
             :ops="ops"
@@ -18,7 +17,6 @@
                         :key="idx"
                         ref="msg"
                     >
-
                         <!-- Messages Datetime -->
                         <div
                             v-if="showDatetime(msg, idx)"
@@ -57,9 +55,17 @@
                         <b-collapse
                             class="message__datetime"
                             :id="'aux'+idx"
+                            nofade
                         >
-                            <svg class="ic ic-clock"><use xlink:href="#icon-clock"></use></svg>
                             {{msg.created_at | datetimeSingle}}
+                            <button
+                                v-if="!received(msg)"
+                                class="text-secondary btn btn-link p-0 pb-1"
+                                v-b-tooltip.hover="deliveryStatus(msg)"
+                            >
+                                <svg class="ic ic-clock" v-if="!msg.seen_at"><use xlink:href="#icon-clock"></use></svg>
+                                <svg class="ic ic-check" v-else><use xlink:href="#icon-check"></use></svg>
+                            </button>
                         </b-collapse>
                     </div>
                 </template>
@@ -134,12 +140,21 @@ export default {
             return this._sameDay(msg, idx);
         },
         showAvatar(msg, idx) {
-            if (!this._received(msg)) return false;
+            if (!this.received(msg)) return false;
             return !this._sameSender(msg, idx) || this._sameDay(msg, idx);
         },
         msgClass(msg, idx) {
-            return (this._received(msg) ? 'msg_received' : 'msg_sent')
+            return (this.received(msg) ? 'msg_received' : 'msg_sent')
                  + (this._sameSender(msg, idx) ? '' : ' new_sender')
+        },
+        deliveryStatus(msg) {
+            return !!msg.seen_at
+                ? __('msg_seen_at')+' '+moment.utc(msg.seen_at).local().format('D MMM YYYY HH:mm')
+                : __('msg_sent');
+        },
+        // check if message was received or sent
+        received(msg) {
+            return msg.sender !== Mercurius.user.id
         },
 
 
@@ -147,10 +162,6 @@ export default {
         //
         _hasMsg(idx) {
             return (!!this.messages[idx]);
-        },
-        // Check if message was received or sent
-        _received(msg) {
-            return msg.sender !== Mercurius.user.id
         },
         // Check if message was sent on the same day
         _sameDay(msg, idx) {

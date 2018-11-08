@@ -7,7 +7,7 @@
  * @param  {array} args  attributes used with translations
  * @return {string}
  */
-const __ = (key, args) => {
+const __ = function(key, args) {
     let trans = _.get(Mercurius.i18n, key);
 
     _.eachRight(args, (value, key) => {

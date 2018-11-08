@@ -21,10 +21,11 @@ class ConversationRepository
     public function get($receiver, $offset = 0, $limit = 10, $sender = null)
     {
         $sender = is_null($sender) ? Auth::user()->id : $sender;
-        $_mdl = config('mercurius.models.messages');
+        $msgFqcn = config('mercurius.models.messages');
 
-        $msg = (new $_mdl())
-            ->select('id', 'message', 'sender_id as sender', 'seen_at', 'created_at')
+        $msg = (new $msgFqcn())
+            ->select('id', 'message', 'sender_id', 'seen_at', 'created_at')
+            ->with('sender:id,slug')
             ->where([
                 ['sender_id', $sender],
                 ['receiver_id', $receiver],
@@ -39,6 +40,17 @@ class ConversationRepository
             ->offset($offset)
             ->limit($limit)
             ->get();
+
+        // Transform output
+        $msg = $msg->map(function ($msg){
+            return [
+                'id'         => $msg->id,
+                'message'    => $msg->message,
+                'sender'     => $msg->sender->slug,
+                'seen_at'    => $msg->seen_at,
+                'created_at' => date($msg->created_at),
+            ];
+        });
 
         if ($offset === 0) {
             $this->makeSeen($receiver, $sender);
