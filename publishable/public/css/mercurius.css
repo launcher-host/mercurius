@@ -6955,17 +6955,21 @@ svg {
 }
 
 .messages_wrap .message__datetime {
-  display: block;
-  text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #C2C8F1;
   font-size: 0.75rem;
   line-height: 25px;
-  padding: 0 5px;
+  padding: 0 10px;
   margin-bottom: 10px;
 }
 
 .messages_wrap .message__datetime .ic {
-  margin-right: 2px;
+  margin-left: 7px;
 }
 
 .messages_wrap .message__action {
