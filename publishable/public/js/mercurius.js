@@ -80197,7 +80197,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                         }).catch(function (err) {
                                             swal(__('err_hd'), __('err_messages_load') + '\n' + error.response.data.message, 'error');
                                             reject(errors);
-                                        }).then(function () {
+                                        }).finally(function () {
                                             _this.is_loading = false;
                                         });
                                     }, 500);
@@ -82839,7 +82839,7 @@ module.exports = {
         listen: function listen() {
             var _this2 = this;
 
-            Echo.private('mercurius.' + this.user.slug).listen('.mercurius.message.sent', function (e) {
+            Echo.private('mercurius.' + this.user.id).listen('.mercurius.message.sent', function (e) {
                 return _this2.onMessageReceived(e);
             }).listen('.mercurius.user.status.changed', function (user) {
                 return _this2.onUserStatusChanged(user);
