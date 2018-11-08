@@ -79360,7 +79360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             Bus.$emit('mercuriusOpenConversation', this.active);
         },
         refreshMessage: function refreshMessage(msg) {
-            this.active.sender = msg.sender_id;
+            this.active.sender = msg.sender;
             this.active.message = msg.message;
             this.active.created_at = msg.created_at;
         },
@@ -80038,7 +80038,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         // Check if message was received or sent
         _received: function _received(msg) {
-            return msg.sender_id !== Mercurius.user.id;
+            return msg.sender !== Mercurius.user.id;
         },
 
         // Check if message was sent on the same day
@@ -80049,7 +80049,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Check if message was sent by the same user
         _sameSender: function _sameSender(msg, idx) {
             if (!this._hasMsg(idx + 1)) return false;
-            return this.messages[idx + 1].sender_id === msg.sender_id;
+            return this.messages[idx + 1].sender === msg.sender;
         },
         _scrollTo: function _scrollTo(y_val) {
             this.$refs.wrap.scrollTo({ x: 0, y: y_val });

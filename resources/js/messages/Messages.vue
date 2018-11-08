@@ -150,7 +150,7 @@ export default {
         },
         // Check if message was received or sent
         _received(msg) {
-            return msg.sender_id !== Mercurius.user.id
+            return msg.sender !== Mercurius.user.id
         },
         // Check if message was sent on the same day
         _sameDay(msg, idx) {
@@ -160,7 +160,7 @@ export default {
         // Check if message was sent by the same user
         _sameSender(msg, idx) {
             if (!this._hasMsg(idx+1)) return false;
-            return (this.messages[idx+1].sender_id === msg.sender_id);
+            return (this.messages[idx+1].sender === msg.sender);
         },
         _scrollTo(y_val) {
             this.$refs.wrap.scrollTo({x: 0, y: y_val})
