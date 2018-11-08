@@ -20,7 +20,6 @@
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Demo](#demo)
-* [Requirements](#requirements)
 * [Installation](#installation)
 * [Customization](#customization)
 * [Roadmap](#roadmap)
@@ -86,16 +85,8 @@ Tip: Open 2 different browsers and login with different usernames, so you can te
 
 <br>
 
-## Requirements
-
-- Laravel 5.6 or 5.7
-- Pusher account
-- Vue.js 2.0
-- Bootstrap 4
-
-<br>
-
 ## Installation
+Make sure Laravel `5.6`+ is installed before proceed.
 
 ##### 1. Setup Pusher
 If you don't have an account, create a free one on [pusher.com website](https://pusher.com/).
@@ -182,6 +173,12 @@ Demo Users:
 Password: `password`
 
 
+#### Update Mercurius
+Whenever you update Mercurius, make sure to publish assets to apply the new versions of CSS/JS.
+```php
+php artisan vendor:publish --tag=mercurius-public --force
+```
+
 <br>
 
 
@@ -197,7 +194,6 @@ Check the [roadmap](https://github.com/launcher-host/mercurius/issues/8) for mor
 
 - Unit Tests
 - Typing indicator
-- Broadcast user status (when he goes on/off)
 - Conversation with multiple users
 - Search in messages content
 - Upload photos and attach files
@@ -205,7 +201,7 @@ Check the [roadmap](https://github.com/launcher-host/mercurius/issues/8) for mor
 - Emoji support
 - Video Chat
 - Support socket.io
-- Web Hooks
+- Webhooks
 
 
 

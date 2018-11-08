@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## [1.0.0-alpha] - 2018-11-xx
+- Added MigrationsHandler for publishing timestamped migrations.
+- Feature #22 User slug logic.
+
+#### Update notes
+Publish changes and run migration
+```php
+php artisan vendor:publish --tag="mercurius-public" --force
+php artisan vendor:publish --tag="mercurius-seeds" --force
+php artisan vendor:publish --tag="mercurius-migrations"
+php artisan migrate
+```
+
+**(Optional)** Refresh dummy data
+```php
+php artisan migrate:fresh
+php artisan db:seed --class=MercuriusDatabaseSeeder
+```
+
+
+
 ## [0.0.10] - 2018-11-04
 - Fix Chrome error, Promise was not loading.
 - Fix replace sizeof() to count() on event UserStatusChanged.
