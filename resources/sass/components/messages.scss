@@ -59,9 +59,7 @@
         }
 
         &__datetime {
-            display:         flex;
             align-items:     center;
-            justify-content: right;
             color:           $message__date;
             font-size:       0.75rem;
             line-height:     25px;
@@ -104,7 +102,7 @@
         &__body,
         &__datetime {
             margin-left: 70px;
-            justify-content: left;
+            text-align:  left !important;
         }
     }
 }

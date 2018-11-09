@@ -7031,15 +7031,9 @@ svg {
 }
 
 .messages_wrap .message__datetime {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: right;
-      -ms-flex-pack: right;
-          justify-content: right;
   color: #C2C8F1;
   font-size: 0.75rem;
   line-height: 25px;
@@ -7088,9 +7082,7 @@ svg {
 
 .messages_wrap .msg_received .message__body, .messages_wrap .msg_received .message__datetime {
   margin-left: 70px;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
+  text-align: left !important;
 }
 
 .composer {
