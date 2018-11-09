@@ -69,7 +69,7 @@ export default {
                             )
                             reject(errors);
                         })
-                        .then(() => {
+                        .finally(() => {
                             this.is_loading = false
                         });
                 }, 500);
@@ -130,7 +130,7 @@ export default {
                             'error'
                         )
                     })
-                    .then(() => swal.close())
+                    .finally(() => swal.close())
             });
         },
     },

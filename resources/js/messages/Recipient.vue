@@ -49,9 +49,6 @@
 
 <script>
 export default {
-    props: ['conversation'],
-
-
     data() {
         return {
             placeholder: '/vendor/mercurius/img/avatar/avatar_placeholder.png',

@@ -79070,28 +79070,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             closed: false,
-            recipient: ''
+            title: ''
         };
     },
     created: function created() {
         var _this = this;
 
         Bus.$on('mercuriusComposeNewMessage', function () {
-            return _this.updateStatus(__('return'));
+            return _this.updateTitle(__('return'));
         });
         Bus.$on('mercuriusOpenConversation', function (conv) {
-            return _this.updateStatus(conv.user);
+            return _this.updateTitle(conv.user);
         });
     },
 
 
     methods: {
-        updateStatus: function updateStatus(recipient) {
-            this.recipient = recipient;
+        updateTitle: function updateTitle(name) {
+            this.title = name;
             this.toggleSidebar(true);
         },
         onConversationOpen: function onConversationOpen(conv) {
-            this.recipient = conv.user;
+            this.title = conv.user;
             this.toggleSidebar(true);
         },
         toggleSidebar: function toggleSidebar() {
@@ -79137,7 +79137,7 @@ var render = function() {
       _vm._v(" "),
       _c("h4", {
         staticClass: "title",
-        domProps: { textContent: _vm._s(_vm.recipient) }
+        domProps: { textContent: _vm._s(_vm.title) }
       })
     ]
   )
@@ -79344,7 +79344,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         conversationClass: function conversationClass(conv) {
-            return (!!this.active && this.active.id === conv.id ? 'active' : '') + (this._received(conv) && _.isNull(conv.seen_at) ? ' unseen' : '');
+            return (!!this.active && this.active.slug === conv.slug ? 'active' : '') + (this._received(conv) && _.isNull(conv.seen_at) ? ' unseen' : '');
         },
         getMsg: function getMsg(conv) {
             return (this._received(conv) ? '' : 'You: ') + conv.message;
@@ -79368,16 +79368,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         // Private helpers
         //
-        _find: function _find(id) {
+        _find: function _find(slug) {
             return _.find(this.conversations, function (c) {
-                return c.id === id;
+                return c.slug === slug;
             });
         },
         _create: function _create(recipient) {
             var item = {
-                "id": recipient.id,
+                "slug": recipient.slug,
                 "user": recipient.name,
-                "sender": recipient.id,
+                "sender": recipient.slug,
                 "avatar": recipient.avatar,
                 "is_online": recipient.is_online,
                 "message": '',
@@ -79390,10 +79390,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         // Check if last message was received, or sent
         _received: function _received(conv) {
-            return conv.sender !== Mercurius.user.id;
+            return conv.sender !== Mercurius.user.slug;
         },
         _findOrCreate: function _findOrCreate(recipient) {
-            return this._find(recipient.id) || this._create(recipient);
+            return this._find(recipient.slug) || this._create(recipient);
         },
 
 
@@ -79408,7 +79408,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         onMessageReceived: function onMessageReceived(sender, msg) {
             var item = this._findOrCreate(sender);
-            item.sender = sender.id;
+            item.sender = sender.slug;
             item.message = msg.message;
             item.seen_at = null;
         },
@@ -79495,7 +79495,7 @@ module.exports = {
                     Bus.$emit('mercuriusConversationDeleted', recipient);
                 }).catch(function (error) {
                     swal(__('err_hd'), __('err_conversation_delete') + '\n' + error.response.data.message, 'error');
-                }).then(function () {
+                }).finally(function () {
                     return swal.close();
                 });
             });
@@ -79587,7 +79587,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  key: conversation.id,
+                  key: conversation.slug,
                   staticClass: "conversation",
                   class: _vm.conversationClass(conversation)
                 },
@@ -79642,7 +79642,7 @@ var render = function() {
                       staticClass: "conversation__action",
                       on: {
                         click: function($event) {
-                          _vm.deleteConversation(conversation.id)
+                          _vm.deleteConversation(conversation.slug)
                         }
                       }
                     },
@@ -80040,7 +80040,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         // check if message was received or sent
         received: function received(msg) {
-            return msg.sender !== Mercurius.user.id;
+            return msg.sender !== Mercurius.user.slug;
         },
 
 
@@ -80075,12 +80075,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this._appendMsg(msg);
         },
         onMessageReceived: function onMessageReceived(sender, msg) {
-            if (this.conversation.id === sender.id) this._appendMsg(msg);
+            if (this.conversation.slug === sender.slug) this._appendMsg(msg);
         },
         onLoadMessages: function onLoadMessages(usr) {
             var _this2 = this;
 
-            this.loadMessagesStart(usr.id).then(function () {
+            this.loadMessagesStart(usr.slug).then(function () {
                 return _this2._scrollTo('100%');
             });
         },
@@ -80206,7 +80206,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                         }).catch(function (err) {
                                             swal(__('err_hd'), __('err_messages_load') + '\n' + error.response.data.message, 'error');
                                             reject(errors);
-                                        }).then(function () {
+                                        }).finally(function () {
                                             _this.is_loading = false;
                                         });
                                     }, 500);
@@ -80273,7 +80273,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     Bus.$emit('mercuriusMessageDeleted', msg, msgLatest);
                 }).catch(function (err) {
                     swal(__('err_hd'), __('err_message_delete') + '\n' + error.response.data.message, 'error');
-                }).then(function () {
+                }).finally(function () {
                     return swal.close();
                 });
             });
@@ -81363,8 +81363,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['conversation'],
-
     data: function data() {
         return {
             placeholder: '/vendor/mercurius/img/avatar/avatar_placeholder.png',
@@ -81698,8 +81696,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Bus.$on('mercuriusComposeNewMessage', function () {
             return _this.reset();
         });
-        Bus.$on('mercuriusConversationDeleted', function (usrId) {
-            return _this.onConversationDeleted(usrId);
+        Bus.$on('mercuriusConversationDeleted', function (user) {
+            return _this.onConversationDeleted(user);
         });
         Bus.$on('mercuriusMessageSent', function () {
             return _this.reset();
@@ -81711,12 +81709,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         reset: function reset() {
             this.message = '';
         },
-        onConversationDeleted: function onConversationDeleted(usrId) {
-            if (this.conversation.id === usrId) this.reset();
+        onConversationDeleted: function onConversationDeleted(user) {
+            if (this.conversation.slug === user) this.reset();
         },
         onSend: function onSend() {
             if (_.isEmpty(this.message)) return;
-            this.sendMessage(this.conversation.id, this.message);
+            this.sendMessage(this.conversation.slug, this.message);
         }
     },
 
@@ -82885,7 +82883,7 @@ module.exports = {
         listen: function listen() {
             var _this2 = this;
 
-            Echo.private('mercurius.' + this.user.id).listen('.mercurius.message.sent', function (e) {
+            Echo.private('mercurius.' + this.user.slug).listen('.mercurius.message.sent', function (e) {
                 return _this2.onMessageReceived(e);
             }).listen('.mercurius.user.status.changed', function (user) {
                 return _this2.onUserStatusChanged(user);
@@ -82937,12 +82935,12 @@ module.exports = {
         /**
          * Conversation was deleted.
          */
-        onConversationDeleted: function onConversationDeleted(recipientId) {
+        onConversationDeleted: function onConversationDeleted(recipient) {
             var _c = this.conversations;
-            var _i = _.findIndex(_c, ['id', recipientId]);
+            var _i = _.findIndex(_c, ['slug', recipient]);
             Vue.delete(_c, _i);
 
-            if (this.conversation.id === recipientId) {
+            if (this.conversation.slug === recipient) {
                 this.conversation = {};
             }
         },
@@ -82954,7 +82952,7 @@ module.exports = {
          * @param {object} user
          */
         onUserStatusChanged: function onUserStatusChanged(ev) {
-            var _c = _.find(this.conversations, ['id', ev.user]);
+            var _c = _.find(this.conversations, ['slug', ev.user]);
             if (!_c) return;
 
             _c.is_online = ev.status === 'active';

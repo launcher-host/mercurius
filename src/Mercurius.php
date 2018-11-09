@@ -33,7 +33,7 @@ class Mercurius
         $user = Auth::user();
 
         return [
-            'id'          => $user->slug,
+            'slug'        => $user->slug,
             'name'        => $user->name,
             'avatar'      => $user->avatar,
             'is_online'   => (bool) $user->is_online,

@@ -49,7 +49,7 @@ module.exports = {
          * Setup event listener using Laravel Echo and Pusher.
          */
         listen() {
-            Echo.private('mercurius.'+this.user.id)
+            Echo.private('mercurius.'+this.user.slug)
                 .listen('.mercurius.message.sent', e => this.onMessageReceived(e))
                 .listen('.mercurius.user.status.changed', user => this.onUserStatusChanged(user));
         },
@@ -103,12 +103,12 @@ module.exports = {
         /**
          * Conversation was deleted.
          */
-        onConversationDeleted(recipientId) {
+        onConversationDeleted(recipient) {
             let _c = this.conversations
-            let _i = _.findIndex(_c, ['id', recipientId])
+            let _i = _.findIndex(_c, ['slug', recipient])
             Vue.delete(_c, _i)
 
-            if (this.conversation.id === recipientId) {
+            if (this.conversation.slug === recipient) {
                 this.conversation = {}
             }
         },
@@ -120,7 +120,7 @@ module.exports = {
          * @param {object} user
          */
         onUserStatusChanged(ev) {
-            let _c = _.find(this.conversations, ['id', ev.user])
+            let _c = _.find(this.conversations, ['slug', ev.user])
             if (!_c) return
 
             _c.is_online = (ev.status === 'active')

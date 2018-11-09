@@ -88,7 +88,7 @@ class ConversationRepository
 
         $sql = implode(' ', array_map('trim', [
             'SELECT',
-            '    users.slug as id,',
+            '    users.slug as slug,',
             '    users.name as user,',
             '    users.avatar,',
             '    users.is_online,',

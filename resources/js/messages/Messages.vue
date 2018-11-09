@@ -154,7 +154,7 @@ export default {
         },
         // check if message was received or sent
         received(msg) {
-            return msg.sender !== Mercurius.user.id
+            return msg.sender !== Mercurius.user.slug
         },
 
 
@@ -188,10 +188,10 @@ export default {
             this._appendMsg(msg)
         },
         onMessageReceived(sender, msg) {
-            if (this.conversation.id === sender.id) this._appendMsg(msg)
+            if (this.conversation.slug === sender.slug) this._appendMsg(msg)
         },
         onLoadMessages(usr) {
-            this.loadMessagesStart(usr.id)
+            this.loadMessagesStart(usr.slug)
                 .then(() => this._scrollTo('100%'));
         },
         onScroll(barY, barX, e) {
