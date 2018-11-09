@@ -42,7 +42,7 @@ class ConversationRepository
             ->get();
 
         // Transform output
-        $msg = $msg->map(function ($msg){
+        $msg = $msg->map(function ($msg) {
             return [
                 'id'         => $msg->id,
                 'message'    => $msg->message,
