@@ -44,7 +44,7 @@ export default {
 
     created() {
         Bus.$on('mercuriusComposeNewMessage', () => this.reset())
-        Bus.$on('mercuriusConversationDeleted', usrId => this.onConversationDeleted(usrId));
+        Bus.$on('mercuriusConversationDeleted', user => this.onConversationDeleted(user));
         Bus.$on('mercuriusMessageSent', () => this.reset())
     },
 
@@ -53,12 +53,12 @@ export default {
         reset() {
             this.message = ''
         },
-        onConversationDeleted(usrId) {
-            if (this.conversation.id === usrId) this.reset()
+        onConversationDeleted(user) {
+            if (this.conversation.slug === user) this.reset()
         },
         onSend() {
             if (_.isEmpty(this.message)) return
-            this.sendMessage(this.conversation.id, this.message);
+            this.sendMessage(this.conversation.slug, this.message);
         },
     },
 

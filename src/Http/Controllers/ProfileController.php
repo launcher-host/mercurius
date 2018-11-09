@@ -47,16 +47,14 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         try {
-            $inp = $request->only('setting_key', 'setting_val');
-            $_key = (string) $inp['setting_key'];
-            $_val = (bool) $inp['setting_val'];
-            $user = $request->user();
+            $request->validate([
+                'setting_key' => 'required|in:is_online,be_notified',
+                'setting_val' => 'required|boolean',
+            ]);
 
-            // Validate request
-            $allowedSettings = ['is_online', 'be_notified'];
-            if (!in_array($_key, $allowedSettings, true)) {
-                return response(['success' => false]);
-            }
+            $_key = $request['setting_key'];
+            $_val = $request['setting_val'];
+            $user = $request->user();
 
             // Save changes
             $user->{$_key} = $_val;

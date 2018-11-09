@@ -45,9 +45,7 @@ class UserStatusChanged implements ShouldBroadcast
         $this->user = $user;
         $this->status = $status;
 
-        $this->recipients = (new ConversationRepository())
-            ->recipients()
-            ->pluck('id');
+        $this->recipients = (new ConversationRepository())->recipients();
     }
 
     /**

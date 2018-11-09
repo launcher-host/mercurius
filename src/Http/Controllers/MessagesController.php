@@ -3,6 +3,7 @@
 namespace Launcher\Mercurius\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Launcher\Mercurius\Mercurius;
 use Launcher\Mercurius\Models\Message;
 use Launcher\Mercurius\Repositories\MessageRepository;
 
@@ -28,13 +29,16 @@ class MessagesController extends Controller
      */
     public function send(MessageRepository $repo, Request $request)
     {
-        $inp = $request->only('recipient', 'message');
-        $receiver = $inp['recipient'];
-        $message = $inp['message'];
+        $request->validate([
+            'recipient' => 'required|string',
+            'message'   => 'required|string',
+        ]);
 
-        $result = $repo->send($request->user()->id, $receiver, $message);
+        $from = $request->user()->id;
+        $receiver = Mercurius::findUserOrFail($request->recipient);
+        $message = $request->message;
 
-        return response($result);
+        return response($repo->send($from, $receiver, $message));
     }
 
     /**

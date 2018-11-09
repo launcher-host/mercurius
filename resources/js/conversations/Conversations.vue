@@ -32,7 +32,7 @@
                 <div
                     class="conversation"
                     :class="conversationClass(conversation)"
-                    :key="conversation.id"
+                    :key="conversation.slug"
                     >
                     <a
                         href="#"
@@ -56,7 +56,7 @@
                     <!-- Delete Conversation -->
                     <div
                         class="conversation__action"
-                        @click="deleteConversation(conversation.id)"
+                        @click="deleteConversation(conversation.slug)"
                     ><svg class="ic ic-bin"><use xlink:href="#icon-bin"></use></svg>
                     </div>
                 </div>
@@ -130,7 +130,7 @@ export default {
 
     methods: {
         conversationClass(conv) {
-            return (!!this.active && this.active.id === conv.id ? 'active' : '')
+            return (!!this.active && this.active.slug === conv.slug ? 'active' : '')
                  + (this._received(conv) && _.isNull(conv.seen_at) ? ' unseen' : '');
         },
         getMsg(conv) {
@@ -147,7 +147,7 @@ export default {
             Bus.$emit('mercuriusOpenConversation', this.active);
         },
         refreshMessage(msg) {
-            this.active.sender     = msg.sender_id
+            this.active.sender     = msg.sender
             this.active.message    = msg.message
             this.active.created_at = msg.created_at
         },
@@ -155,16 +155,16 @@ export default {
 
         // Private helpers
         //
-        _find(id) {
+        _find(slug) {
             return _.find(this.conversations, (c) => {
-                return c.id===id
+                return c.slug===slug
             })
         },
         _create(recipient) {
             let item = {
-                "id":         recipient.id,
+                "slug":       recipient.slug,
                 "user":       recipient.name,
-                "sender":     recipient.id,
+                "sender":     recipient.slug,
                 "avatar":     recipient.avatar,
                 "is_online":  recipient.is_online,
                 "message":    '',
@@ -176,10 +176,10 @@ export default {
         },
         // Check if last message was received, or sent
         _received(conv) {
-            return conv.sender!==Mercurius.user.id
+            return conv.sender!==Mercurius.user.slug
         },
         _findOrCreate(recipient) {
-            return this._find(recipient.id) || this._create(recipient)
+            return this._find(recipient.slug) || this._create(recipient)
         },
 
 
@@ -194,7 +194,7 @@ export default {
         },
         onMessageReceived(sender, msg) {
             let item = this._findOrCreate(sender);
-            item.sender  = sender.id;
+            item.sender  = sender.slug;
             item.message = msg.message;
             item.seen_at = null;
         },

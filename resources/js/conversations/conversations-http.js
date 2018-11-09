@@ -81,7 +81,7 @@ module.exports = {
                             'error'
                         )
                     })
-                    .then(() => swal.close())
+                    .finally(() => swal.close())
             });
         }
     },

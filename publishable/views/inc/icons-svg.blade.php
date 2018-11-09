@@ -14,8 +14,8 @@
         <title>bin</title>
         <path d="M 18 13 L 18 7 C 18 4 21 1 24 1 L 36 1 C 39 1 42 4 42 7 L 42 13 L 56 13 C 58 13 59 14 59 16 C 59 17 58 18 56 18 L 53 18 L 53 53 C 53 56 51 59 47 59 L 13 59 C 9 59 7 56 7 53 L 7 18 L 4 18 C 2 18 1 17 1 16 C 1 14 2 13 4 13 L 18 13 Z  M 13 18 L 13 53 L 47 53 L 47 18 L 13 18 Z  M 36 13 L 36 7 L 24 7 L 24 13 L 36 13 Z  M 24 24 C 26 24 27 25 27 27 L 27 45 C 27 46 26 47 24 47 C 23 47 21 46 21 45 L 21 27 C 21 25 23 24 24 24 Z  M 36 24 C 37 24 39 25 39 27 L 39 45 C 39 46 37 47 36 47 C 34 47 33 46 33 45 L 33 27 C 33 25 34 24 36 24 Z"/>
     </symbol>
-    <symbol id="icon-clear" viewBox="0 0 60 60">
-        <title>clear</title>
+    <symbol id="icon-check" viewBox="0 0 60 60">
+        <title>check</title>
         <path d="M 13 25 L 23 34 L 47 10 C 50 7 54 8 57 10 C 60 13 60 17 57 20 L 28 50 C 25 53 20 53 18 50 L 3 35 C 0 32 0 28 3 25 C 6 22 10 22 13 25 L 13 25 Z"/>
     </symbol>
     <symbol id="icon-clock" viewBox="0 0 60 60">

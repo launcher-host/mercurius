@@ -29,12 +29,17 @@ class MessageRepository
 
             $msg->save();
 
-            // Load sender with avatar
-            $sender = $msg->sender->only('id', 'name', 'avatar');
+            broadcast(new MessageSent($msg->receiver, $msg->sender, $msg))->toOthers();
 
-            broadcast(new MessageSent($msg->receiver, $sender, $msg))->toOthers();
+            $out = [
+                'id'         => $msg->id,
+                'message'    => $msg->message,
+                'sender'     => $msg->sender->slug,
+                'seen_at'    => $msg->seen_at,
+                'created_at' => date($msg->created_at),
+            ];
 
-            return $msg;
+            return $out;
         } catch (Exception $e) {
             return ['status' => false, 'message' => $e->getMessage()];
         }

@@ -4,7 +4,6 @@
             <svg class="ic"><use xlink:href="#icon-ani-puff"></use></svg>
         </div>
 
-
         <vue-scroll
             ref="wrap"
             :ops="ops"
@@ -15,10 +14,9 @@
                     <div
                         class="message_row"
                         :class="msgClass(msg, idx)"
-                        :key="idx"
+                        :key="msg.id"
                         ref="msg"
                     >
-
                         <!-- Messages Datetime -->
                         <div
                             v-if="showDatetime(msg, idx)"
@@ -37,7 +35,7 @@
 
                             <!-- Message -->
                             <div class="message__body"
-                                v-b-toggle="'aux'+idx"
+                                v-b-toggle="'aux'+msg.id"
                                 v-text="msg.message">
                             </div>
 
@@ -56,10 +54,19 @@
                         <!-- Message Datetime -->
                         <b-collapse
                             class="message__datetime"
-                            :id="'aux'+idx"
+                            :id="'aux'+msg.id"
+                            nofade
                         >
-                            <svg class="ic ic-clock"><use xlink:href="#icon-clock"></use></svg>
                             {{msg.created_at | datetimeSingle}}
+                            <button
+                                v-if="!received(msg)"
+                                class="text-secondary btn btn-link p-0 pb-1"
+                                v-b-tooltip:message_row.topleft
+                                :title="deliveryStatus(msg)"
+                            >
+                                <svg class="ic ic-clock" v-if="!msg.seen_at"><use xlink:href="#icon-clock"></use></svg>
+                                <svg class="ic ic-check" v-else><use xlink:href="#icon-check"></use></svg>
+                            </button>
                         </b-collapse>
                     </div>
                 </template>
@@ -134,12 +141,21 @@ export default {
             return this._sameDay(msg, idx);
         },
         showAvatar(msg, idx) {
-            if (!this._received(msg)) return false;
+            if (!this.received(msg)) return false;
             return !this._sameSender(msg, idx) || this._sameDay(msg, idx);
         },
         msgClass(msg, idx) {
-            return (this._received(msg) ? 'msg_received' : 'msg_sent')
+            return (this.received(msg) ? 'msg_received' : 'msg_sent')
                  + (this._sameSender(msg, idx) ? '' : ' new_sender')
+        },
+        deliveryStatus(msg) {
+            return !!msg.seen_at
+                ? __('msg_seen_at')+' '+moment.utc(msg.seen_at).local().format('D MMM YYYY HH:mm')
+                : __('msg_sent');
+        },
+        // check if message was received or sent
+        received(msg) {
+            return msg.sender !== Mercurius.user.slug
         },
 
 
@@ -147,10 +163,6 @@ export default {
         //
         _hasMsg(idx) {
             return (!!this.messages[idx]);
-        },
-        // Check if message was received or sent
-        _received(msg) {
-            return msg.sender_id !== Mercurius.user.id
         },
         // Check if message was sent on the same day
         _sameDay(msg, idx) {
@@ -160,7 +172,7 @@ export default {
         // Check if message was sent by the same user
         _sameSender(msg, idx) {
             if (!this._hasMsg(idx+1)) return false;
-            return (this.messages[idx+1].sender_id === msg.sender_id);
+            return (this.messages[idx+1].sender === msg.sender);
         },
         _scrollTo(y_val) {
             this.$refs.wrap.scrollTo({x: 0, y: y_val})
@@ -177,10 +189,10 @@ export default {
             this._appendMsg(msg)
         },
         onMessageReceived(sender, msg) {
-            if (this.conversation.id === sender.id) this._appendMsg(msg)
+            if (this.conversation.slug === sender.slug) this._appendMsg(msg)
         },
         onLoadMessages(usr) {
-            this.loadMessagesStart(usr.id)
+            this.loadMessagesStart(usr.slug)
                 .then(() => this._scrollTo('100%'));
         },
         onScroll(barY, barX, e) {

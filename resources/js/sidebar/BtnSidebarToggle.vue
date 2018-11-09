@@ -5,7 +5,7 @@
         v-model="closed"
         @click="toggleSidebar()"
     ><svg class="ic _ic-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
-        <h4 class="title" v-text="recipient"></h4>
+        <h4 class="title" v-text="title"></h4>
     </a>
 </template>
 
@@ -15,24 +15,24 @@ export default {
     data() {
         return {
             closed: false,
-            recipient: '',
+            title: '',
         }
     },
 
 
     created() {
-        Bus.$on('mercuriusComposeNewMessage', () => this.updateStatus(__('return')));
-        Bus.$on('mercuriusOpenConversation', (conv) => this.updateStatus(conv.user));
+        Bus.$on('mercuriusComposeNewMessage', () => this.updateTitle(__('return')));
+        Bus.$on('mercuriusOpenConversation', (conv) => this.updateTitle(conv.user));
     },
 
 
     methods: {
-        updateStatus(recipient) {
-            this.recipient = recipient
+        updateTitle(name) {
+            this.title = name
             this.toggleSidebar(true);
         },
         onConversationOpen(conv) {
-            this.recipient = conv.user
+            this.title = conv.user
             this.toggleSidebar(true);
         },
         toggleSidebar(val = false) {

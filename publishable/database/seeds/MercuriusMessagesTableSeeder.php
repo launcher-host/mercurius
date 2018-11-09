@@ -26,10 +26,6 @@ class MercuriusMessagesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('mercurius_messages')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
         $ian = $this->getUser('ian@launcher.host');
         $noa = $this->getUser('noa@launcher.host');
         $lua = $this->getUser('lua@launcher.host');
@@ -117,7 +113,7 @@ class MercuriusMessagesTableSeeder extends Seeder
      */
     private function addMessage($message, $sender_id, $receiver_id, $datetime)
     {
-        DB::table('mercurius_messages')->insert([
+        config('mercurius.models.messages')::insert([
             'message'     => $message,
             'sender_id'   => $sender_id,
             'receiver_id' => $receiver_id,

@@ -38,7 +38,7 @@
                 @click.prevent="onSelect(recipient)"
             >
                 <img class="recipient__results__avatar"
-                    :alt="recipient.sender"
+                    :alt="recipient.name"
                     :src="recipient.avatar || placeholder"
                 />
                 <span v-text="recipient.name"/>
@@ -49,9 +49,6 @@
 
 <script>
 export default {
-    props: ['conversation'],
-
-
     data() {
         return {
             placeholder: '/vendor/mercurius/img/avatar/avatar_placeholder.png',
@@ -117,7 +114,7 @@ export default {
                     this.is_open    = true
                 })
                 .catch(() => swal(__('err_hd'), __('err_recipients'), 'error'))
-                .then(() => this.loading = false);
+                .finally(() => this.loading = false);
         },
     }
 }
