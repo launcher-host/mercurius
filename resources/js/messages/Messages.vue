@@ -14,7 +14,7 @@
                     <div
                         class="message_row"
                         :class="msgClass(msg, idx)"
-                        :key="idx"
+                        :key="msg.id"
                         ref="msg"
                     >
                         <!-- Messages Datetime -->
@@ -35,7 +35,7 @@
 
                             <!-- Message -->
                             <div class="message__body"
-                                v-b-toggle="'aux'+idx"
+                                v-b-toggle="'aux'+msg.id"
                                 v-text="msg.message">
                             </div>
 
@@ -54,14 +54,15 @@
                         <!-- Message Datetime -->
                         <b-collapse
                             class="message__datetime"
-                            :id="'aux'+idx"
+                            :id="'aux'+msg.id"
                             nofade
                         >
                             {{msg.created_at | datetimeSingle}}
                             <button
                                 v-if="!received(msg)"
                                 class="text-secondary btn btn-link p-0 pb-1"
-                                v-b-tooltip.topleft :title="deliveryStatus(msg)"
+                                v-b-tooltip:message_row.topleft
+                                :title="deliveryStatus(msg)"
                             >
                                 <svg class="ic ic-clock" v-if="!msg.seen_at"><use xlink:href="#icon-clock"></use></svg>
                                 <svg class="ic ic-check" v-else><use xlink:href="#icon-check"></use></svg>

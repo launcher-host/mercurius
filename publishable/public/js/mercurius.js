@@ -79965,6 +79965,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -81111,7 +81112,7 @@ var render = function() {
                   _c(
                     "div",
                     {
-                      key: idx,
+                      key: msg.id,
                       ref: "msg",
                       refInFor: true,
                       staticClass: "message_row",
@@ -81142,8 +81143,8 @@ var render = function() {
                             {
                               name: "b-toggle",
                               rawName: "v-b-toggle",
-                              value: "aux" + idx,
-                              expression: "'aux'+idx"
+                              value: "aux" + msg.id,
+                              expression: "'aux'+msg.id"
                             }
                           ],
                           staticClass: "message__body",
@@ -81183,7 +81184,7 @@ var render = function() {
                         "b-collapse",
                         {
                           staticClass: "message__datetime",
-                          attrs: { id: "aux" + idx, nofade: "" }
+                          attrs: { id: "aux" + msg.id, nofade: "" }
                         },
                         [
                           _vm._v(
@@ -81198,7 +81199,9 @@ var render = function() {
                                   directives: [
                                     {
                                       name: "b-tooltip",
-                                      rawName: "v-b-tooltip.topleft",
+                                      rawName:
+                                        "v-b-tooltip:message_row.topleft",
+                                      arg: "message_row",
                                       modifiers: { topleft: true }
                                     }
                                   ],
