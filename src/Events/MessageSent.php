@@ -64,6 +64,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('mercurius.'.$this->receiver->id);
+        return new PrivateChannel('mercurius.'.$this->receiver->slug);
     }
 }
