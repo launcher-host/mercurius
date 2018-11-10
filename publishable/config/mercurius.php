@@ -20,6 +20,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | User Table Fields
+    |--------------------------------------------------------------------------
+    |
+    | You can specify the name of the fields in the user table. The `name` will
+    | accept a mixed parameter: array and string.
+    |
+    */
+
+    'fields' => [
+        // 'name'   => '[first_name, last_name]',
+        'name'   => 'name',
+        'slug'   => 'slug',
+        'avatar' => 'avatar',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Display "is typing..."
     |--------------------------------------------------------------------------
     |
