@@ -13,9 +13,9 @@ return [
     */
 
     'models' => [
-        'user'          => App\User::class,
-        'messages'      => Launcher\Mercurius\Models\Message::class,
-        'conversations' => Launcher\Mercurius\Models\Conversation::class,
+        'user'         => App\User::class,
+        'message'      => Launcher\Mercurius\Models\Message::class,
+        'conversation' => Launcher\Mercurius\Models\Conversation::class,
     ],
 
     /*

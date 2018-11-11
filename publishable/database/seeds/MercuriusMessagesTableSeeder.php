@@ -113,7 +113,7 @@ class MercuriusMessagesTableSeeder extends Seeder
      */
     private function addMessage($message, $sender_id, $receiver_id, $datetime)
     {
-        config('mercurius.models.messages')::insert([
+        config('mercurius.models.message')::insert([
             'message'     => $message,
             'sender_id'   => $sender_id,
             'receiver_id' => $receiver_id,

@@ -14,17 +14,46 @@ class Mercurius
     public static $version = '1.0.0-alpha';
 
     /**
-     * Return User id for a given slug or fails.
-     *
-     * @param int|string $val
-     *
-     * @return Illuminate\Database\Eloquent\Model;
+     * The models used with Mercurius.
      */
-    public function findUserOrFail(string $slug)
-    {
-        $userFqcn = config('mercurius.models.user');
-        $usr = $userFqcn::where('slug', $slug)->firstOrFail();
+    protected $models = [
+        'user',
+        'message',
+    ];
 
-        return $usr->id;
+    /**
+     * Creates a new instance.
+     */
+    public function __construct()
+    {
+        foreach ($this->models as $model) {
+            $this->models[$model] = config('mercurius.models.'.$model);
+        }
+    }
+
+    /**
+     * Get model instance by name.
+     *
+     * @param  string $name
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function model(string $name)
+    {
+        $class = strtolower($name);
+        if (!in_array($class, $this->models)) {
+            throw new \Exception("[{$class}] class not found.");
+        }
+
+        return app($this->models[$class]);
+    }
+
+    /**
+     * Get the user model instance.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function user()
+    {
+        return app($this->models['user']);
     }
 }
