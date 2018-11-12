@@ -8,7 +8,6 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Launcher\Mercurius\Models\Message;
 
 class MessageSent implements ShouldBroadcast
 {
@@ -31,7 +30,7 @@ class MessageSent implements ShouldBroadcast
     /**
      * Message.
      *
-     * @var Launcher\Mercurius\Models\Message
+     * @var Launcher\Mercurius\Message
      */
     public $message;
 
@@ -40,7 +39,7 @@ class MessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($receiver, $sender, Message $message)
+    public function __construct($receiver, $sender, $message)
     {
         $this->receiver = $receiver;
         $this->sender = $sender;

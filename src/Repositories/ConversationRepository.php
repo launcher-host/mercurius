@@ -83,26 +83,32 @@ class ConversationRepository
     public function all($user = null)
     {
         $user = is_null($user) ? Auth::user()->id : $user;
+        $tbl_users = Mercurius::model('user')->getTable();
         $tbl_messages = Mercurius::model('message')->getTable();
+        $slug = config('mercurius.fields.slug');
+        $name = config('mercurius.fields.name');
+        $name = !is_array($name)
+                    ? 'users.'.$name
+                    : 'CONCAT(users.'.implode(", ' ', users.", $name).')';
 
         $sql = implode(' ', array_map('trim', [
             'SELECT',
-            '    users.slug as slug,',
-            '    users.name as user,',
-            '    users.avatar,',
+            '    users.'.$slug.' as slug,',
+            '    '.$name.' as user,',
+            '    users.'.config('mercurius.fields.avatar').',',
             '    users.is_online,',
-            '    sender.slug as sender,',
+            '    sender.'.$slug.' as sender,',
             '    m.message,',
             '    m.seen_at,',
             '    m.created_at',
             'FROM',
             '    '.$tbl_messages.' m,',
-            '    users,',
-            '    users sender,',
+            '    '.$tbl_users.' users,',
+            '    '.$tbl_users.' sender,',
             '    (',
             '        SELECT MAX(u.id) AS id, u.usr',
             '        FROM',
-            '        users,',
+            '        '.$tbl_users.',',
             '        (',
             '            SELECT receiver_id as usr, MAX(id) AS id FROM '.$tbl_messages,
             '            WHERE deleted_by_sender IS FALSE AND sender_id ='.$user.' GROUP BY usr',
@@ -137,7 +143,8 @@ class ConversationRepository
         $tbl_messages = Mercurius::model('message')->getTable();
 
         $sql = implode(' ', array_map('trim', [
-            'SELECT DISTINCT users.slug',
+            'SELECT DISTINCT',
+            '    users.'.config('mercurius.fields.slug').' as slug',
             'FROM '.$tbl_users.' users, ',
             '(',
             '    SELECT receiver_id as id FROM '.$tbl_messages,

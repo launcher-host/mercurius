@@ -1,6 +1,6 @@
 <?php
 
-namespace Launcher\Mercurius\Models;
+namespace Launcher\Mercurius;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

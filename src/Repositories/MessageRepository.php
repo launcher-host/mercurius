@@ -51,8 +51,8 @@ class MessageRepository
      * Messages are permanently removed from the system when removed from
      * both users: Sender and Receiver.
      *
-     * @param \Launcher\Mercurius\Models\Message $message
-     * @param int                                $user
+     * @param \Launcher\Mercurius\Message $message
+     * @param int                         $user
      *
      * @return \Illuminate\Support\Collection
      */

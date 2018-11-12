@@ -11,21 +11,43 @@ class UserRepository
     /**
      * Perform a search.
      *
-     * @param string $query
+     * @param string $keyword
      * @param int    $limit
      *
      * @return LengthAwarePaginator
      */
-    public function search(string $query, int $limit = 6): LengthAwarePaginator
+    public function search(string $keyword, int $limit = 6): LengthAwarePaginator
     {
-        return Mercurius::user()
-            ->where('name', 'LIKE', '%'.$query.'%')
-            ->paginate($limit, [
-                'slug',
-                'name',
-                'avatar',
+        try {
+            // expect a mixed value: string|array
+            $names = config('mercurius.fields.name');
+
+            $sqlName = !is_array($names)
+                ? $names
+                : 'CONCAT('.implode(", ' ',", $names).') as name';
+
+            $rawSelect = implode(', ', [
+                $sqlName,
+                config('mercurius.fields.slug'),
+                config('mercurius.fields.avatar'),
                 'is_online',
             ]);
+
+            $users = Mercurius::user()
+                ->selectRaw($rawSelect)
+                ->when(is_array($names), function ($query) use ($names, $keyword) {
+                    foreach ($names as $name) {
+                        $query->orWhere($name, 'like', "%{$keyword}%");
+                    }
+                }, function ($query) use ($names, $keyword) {
+                    return $query->where($names, 'like', "%{$keyword}%");
+                })
+                ->paginate($limit);
+
+            return $users;
+        } catch (Exception $e) {
+            return ['status' => false, 'message' => $e->getMessage()];
+        }
     }
 
     /**
@@ -36,11 +58,13 @@ class UserRepository
     public function getSettings(): array
     {
         $user = Auth::user();
+        $name = config('mercurius.fields.name');
+        $name = !is_array($name) ? $name : implode(' ', $user->only($name));
 
         return [
-            'slug'        => $user->slug,
-            'name'        => $user->name,
-            'avatar'      => $user->avatar,
+            'slug'        => $user->{config('mercurius.fields.slug')},
+            'name'        => $name,
+            'avatar'      => $user->{config('mercurius.fields.avatar')},
             'is_online'   => (bool) $user->is_online,
             'be_notified' => (bool) $user->be_notified,
             'dark_mode'   => true,  // This is saved at LocalStorage
