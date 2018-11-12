@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Launcher\Mercurius\Events\UserGoesActive;
 use Launcher\Mercurius\Events\UserGoesInactive;
 use Launcher\Mercurius\Events\UserStatusChanged;
-use Launcher\Mercurius\Facades\Mercurius;
 use Launcher\Mercurius\Repositories\ConversationRepository;
 use Launcher\Mercurius\Repositories\UserRepository;
 

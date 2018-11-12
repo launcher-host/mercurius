@@ -3,7 +3,6 @@
 namespace Launcher\Mercurius\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Launcher\Mercurius\Facades\Mercurius;
 use Launcher\Mercurius\Repositories\ConversationRepository;
 use Launcher\Mercurius\Repositories\UserRepository;
 

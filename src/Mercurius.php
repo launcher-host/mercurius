@@ -34,7 +34,7 @@ class Mercurius
     /**
      * Get model instance by name.
      *
-     * @param  string $name
+     * @param string $name
      * @return Illuminate\Database\Eloquent\Model
      */
     public function model(string $name)

@@ -5,7 +5,7 @@ namespace Launcher\Mercurius\Setup;
 use Illuminate\Support\Carbon;
 
 /**
- * Timestamped Migrations handler
+ * Timestamped Migrations handler.
  *
  * - provides list of publishable migrations files
  * - timestamp files with the current datetime
