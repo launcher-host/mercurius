@@ -1,7 +1,19 @@
 # CHANGELOG
 
-<a name="1.0-alpha"></a>
-# [1.0-alpha](https://github.com/launcher-host/mercurius/releases/tag/1.0-alpha) (2018-11-xx)
+<a name="1.0.0-alpha.1"></a>
+# [1.0.0-alpha.1](https://github.com/launcher-host/mercurius/releases/tag/1.0.0-alpha.1) (2018-11-xx)
+
+This release adds additional extendibility to Mercurius, with the following changes:
+
+- feature: custom models defined in config
+- feature: custom user fields defined in config
+- feature: (optional) the User name can result by merging multiple fields, e.g.: using `first_name` and `last_name`
+- refactor: Eloquent models moved to root folder
+- refactor: decouple ScriptVariables and refactor in general
+
+
+<a name="1.0.0-alpha"></a>
+# [1.0.0-alpha](https://github.com/launcher-host/mercurius/releases/tag/1.0.0-alpha) (2018-11-12)
 
 - docs: general changes add notes on updating Mercurius
 - chore: MigrationsHandler publish timestamped migrations

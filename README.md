@@ -146,6 +146,23 @@ return [
         'user' => App\User::class,
         'messages' => Launcher\Mercurius\Models\Message::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Table Fields
+    |--------------------------------------------------------------------------
+    |
+    | You can specify the column names for the user table. The `name` accepts
+    | an array of fields, for building custom names with multiple columns.
+    |
+    */
+
+    'fields' => [
+        // 'name'   => ['first_name', 'last_name'],
+        'name'   => 'name',
+        'slug'   => 'slug',
+        'avatar' => 'avatar',
+    ],
 ];
 ```
 
