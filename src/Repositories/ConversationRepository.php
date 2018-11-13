@@ -130,7 +130,7 @@ class ConversationRepository
     }
 
     /**
-     * Retrieves all recipients with active conversations with a given user.
+     * Return recipients with active conversations to a given user.
      *
      * @param int $user Default Auth() user
      *
@@ -148,10 +148,10 @@ class ConversationRepository
             'FROM '.$tbl_users.' users, ',
             '(',
             '    SELECT receiver_id as id FROM '.$tbl_messages,
-            '    WHERE sender_id ='.$user.' AND deleted_by_sender IS FALSE',
+            '    WHERE sender_id ='.$user.' AND deleted_by_receiver IS FALSE',
             '    UNION ALL',
             '    SELECT sender_id as id FROM '.$tbl_messages,
-            '    WHERE receiver_id ='.$user.' AND deleted_by_receiver IS FALSE',
+            '    WHERE receiver_id ='.$user.' AND deleted_by_sender IS FALSE',
             ') mr',
             'WHERE users.id = mr.id',
         ]));
