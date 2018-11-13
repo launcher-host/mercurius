@@ -34,6 +34,7 @@ class UserRepository
             ]);
 
             $users = Mercurius::user()
+                ->contacts()
                 ->selectRaw($rawSelect)
                 ->when(is_array($names), function ($query) use ($names, $keyword) {
                     foreach ($names as $name) {
