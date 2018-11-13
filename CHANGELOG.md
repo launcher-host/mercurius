@@ -1,7 +1,7 @@
 # CHANGELOG
 
 <a name="1.0.0-alpha.1"></a>
-# [1.0.0-alpha.1](https://github.com/launcher-host/mercurius/releases/tag/1.0.0-alpha.1) (2018-11-xx)
+# [1.0.0-alpha.1](https://github.com/launcher-host/mercurius/releases/tag/1.0.0-alpha.1) (2018-11-13)
 
 This release adds additional extendibility to Mercurius, with the following changes:
 
