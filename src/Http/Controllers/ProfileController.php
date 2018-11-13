@@ -52,6 +52,7 @@ class ProfileController extends Controller
                 'setting_val' => 'required|boolean',
             ]);
 
+            $slug = config('mercurius.fields.slug');
             $_key = $request['setting_key'];
             $_val = $request['setting_val'];
             $user = $request->user();
@@ -64,12 +65,12 @@ class ProfileController extends Controller
             if ($_key === 'is_online') {
                 // Fire event with new User status
                 $eventName = $_val ? UserGoesActive::class : UserGoesInactive::class;
-                event(new $eventName($user->id));
+                event(new $eventName($user->{$slug}));
 
                 // Broadcast event to the Users holding conversations with the
                 // current User
                 $newStatus = ($_val ? 'active' : 'inactive');
-                broadcast(new UserStatusChanged($user->id, $newStatus))->toOthers();
+                broadcast(new UserStatusChanged($user->{$slug}, $newStatus))->toOthers();
             }
 
             return response([$result]);

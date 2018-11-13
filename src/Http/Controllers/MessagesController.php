@@ -33,9 +33,9 @@ class MessagesController extends Controller
             'recipient' => 'required|string',
             'message'   => 'required|string',
         ]);
-
-        $from = $request->user()->id;
-        $receiver = $user->find($request->recipient)->id;
+        $slug = config('mercurius.fields.slug');
+        $from = $request->user()->{$slug};
+        $receiver = $user->find($request->recipient)->{$slug};
         $message = $request->message;
 
         return response($msg->send($from, $receiver, $message));
