@@ -34,6 +34,7 @@ class UserRepository
             ]);
 
             $users = Mercurius::user()
+                ->contacts()
                 ->selectRaw($rawSelect)
                 ->when(is_array($names), function ($query) use ($names, $keyword) {
                     foreach ($names as $name) {
@@ -80,7 +81,9 @@ class UserRepository
      */
     public function find(string $slug)
     {
-        $user = Mercurius::user()->where('slug', $slug)->first();
+        $user = Mercurius::user()
+            ->where(config('mercurius.fields.slug'), $slug)
+            ->first();
 
         return $user ?: null;
     }

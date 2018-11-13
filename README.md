@@ -175,7 +175,23 @@ composer dump-autoload
 ```
 
 
-##### 7. Install dummy data (for testing)
+##### 7. User trait
+Add `Launcher\Mercurius\MercuriusUser` trait to your `User` model:
+
+```php
+// ...
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Launcher\Mercurius\MercuriusUser;
+
+class User extends Authenticatable
+{
+    use MercuriusUser;
+    // ...
+}
+```
+
+
+##### 8. Install dummy data (for testing)
 ```bash
 php artisan db:seed --class=MercuriusDatabaseSeeder
 ```
@@ -195,6 +211,7 @@ Whenever you update Mercurius, make sure to publish assets to apply the new vers
 ```php
 php artisan vendor:publish --tag=mercurius-public --force
 ```
+
 
 <br>
 
