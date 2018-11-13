@@ -5,6 +5,7 @@
 
 This release adds additional extendibility to Mercurius, with the following changes:
 
+- feature: MercuriusUser trait added with scopeContacts() to filter users
 - feature: custom models defined in config
 - feature: custom user fields defined in config
 - feature: (optional) the User name can result by merging multiple fields, e.g.: using `first_name` and `last_name`
