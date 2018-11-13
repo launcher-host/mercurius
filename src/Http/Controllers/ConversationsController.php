@@ -31,18 +31,6 @@ class ConversationsController extends Controller
     }
 
     /**
-     * Display all users with active conversations with a given user id.
-     *
-     * @param ConversationRepository $conversation
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function recipients(ConversationRepository $conversation)
-    {
-        return response($conversation->recipients());
-    }
-
-    /**
      * Display a single conversation for a given user.
      *
      * @param string                 $recipient

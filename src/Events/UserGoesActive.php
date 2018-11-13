@@ -11,7 +11,7 @@ class UserGoesActive
     /**
      * The User going active.
      *
-     * @var int
+     * @var string
      */
     public $user;
 

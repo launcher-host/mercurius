@@ -31,7 +31,6 @@ Route::group([
 
     // Conversations
     Route::get('/conversations', 'ConversationsController@index');
-    Route::get('/conversations/recipients', 'ConversationsController@recipients');
     Route::post('/conversations/{receiver}', 'ConversationsController@show');
     Route::delete('/conversations/{receiver}', 'ConversationsController@destroy');
 
