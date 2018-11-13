@@ -3,9 +3,9 @@
 namespace Launcher\Mercurius\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Launcher\Mercurius\Mercurius;
-use Launcher\Mercurius\Models\Message;
+use Launcher\Mercurius\Facades\Mercurius;
 use Launcher\Mercurius\Repositories\MessageRepository;
+use Launcher\Mercurius\Repositories\UserRepository;
 
 class MessagesController extends Controller
 {
@@ -27,7 +27,7 @@ class MessagesController extends Controller
      *
      * @return array
      */
-    public function send(MessageRepository $repo, Request $request)
+    public function send(Request $request, MessageRepository $msg, UserRepository $user)
     {
         $request->validate([
             'recipient' => 'required|string',
@@ -35,10 +35,10 @@ class MessagesController extends Controller
         ]);
 
         $from = $request->user()->id;
-        $receiver = Mercurius::findUserOrFail($request->recipient);
+        $receiver = $user->find($request->recipient)->id;
         $message = $request->message;
 
-        return response($repo->send($from, $receiver, $message));
+        return response($msg->send($from, $receiver, $message));
     }
 
     /**
@@ -50,9 +50,9 @@ class MessagesController extends Controller
      *
      * @return array
      */
-    public function destroy($message, MessageRepository $repo, Request $request)
+    public function destroy($message, MessageRepository $repo, Request $request, UserRepository $user)
     {
-        $msg = Message::findOrFail($message);
+        $msg = Mercurius::model('message')->findOrFail($message);
 
         return $repo->delete($msg, $request->user()->id);
     }

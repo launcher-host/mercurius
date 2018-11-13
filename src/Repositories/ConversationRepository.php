@@ -5,6 +5,7 @@ namespace Launcher\Mercurius\Repositories;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Launcher\Mercurius\Facades\Mercurius;
 
 class ConversationRepository
 {
@@ -21,9 +22,8 @@ class ConversationRepository
     public function get($receiver, $offset = 0, $limit = 10, $sender = null)
     {
         $sender = is_null($sender) ? Auth::user()->id : $sender;
-        $msgFqcn = config('mercurius.models.messages');
 
-        $msg = (new $msgFqcn())
+        $msg = Mercurius::model('message')
             ->select('id', 'message', 'sender_id', 'seen_at', 'created_at')
             ->with('sender:id,slug')
             ->where([
@@ -83,27 +83,32 @@ class ConversationRepository
     public function all($user = null)
     {
         $user = is_null($user) ? Auth::user()->id : $user;
-        $mdl_messages = config('mercurius.models.messages');
-        $tbl_messages = (new $mdl_messages())->getTable();
+        $tbl_users = Mercurius::model('user')->getTable();
+        $tbl_messages = Mercurius::model('message')->getTable();
+        $slug = config('mercurius.fields.slug');
+        $name = config('mercurius.fields.name');
+        $name = !is_array($name)
+                    ? 'users.'.$name
+                    : 'CONCAT(users.'.implode(", ' ', users.", $name).')';
 
         $sql = implode(' ', array_map('trim', [
             'SELECT',
-            '    users.slug as slug,',
-            '    users.name as user,',
-            '    users.avatar,',
+            '    users.'.$slug.' as slug,',
+            '    '.$name.' as user,',
+            '    users.'.config('mercurius.fields.avatar').',',
             '    users.is_online,',
-            '    sender.slug as sender,',
+            '    sender.'.$slug.' as sender,',
             '    m.message,',
             '    m.seen_at,',
             '    m.created_at',
             'FROM',
             '    '.$tbl_messages.' m,',
-            '    users,',
-            '    users sender,',
+            '    '.$tbl_users.' users,',
+            '    '.$tbl_users.' sender,',
             '    (',
             '        SELECT MAX(u.id) AS id, u.usr',
             '        FROM',
-            '        users,',
+            '        '.$tbl_users.',',
             '        (',
             '            SELECT receiver_id as usr, MAX(id) AS id FROM '.$tbl_messages,
             '            WHERE deleted_by_sender IS FALSE AND sender_id ='.$user.' GROUP BY usr',
@@ -134,12 +139,13 @@ class ConversationRepository
     public function recipients($user = null): array
     {
         $user = is_null($user) ? Auth::user()->id : $user;
-        $mdl_messages = config('mercurius.models.messages');
-        $tbl_messages = (new $mdl_messages())->getTable();
+        $tbl_users = Mercurius::model('user')->getTable();
+        $tbl_messages = Mercurius::model('message')->getTable();
 
         $sql = implode(' ', array_map('trim', [
-            'SELECT DISTINCT users.slug',
-            'FROM users, ',
+            'SELECT DISTINCT',
+            '    users.'.config('mercurius.fields.slug').' as slug',
+            'FROM '.$tbl_users.' users, ',
             '(',
             '    SELECT receiver_id as id FROM '.$tbl_messages,
             '    WHERE sender_id ='.$user.' AND deleted_by_sender IS FALSE',
@@ -160,16 +166,16 @@ class ConversationRepository
      *
      * @return int
      */
-    public static function notifications($user = null)
+    public function notifications($user = null)
     {
         try {
             $user = is_null($user) ? Auth::user()->id : $user;
-            $_mdl = config('mercurius.models.messages');
 
-            $res = $_mdl::select('sender_id')
-                        ->where('receiver_id', '=', $user)
-                        ->whereNull('seen_at')
-                        ->count();
+            $res = Mercurius::model('message')
+                    ->select('sender_id')
+                    ->where('receiver_id', '=', $user)
+                    ->whereNull('seen_at')
+                    ->count();
 
             return ['status' => true, 'total' => $res];
         } catch (Exception $e) {
@@ -191,17 +197,15 @@ class ConversationRepository
     public function delete($senderId, $receiverId)
     {
         try {
-            $_mdl = config('mercurius.models.messages');
-
             // Set messages 'deleted' for the Sender user
-            (new $_mdl())
+            Mercurius::model('message')
                 ->where([
                     ['sender_id', $senderId],
                     ['receiver_id', $receiverId],
                 ])
                 ->update(['deleted_by_sender' => true]);
 
-            (new $_mdl())
+            Mercurius::model('message')
                 ->where([
                     ['sender_id', $receiverId],
                     ['receiver_id', $senderId],
@@ -209,7 +213,7 @@ class ConversationRepository
                 ->update(['deleted_by_receiver' => true]);
 
             // Deletes messages, if removed from both users
-            $res = (new $_mdl())
+            $res = Mercurius::model('message')
                 ->where([
                     ['sender_id', $senderId],
                     ['receiver_id', $receiverId],
@@ -237,9 +241,7 @@ class ConversationRepository
      */
     private function userConversations($sender, $receiver)
     {
-        $_mdl = config('mercurius.models.messages');
-
-        return (new $_mdl())
+        return Mercurius::model('message')
             ->where([
                 ['sender_id', $sender],
                 ['receiver_id', $receiver],

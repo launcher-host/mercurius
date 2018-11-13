@@ -2,58 +2,59 @@
 
 namespace Launcher\Mercurius;
 
-use Auth;
+use Launcher\Mercurius\Setup\ProvidesScriptVariables;
 
 class Mercurius
 {
+    use ProvidesScriptVariables;
+
     /**
-     * Script variables used at the Front-end JavaScript.
-     *
-     * @return array
+     * The Mercurius version.
      */
-    public static function scriptVariables()
+    public static $version = '1.0.0-alpha';
+
+    /**
+     * The models used with Mercurius.
+     */
+    protected $models = [
+        'user',
+        'message',
+    ];
+
+    /**
+     * Creates a new instance.
+     */
+    public function __construct()
     {
-        return json_encode([
-            'csrfToken'     => csrf_token(),
-            'env'           => config('app.env'),
-            'i18n'          => json_decode(file_get_contents(resource_path('lang/'.app()->getLocale().'/mercurius.json'))),
-            'user'          => self::userSettings(),
-            'pusherKey'     => config('broadcasting.connections.pusher.key'),
-            'pusherCluster' => config('broadcasting.connections.pusher.options.cluster'),
-        ]);
+        foreach ($this->models as $model) {
+            $this->models[$model] = config('mercurius.models.'.$model);
+        }
     }
 
     /**
-     * Return profile settings.
+     * Get model instance by name.
      *
-     * @return array
+     * @param string $name
+     *
+     * @return Illuminate\Database\Eloquent\Model
      */
-    public static function userSettings()
+    public function model(string $name)
     {
-        $user = Auth::user();
+        $class = strtolower($name);
+        if (!in_array($class, $this->models)) {
+            throw new \Exception("[{$class}] class not found.");
+        }
 
-        return [
-            'slug'        => $user->slug,
-            'name'        => $user->name,
-            'avatar'      => $user->avatar,
-            'is_online'   => (bool) $user->is_online,
-            'be_notified' => (bool) $user->be_notified,
-            'dark_mode'   => true,  // This is saved at LocalStorage
-        ];
+        return app($this->models[$class]);
     }
 
     /**
-     * Return User id for a given slug or fails.
+     * Get the user model instance.
      *
-     * @param int|string $val
-     *
-     * @return Illuminate\Database\Eloquent\Model;
+     * @return Illuminate\Database\Eloquent\Model
      */
-    public static function findUserOrFail(string $slug)
+    public function user()
     {
-        $userFqcn = config('mercurius.models.user');
-        $usr = $userFqcn::where('slug', $slug)->firstOrFail();
-
-        return $usr->id;
+        return app($this->models['user']);
     }
 }

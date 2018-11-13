@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Launcher\Mercurius\Events\UserGoesActive;
 use Launcher\Mercurius\Events\UserGoesInactive;
 use Launcher\Mercurius\Events\UserStatusChanged;
-use Launcher\Mercurius\Facades\Mercurius;
 use Launcher\Mercurius\Repositories\ConversationRepository;
+use Launcher\Mercurius\Repositories\UserRepository;
 
 class ProfileController extends Controller
 {
@@ -28,10 +28,10 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function refresh(Request $request)
+    public function refresh(Request $request, UserRepository $user): array
     {
         try {
-            return response(Mercurius::userSettings());
+            return response($user->getSettings());
         } catch (\Exception $e) {
             return [$e->getMessage()];
         }
@@ -85,10 +85,10 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function notifications(Request $request)
+    public function notifications(Request $request, ConversationRepository $conv)
     {
         try {
-            return response(ConversationRepository::notifications());
+            return response($conv->notifications());
         } catch (\Exception $e) {
             return [$e->getMessage()];
         }

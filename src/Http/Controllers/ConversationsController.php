@@ -3,8 +3,8 @@
 namespace Launcher\Mercurius\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Launcher\Mercurius\Mercurius;
 use Launcher\Mercurius\Repositories\ConversationRepository;
+use Launcher\Mercurius\Repositories\UserRepository;
 
 class ConversationsController extends Controller
 {
@@ -51,13 +51,13 @@ class ConversationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($recipient, Request $request, ConversationRepository $conversation)
+    public function show($recipient, Request $request, ConversationRepository $conversation, UserRepository $user)
     {
         $request->validate([
             'offset'   => 'required|numeric',
             'pagesize' => 'required|numeric',
         ]);
-        $recipient = Mercurius::findUserOrFail($recipient);
+        $recipient = $user->find($recipient)->id;
 
         return response(
             $conversation->get($recipient, $request->offset, $request->pagesize)
@@ -73,10 +73,10 @@ class ConversationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($recipient, Request $request, ConversationRepository $conversation)
+    public function destroy($recipient, Request $request, ConversationRepository $conversation, UserRepository $user)
     {
         $owner = $request->user()->id;
-        $recipient = Mercurius::findUserOrFail($recipient);
+        $recipient = $user->find($recipient)->id;
 
         return response($conversation->delete($owner, $recipient));
     }

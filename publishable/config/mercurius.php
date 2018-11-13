@@ -13,9 +13,26 @@ return [
     */
 
     'models' => [
-        'user'          => App\User::class,
-        'messages'      => Launcher\Mercurius\Models\Message::class,
-        'conversations' => Launcher\Mercurius\Models\Conversation::class,
+        'user'    => App\User::class,
+        'message' => Launcher\Mercurius\Message::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Table Fields
+    |--------------------------------------------------------------------------
+    |
+    | You can specify the column names for the user table. The `name` accepts
+    | an array of fields, for building custom names with multiple columns.
+    |
+    */
+
+    'fields' => [
+        // e.g. using array of fields
+        // 'name'   => ['first_name', 'last_name'],
+        'name'   => 'name',
+        'slug'   => 'slug',
+        'avatar' => 'avatar',
     ],
 
     /*
@@ -27,6 +44,7 @@ return [
     |
     */
 
-    'display_user_is_typing' => true,
+    //  WIP - https://github.com/launcher-host/mercurius/issues/11
+    // 'display_user_is_typing' => true,
 
 ];

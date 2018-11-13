@@ -3,7 +3,7 @@
 namespace Launcher\Mercurius\Repositories;
 
 use Launcher\Mercurius\Events\MessageSent;
-use Launcher\Mercurius\Models\Message;
+use Launcher\Mercurius\Facades\Mercurius;
 
 class MessageRepository
 {
@@ -21,7 +21,7 @@ class MessageRepository
     public function send(int $senderId, int $receiverId, string $message)
     {
         try {
-            $msg = new Message();
+            $msg = Mercurius::model('message');
 
             $msg->sender_id = $senderId;
             $msg->receiver_id = $receiverId;
@@ -51,8 +51,8 @@ class MessageRepository
      * Messages are permanently removed from the system when removed from
      * both users: Sender and Receiver.
      *
-     * @param \Launcher\Mercurius\Models\Message $message
-     * @param int                                $user
+     * @param \Launcher\Mercurius\Message $message
+     * @param int                         $user
      *
      * @return \Illuminate\Support\Collection
      */
