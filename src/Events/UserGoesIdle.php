@@ -16,7 +16,7 @@ class UserGoesIdle implements ShouldBroadcast
     /**
      * The User going idle.
      *
-     * @var int
+     * @var string
      */
     public $user;
 
@@ -47,6 +47,6 @@ class UserGoesIdle implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // return new PrivateChannel('mercurius.'.$this->user);
+        return new PrivateChannel('mercurius.'.$this->user);
     }
 }

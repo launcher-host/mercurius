@@ -15,9 +15,9 @@ class UserStatusChanged implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * The User id who's status changed.
+     * The User slug who's status changed.
      *
-     * @var int
+     * @var string
      */
     public $user;
 
@@ -75,8 +75,11 @@ class UserStatusChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        $channels = [];
         foreach ($this->recipients as $recipient) {
-            return new PrivateChannel('mercurius.'.$recipient);
+            $channels[] = new PrivateChannel('mercurius.'.$recipient);
         }
+
+        return $channels;
     }
 }

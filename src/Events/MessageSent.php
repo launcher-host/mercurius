@@ -16,14 +16,14 @@ class MessageSent implements ShouldBroadcast
     /**
      * User receiving the event.
      *
-     * @var App\User
+     * @var string
      */
     public $receiver;
 
     /**
      * User sender.
      *
-     * @var App\User
+     * @var string
      */
     public $sender;
 
@@ -63,6 +63,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('mercurius.'.$this->receiver->slug);
+        return new PrivateChannel('mercurius.'.$this->receiver);
     }
 }

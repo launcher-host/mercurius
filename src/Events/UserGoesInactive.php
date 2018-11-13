@@ -11,7 +11,7 @@ class UserGoesInactive
     /**
      * The User going inactive.
      *
-     * @var int
+     * @var string
      */
     public $user;
 
