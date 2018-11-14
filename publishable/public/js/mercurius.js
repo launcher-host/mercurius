@@ -81743,6 +81743,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -81753,7 +81754,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            message: ''
+            message: '',
+            is_typing: false
         };
     },
     created: function created() {
@@ -81777,6 +81779,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         onConversationDeleted: function onConversationDeleted(user) {
             if (this.conversation.slug === user) this.reset();
+        },
+        onTyping: function onTyping() {
+            if (this.is_typing) return;
+            // let channel = Echo.private('mercurius.'+this.conversation.slug);
+
+            // setTimeout(function() {
+            //     channel.whisper('typing', {
+            //         user: Mercurius.user.slug,
+            //         typing: true
+            //     });
+            // }, 250);
         },
         onSend: function onSend() {
             if (_.isEmpty(this.message)) return;
@@ -81876,6 +81889,7 @@ var render = function() {
         },
         domProps: { value: _vm.message },
         on: {
+          keydown: _vm.onTyping,
           keyup: function($event) {
             if (
               !("button" in $event) &&
@@ -82947,7 +82961,14 @@ module.exports = {
          * Setup event listener using Laravel Echo and Pusher.
          */
         listen: function listen() {
-            Echo.private('mercurius.' + this.user.slug).listen('.mercurius.message.sent', this.onMessageReceived).listen('.mercurius.user.status.changed', this.onUserStatusChanged);
+            Echo.private('mercurius.' + this.user.slug).listen('.mercurius.message.sent', this.onMessageReceived).listen('.mercurius.user.status.changed', this.onUserStatusChanged).listenForWhisper('typing', function (e) {
+                // console.log(e);
+                // Bus.$emit('mercuriusUserTyping', true);
+
+                // setTimeout( () => {
+                //     Bus.$emit('mercuriusUserTyping', false);
+                // }, 1000)
+            });
         },
 
 

@@ -51,7 +51,15 @@ module.exports = {
         listen() {
             Echo.private('mercurius.'+this.user.slug)
                 .listen('.mercurius.message.sent', this.onMessageReceived)
-                .listen('.mercurius.user.status.changed', this.onUserStatusChanged);
+                .listen('.mercurius.user.status.changed', this.onUserStatusChanged)
+                .listenForWhisper('typing', (e) => {
+                    // console.log(e);
+                    // Bus.$emit('mercuriusUserTyping', true);
+
+                    // setTimeout( () => {
+                    //     Bus.$emit('mercuriusUserTyping', false);
+                    // }, 1000)
+                });
         },
 
 
