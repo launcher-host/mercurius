@@ -1,6 +1,3 @@
-/**
- * Handles event listener for WebSockets using Pusher.
- */
 module.exports = {
     methods: {
         /**

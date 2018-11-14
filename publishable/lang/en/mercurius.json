@@ -27,6 +27,7 @@
     "search_messages": "Search messages",
     "msg_sent": "Sent",
     "msg_seen_at": "Seen at",
+    "is_typing": "Is typing...",
     "type_message": "Type message...",
     "new_message": "New message",
     "to_message": "To",

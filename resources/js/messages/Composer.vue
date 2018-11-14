@@ -7,6 +7,7 @@
             :class="{disabled: is_sending}"
             ref="inpmessage"
             v-model.trim="message"
+            @keydown="onTyping"
             @keyup.enter="onSend"
             :placeholder="'type_message' | __"
             :disabled="is_sending"
@@ -38,6 +39,7 @@ export default {
     data() {
         return {
             message: '',
+            is_typing: false,
         }
     },
 
@@ -55,6 +57,17 @@ export default {
         },
         onConversationDeleted(user) {
             if (this.conversation.slug === user) this.reset()
+        },
+        onTyping() {
+            if (this.is_typing) return;
+            // let channel = Echo.private('mercurius.'+this.conversation.slug);
+
+            // setTimeout(function() {
+            //     channel.whisper('typing', {
+            //         user: Mercurius.user.slug,
+            //         typing: true
+            //     });
+            // }, 250);
         },
         onSend() {
             if (_.isEmpty(this.message)) return
