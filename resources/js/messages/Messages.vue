@@ -10,6 +10,28 @@
             @handle-scroll="onScroll"
         >
             <div class="messages">
+
+                <!-- Typing indicator -->
+                <div class="mt-2" v-if="isTyping">
+                    <div class="message_row msg_received">
+                        <div class="message">
+                            <img
+                                class="message__avatar"
+                                :alt="conversation.user"
+                                :src="conversation.avatar"
+                            />
+                            <div
+                                class="message__body"
+                                v-b-tooltip.show.right
+                                :title="'is_typing' | __"
+                                >
+                                <svg class="ic"><use xlink:href="#icon-ani-dots"></use></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <template v-for="(msg, idx) in messages">
                     <div
                         class="message_row"
@@ -89,6 +111,7 @@ export default {
 
     data() {
         return {
+            isTyping: false,
             ops: {
                 scrollPanel: {
                     initialScrollY: 100,

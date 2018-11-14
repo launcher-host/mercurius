@@ -12,24 +12,29 @@ class MessageRepository
      *
      * Message is broadcast to WebSocket using Pusher.
      *
-     * @param int    $senderId
-     * @param int    $receiverId
-     * @param string $message
+     * @param App\User $sender
+     * @param App\User $receiver
+     * @param string   $message
      *
      * @return \Illuminate\Support\Collection
      */
-    public function send(int $senderId, int $receiverId, string $message)
+    public function send($sender, $receiver, string $message)
     {
         try {
             $msg = Mercurius::model('message');
+            $slug = config('mercurius.fields.slug');
 
-            $msg->sender_id = $senderId;
-            $msg->receiver_id = $receiverId;
+            $msg->sender_id = $sender->id;
+            $msg->receiver_id = $receiver->id;
             $msg->message = $message;
 
             $msg->save();
 
-            broadcast(new MessageSent($msg->receiver, $msg->sender, $msg))->toOthers();
+            broadcast(new MessageSent(
+                $msg->receiver->{$slug},
+                $msg->sender,
+                $msg
+            ))->toOthers();
 
             $out = [
                 'id'         => $msg->id,
