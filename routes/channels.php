@@ -11,6 +11,6 @@
 |
 */
 
-Broadcast::channel('mercurius.{id}', function ($user, $slug) {
-    return (string) $user->slug === (string) $slug;
+Broadcast::channel('mercurius.{slug}', function ($user, $slug) {
+    return (string) $user->{config('mercurius.fields.slug')} === (string) $slug;
 });
