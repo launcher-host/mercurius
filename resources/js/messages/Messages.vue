@@ -175,7 +175,7 @@ export default {
             return (this.messages[idx+1].sender === msg.sender);
         },
         _scrollTo(y_val) {
-            this.$refs.wrap.scrollTo({x: 0, y: y_val})
+            this.$refs.wrap.scrollTo({x: 0, y: y_val}, false)
         },
         _appendMsg(msg) {
             this.messages.unshift(msg)
@@ -193,7 +193,9 @@ export default {
         },
         onLoadMessages(usr) {
             this.loadMessagesStart(usr.slug)
-                .then(() => this._scrollTo('100%'));
+                .then(() => {
+                    setTimeout(() => this._scrollTo('100%'), 250);
+                });
         },
         onScroll(barY, barX, e) {
             if (barY.scrollTop > 20 || this.offset < 0) return false;
