@@ -80085,7 +80085,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.messages[idx + 1].sender === msg.sender;
         },
         _scrollTo: function _scrollTo(y_val) {
-            this.$refs.wrap.scrollTo({ x: 0, y: y_val }, false);
+            var _this2 = this;
+
+            setTimeout(function () {
+                _this2.$refs.wrap.scrollTo({ x: 0, y: y_val }, false);
+            }, 250);
         },
         _appendMsg: function _appendMsg(msg) {
             this.messages.unshift(msg);
@@ -80102,21 +80106,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.conversation.slug === sender.slug) this._appendMsg(msg);
         },
         onLoadMessages: function onLoadMessages(usr) {
-            var _this2 = this;
+            var _this3 = this;
 
             this.loadMessagesStart(usr.slug).then(function () {
-                setTimeout(function () {
-                    return _this2._scrollTo('100%');
-                }, 250);
+                return _this3._scrollTo('100%');
             });
         },
         onScroll: function onScroll(barY, barX, e) {
-            var _this3 = this;
+            var _this4 = this;
 
             if (barY.scrollTop > 20 || this.offset < 0) return false;
 
             this.loadMessages().then(function () {
-                return _this3._scrollTo('25%');
+                return _this4._scrollTo('25%');
             });
         }
     }
@@ -80204,7 +80206,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
-                                if (!(this.is_loading || this.offset < 0)) {
+                                if (!(this.is_loading || this.offset < 0 || !this.conversationId)) {
                                     _context2.next = 2;
                                     break;
                                 }

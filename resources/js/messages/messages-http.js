@@ -40,7 +40,7 @@ export default {
          * @return {Promise}
          */
         async loadMessages() {
-            if (this.is_loading || this.offset < 0) return;
+            if (this.is_loading || this.offset < 0 || !this.conversationId) return;
 
             let params = {
                 offset:   this.offset,
