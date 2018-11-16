@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     data() {
         return {
             is_loading: false,
@@ -13,13 +13,14 @@ module.exports = {
          * @param  {string} recipient
          * @param  {string} message
          */
-        loadConversations() {
+        async loadConversations() {
             this.is_loading = true
 
-            setTimeout(() => {
+            return new Promise((resolve, reject) => {
                 axios.get('/conversations')
                     .then(res => {
                         Bus.$emit('mercuriusConversationsLoaded', res.data);
+                        resolve(res);
                     })
                     .catch(err => {
                         swal(
@@ -28,12 +29,12 @@ module.exports = {
                             +'\n'+error.response.data.message,
                             'error'
                         )
-
+                        reject(errors);
                     })
                     .finally(() => {
                         this.is_loading = false
                     })
-            }, 500);
+            });
         },
 
 

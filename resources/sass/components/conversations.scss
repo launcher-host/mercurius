@@ -97,3 +97,8 @@
         .conversation__action{ opacity: 1; }
     }
 }
+
+
+.conversations__wait .conversation a {
+    cursor: wait;
+}

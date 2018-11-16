@@ -22,7 +22,7 @@ export default {
 
     created() {
         Bus.$on('mercuriusComposeNewMessage', () => this.updateTitle(__('return')));
-        Bus.$on('mercuriusOpenConversation', (conv) => this.updateTitle(conv.user));
+        Bus.$on('mercuriusConversationOpen', (conv) => this.updateTitle(conv.user));
     },
 
 
@@ -41,5 +41,5 @@ export default {
             Bus.$emit('mercuriusSidebarToggle', this.closed)
         },
     }
-}
+};
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div id="dialogs" class="conversations">
+    <div class="conversations" :class="{conversations__wait: is_loading_conv}">
         <div v-show="is_loading" class="mercurius__loading">
             <svg class="ic"><use xlink:href="#icon-ani-puff"></use></svg>
             <h5 class="mt-3">{{ 'loading_conversations' | __ }}</h5>
@@ -36,7 +36,7 @@
                     >
                     <a
                         href="#"
-                        @click.prevent="open(conversation)"
+                        @click.prevent="onOpen(conversation)"
                     >
                         <mercurius-avatar
                             class="mr-3 pull-left"
@@ -66,12 +66,14 @@
 </template>
 
 <script>
+import ConversationsHttp from './conversations-http';
+
 export default {
     props: ['conversations'],
 
 
     mixins: [
-        require('./conversations-http'),
+        ConversationsHttp,
     ],
 
 
@@ -80,6 +82,7 @@ export default {
             active:          false,
             filterStr:       '',
             is_appending:    false,
+            is_loading_conv: false,
             onLoadOpenFirst: false,
             placeholder:     '/vendor/mercurius/img/avatar/avatar_placeholder.png',
         }
@@ -89,6 +92,7 @@ export default {
     created() {
         Bus.$on('mercuriusComposeNewMessage', () => this.onComposeNewMessage())
         Bus.$on('mercuriusConversationsLoaded', res => this.onConversationsLoaded(res));
+        Bus.$on('mercuriusConversationLoaded', conv => this.onConversationLoaded(conv));
         Bus.$on('mercuriusFilterConversations', str => this.onFilter(str))
         Bus.$on('mercuriusMessageDeleted', (msg, msgLatest) => this.onMessageDeleted(msg, msgLatest))
         Bus.$on('mercuriusMessageReceived', (usr, sender, msg) => this.onMessageReceived(sender, msg))
@@ -98,7 +102,7 @@ export default {
 
 
     mounted() {
-        this.loadConversations()
+        this.loadConversations();
     },
 
 
@@ -136,15 +140,11 @@ export default {
         getMsg(conv) {
             return (this._received(conv) ? '':'You: ') + conv.message
         },
+        isTyping(conv) {
+            return !_.isEmpty(conv.typing) && conv.typing
+        },
         getAvatar(img) {
             return (img.avatar = img.avatar || this.placeholder)
-        },
-        open(conversation) {
-            this.is_appending = false
-            this.active = conversation
-            this.active.seen_at = moment.utc().format('YYYY-MM-DD HH:mm:ss');
-
-            Bus.$emit('mercuriusOpenConversation', this.active);
         },
         refreshMessage(msg) {
             this.active.sender     = msg.sender
@@ -185,12 +185,23 @@ export default {
 
         // Event handlers
         //
+        onOpen(conv) {
+            if (this.is_loading_conv) return
+            this.is_appending = false
+            this.is_loading_conv = true
+            this.active = conv
+            Bus.$emit('mercuriusConversationOpen', conv);
+        },
+        onConversationLoaded(conv) {
+            this.is_loading_conv = false
+            this.active.seen_at = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+        },
         onConversationsLoaded(res) {
-            if (this.onLoadOpenFirst && res.length > 0) this.open(res[0])
+            if (this.onLoadOpenFirst && res.length > 0) this.onOpen(res[0])
         },
         onRecipientSelected(recipient) {
             let item = this._findOrCreate(recipient);
-            this.open(item)
+            this.onOpen(item)
         },
         onMessageReceived(sender, msg) {
             let item = this._findOrCreate(sender);
@@ -209,5 +220,5 @@ export default {
             this.filterStr = str;
         },
     }
-}
+};
 </script>

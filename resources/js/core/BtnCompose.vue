@@ -15,5 +15,5 @@ export default {
             Bus.$emit('mercuriusComposeNewMessage');
         },
     }
-}
+};
 </script>
