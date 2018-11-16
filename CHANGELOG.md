@@ -5,7 +5,13 @@
 
 ### List of changes
 
+- feat: typing indicator
 - fix: Refresh User status, broadcast works correctly [PR #35](https://github.com/launcher-host/mercurius/pull/35)
+- fix: when loading a conversation, disable click until load is complete
+- fix: focus the message input when a conversation is opened
+
+### Typing indicator
+![mercurius_feature_typing_indicator_2018-11-16](https://user-images.githubusercontent.com/34574/48649901-13e30980-e9ec-11e8-9f83-a13d979c020b.gif)
 
 <a name="1.0.0-alpha.1"></a>
 # [1.0.0-alpha.1](https://github.com/launcher-host/mercurius/releases/tag/1.0.0-alpha.1) (2018-11-13)

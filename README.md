@@ -47,8 +47,8 @@ Mercurius is a real-time messenger system using Laravel and Vue.js, featuring a 
 - Responsive
 - Multilingual
 - Browser notifications
-- Unique UX, with dark and light theme
-- Lazy load messages
+- Unique UX, with dark theme
+- Typing indicator
 - Remove conversations and messages
 - Search recipients with auto-complete
 
@@ -227,15 +227,14 @@ Please see [Customization](docs/customization.md) for more information.
 Check the [roadmap](https://github.com/launcher-host/mercurius/issues/8) for more information.
 
 - Unit Tests
-- Typing indicator
-- Conversation with multiple users
-- Search in messages content
-- Upload photos and attach files
-- Preview images and videos
-- Emoji support
-- Video Chat
-- Support socket.io
-- Webhooks
+- Conversation w/ multiple users #13
+- Webhooks #16
+- Upload photos & files #14
+- Preview images and videos #15
+- Emoji support #18
+- Video Chat #19
+- Support socket.io #20
+- Search messages #17
 
 
 
