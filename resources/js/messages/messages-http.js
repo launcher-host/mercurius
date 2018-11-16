@@ -72,7 +72,7 @@ export default {
                         .finally(() => {
                             this.is_loading = false
                         });
-                }, 500);
+                }, 250);
             });
         },
 

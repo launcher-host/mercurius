@@ -12,7 +12,7 @@
             <div class="messages">
 
                 <!-- Typing indicator -->
-                <div class="mt-2" v-if="isTyping">
+                <div class="mt-2" v-if="is_typing && !!conversationId ">
                     <div class="message_row msg_received">
                         <div class="message">
                             <img
@@ -111,7 +111,8 @@ export default {
 
     data() {
         return {
-            isTyping: false,
+            is_typing: false,
+            type_timeout: null,
             ops: {
                 scrollPanel: {
                     initialScrollY: 100,
@@ -128,6 +129,10 @@ export default {
     created() {
         Bus.$on('mercuriusMessageReceived', (usr, sender, msg) => this.onMessageReceived(sender, msg))
         Bus.$on('mercuriusMessageSent', (msg) => this.onMessageSent(msg))
+        Bus.$on('mercuriusConversationOpen', conv => this.onLoadMessages(conv));
+        Bus.$on('mercuriusConversationClose', () => this.loadMessagesReset());
+        Bus.$on('mercuriusConversationDeleted', user => this.onConversationDeleted(user));
+        Bus.$on('mercuriusUserTyping', usr => this.onTyping(usr))
     },
 
 
@@ -144,14 +149,6 @@ export default {
             if (h < 24*7) return m.format('ddd HH:mm')      // Mon 14:00
             if (h < 24*365) return m.format('D MMMM HH:mm') // 25 August 14:00
             return m.format('DD/MM/YYYY HH:mm')             // 25/08/2017 14:00
-        },
-    },
-
-
-    watch: {
-        conversation: function (newV, oldV) {
-            if (newV === oldV) return;
-            _.isEmpty(newV) ? this.loadMessagesReset() : this.onLoadMessages(newV);
         },
     },
 
@@ -210,15 +207,30 @@ export default {
 
         // Event handlers
         //
+        onTyping(usr) {
+            if (this.conversationId != usr) return
+            if (this.type_timeout) clearTimeout(this.type_timeout);
+            this.type_timeout = setTimeout(() => {
+                this.is_typing = false;
+            }, 2000);
+            this.is_typing = true
+            this._scrollTo('100%')
+        },
         onMessageSent(msg) {
             this._appendMsg(msg)
         },
         onMessageReceived(sender, msg) {
-            if (this.conversation.slug === sender.slug) this._appendMsg(msg)
+            if (this.conversationId === sender.slug) this._appendMsg(msg)
         },
-        onLoadMessages(usr) {
-            this.loadMessagesStart(usr.slug)
-                .then(() => this._scrollTo('100%'));
+        onConversationDeleted(user) {
+            if (this.conversationId === user) this.loadMessagesReset()
+        },
+        onLoadMessages(conv) {
+            this.loadMessagesStart(conv.slug)
+                .then(() => {
+                    Bus.$emit('mercuriusConversationLoaded', conv);
+                    setTimeout(() => this._scrollTo('100%'), 125);
+                });
         },
         onScroll(barY, barX, e) {
             if (barY.scrollTop > 20 || this.offset < 0) return false;
@@ -227,5 +239,5 @@ export default {
                 .then(() => this._scrollTo('25%'));
         },
     }
-}
+};
 </script>

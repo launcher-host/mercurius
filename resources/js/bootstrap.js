@@ -1,3 +1,4 @@
+import _            from 'lodash';
 import Vue          from 'vue';
 import axios        from 'axios';
 import BootstrapVue from 'bootstrap-vue';
@@ -7,7 +8,6 @@ import vuescroll    from 'vuescroll/dist/vuescroll-native';
 
 import 'vuescroll/dist/vuescroll.css';
 
-window._       = require('lodash');
 window.Vue     = Vue;
 window.swal    = swal;
 window.Bus     = new Vue();

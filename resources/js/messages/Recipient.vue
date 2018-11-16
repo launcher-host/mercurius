@@ -65,7 +65,7 @@ export default {
 
     created() {
         Bus.$on('mercuriusComposeNewMessage', () => this.onStart())
-        Bus.$on('mercuriusOpenConversation', () => this.enabled = false);
+        Bus.$on('mercuriusConversationLoaded', () => this.enabled = false);
     },
 
 

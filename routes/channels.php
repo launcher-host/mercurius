@@ -11,7 +11,12 @@
 |
 */
 
+// User private channel
 Broadcast::channel('mercurius.{slug}', function ($user, $slug) {
     return (string) $user->{config('mercurius.fields.slug')} === (string) $slug;
-    // return true;
+});
+
+// User conversation channel
+Broadcast::channel('mercurius.conversation.{slug}', function ($user, $slug) {
+    return true;
 });
