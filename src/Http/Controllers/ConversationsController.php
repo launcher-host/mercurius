@@ -34,8 +34,9 @@ class ConversationsController extends Controller
      * Display a single conversation for a given user.
      *
      * @param string                 $recipient
-     * @param ConversationRepository $conversation
      * @param Request                $request
+     * @param ConversationRepository $conversation
+     * @param UserRepository         $user
      *
      * @return \Illuminate\Http\Response
      */
@@ -56,8 +57,9 @@ class ConversationsController extends Controller
      * Remove a conversation.
      *
      * @param string                 $recipient
-     * @param ConversationRepository $conversation
      * @param Request                $request
+     * @param ConversationRepository $conversation
+     * @param UserRepository         $user
      *
      * @return \Illuminate\Http\Response
      */
