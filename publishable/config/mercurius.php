@@ -13,13 +13,28 @@ return [
     */
 
     'models' => [
-        'user'    => App\User::class,
-        'message' => Launcher\Mercurius\Message::class,
+        'conversation' => Launcher\Mercurius\Conversation::class,
+        'message'      => Launcher\Mercurius\Message::class,
+        'user'         => App\User::class,
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | User Table Fields
+    | Table Names
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'table_names' => [
+        'conversation_user' => 'conversation_user',
+        'conversations'     => 'conversations',
+        'messages'          => 'messages',
+        'users'             => 'users',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Field Names
     |--------------------------------------------------------------------------
     |
     | You can specify the column names for the user table. The `name` accepts
@@ -28,11 +43,19 @@ return [
     */
 
     'fields' => [
-        // e.g. using array of fields
-        // 'name'   => ['first_name', 'last_name'],
         'name'   => 'name',
         'slug'   => 'slug',
         'avatar' => 'avatar',
+    ],
+
+    'user_field_names' => [
+        // e.g. using array of fields
+        // 'name'   => ['first_name', 'last_name'],
+        'name'        => 'name',
+        'slug'        => 'slug',
+        'avatar'      => 'avatar',
+        'is_online'   => 'is_online',
+        'be_notified' => 'be_notified',
     ],
 
     /*

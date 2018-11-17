@@ -81,8 +81,7 @@ class MercuriusServiceProvider extends ServiceProvider
     {
         $_migrations = [
             'add_mercurius_user_fields',
-            'create_mercurius_messages_table',
-            'add_slug_mercurius_user_table',
+            'create_mercurius_tables',
         ];
 
         $_publishable = (new MigrationsHandler())->processMigrations($_migrations);

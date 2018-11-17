@@ -9,10 +9,13 @@ class AddMercuriusUserFields extends Migration
      */
     public function up()
     {
+        $fields = config('mercurius.user_field_names');
+
         Schema::table('users', function ($table) {
-            $table->string('avatar')->nullable()->after('email');
-            $table->boolean('is_online')->default(true);
-            $table->boolean('be_notified')->default(true);
+            $table->string($fields['avatar'])->nullable()->after('email');
+            $table->string($fields['slug'])->nullable();
+            $table->boolean($fields['is_online'])->default(true);
+            $table->boolean($fields['be_notified'])->default(true);
         });
     }
 
@@ -21,15 +24,13 @@ class AddMercuriusUserFields extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('users', 'avatar')) {
-            Schema::table('users', function ($table) {
-                $table->dropColumn('avatar');
-            });
-        }
+        $fields = config('mercurius.user_field_names');
 
         Schema::table('users', function ($table) {
-            $table->dropColumn('is_online');
-            $table->dropColumn('be_notified');
+            $table->dropColumn($fields['avatar']);
+            $table->dropColumn($fields['slug']);
+            $table->dropColumn($fields['is_online']);
+            $table->dropColumn($fields['be_notified']);
         });
     }
 }
