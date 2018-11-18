@@ -17,30 +17,30 @@ class CreateMercuriusTables extends Migration
 
         Schema::create($tables['conversations'], function (Blueprint $table) {
             $table->increments('id');
-            $table->text('slug');
+            $table->text('slug')->index();
             $table->text('name')->nullable();
             $table->timestamps();
         });
 
-        Schema::create($tables['conversation_user'], function (Blueprint $table) {
-            $table->integer('conversation_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->timestamps();
+        // Schema::create($tables['conversation_user'], function (Blueprint $table) {
+        //     $table->integer('conversation_id')->unsigned();
+        //     $table->integer('user_id')->unsigned();
+        //     $table->timestamps();
 
-            $table->foreign('conversation_id')
-                ->references('id')
-                ->on($tables['conversations'])
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+        //     $table->foreign('conversation_id')
+        //         ->references('id')
+        //         ->on($tables['conversations'])
+        //         ->onUpdate('cascade')
+        //         ->onDelete('cascade');
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on($tables['users'])
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+        //     $table->foreign('user_id')
+        //         ->references('id')
+        //         ->on($tables['users'])
+        //         ->onUpdate('cascade')
+        //         ->onDelete('cascade');
 
-            $table->primary(['conversation_id', 'user_id']);
-        });
+        //     $table->primary(['conversation_id', 'user_id']);
+        // });
 
         Schema::create($tables['messages'], function (Blueprint $table) {
             $table->increments('id');
@@ -82,6 +82,6 @@ class CreateMercuriusTables extends Migration
 
         Schema::dropIfExists($tables['messages']);
         Schema::dropIfExists($tables['conversations']);
-        Schema::dropIfExists($tables['conversation_user']);
+        // Schema::dropIfExists($tables['conversation_user']);
     }
 }
