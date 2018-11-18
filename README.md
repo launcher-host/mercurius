@@ -176,16 +176,16 @@ composer dump-autoload
 
 
 ##### 7. User trait
-Add `Launcher\Mercurius\MercuriusUser` trait to your `User` model:
+Add `Launcher\Mercurius\UserTrait` trait to your `User` model:
 
 ```php
 // ...
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Launcher\Mercurius\MercuriusUser;
+use Launcher\Mercurius\UserTrait;
 
 class User extends Authenticatable
 {
-    use MercuriusUser;
+    use UserTrait;
     // ...
 }
 ```

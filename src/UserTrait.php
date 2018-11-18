@@ -4,7 +4,7 @@ namespace Launcher\Mercurius;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait MercuriusUser
+trait UserTrait
 {
     /**
      * Scope the model query to certain users only.
