@@ -26,9 +26,9 @@ return [
     */
 
     'table_names' => [
-        'conversation_user' => 'mercurius_conversation_user',
-        'conversations'     => 'mercurius_conversations',
-        'messages'          => 'mercurius_messages',
+        'conversation_user' => 'conversation_user',
+        'conversations'     => 'conversations',
+        'messages'          => 'messages',
         'users'             => 'users',
     ],
 
