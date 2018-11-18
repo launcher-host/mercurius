@@ -7,10 +7,11 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Launcher\Mercurius\Commands\InstallCommand;
 use Launcher\Mercurius\Setup\MigrationsHandler;
+use Launcher\Mercurius\Setup\RegisterFactories;
 
 class MercuriusServiceProvider extends ServiceProvider
 {
-    use EventMap;
+    use EventMap, RegisterFactories;
 
     /**
      * Bootstrap the application services.
@@ -35,6 +36,7 @@ class MercuriusServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerPublishable();
+        $this->registerEloquentFactoriesFrom(__DIR__.'/../publishable/database/factories');
         $this->mergeConfigFrom(__DIR__.'/../publishable/config/mercurius.php', 'mercurius');
 
         $this->loadHelpers();
