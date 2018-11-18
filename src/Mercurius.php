@@ -11,14 +11,15 @@ class Mercurius
     /**
      * The Mercurius version.
      */
-    public static $version = '1.0.0-alpha';
+    public static $version = '1.0.0-alpha.3';
 
     /**
      * The models used with Mercurius.
      */
     protected $models = [
-        'user',
+        'conversation',
         'message',
+        'user',
     ];
 
     /**

@@ -22,8 +22,9 @@ class MessagesController extends Controller
     /**
      * Send a message from the current user.
      *
-     * @param MessageRepository $repo
      * @param Request           $request
+     * @param MessageRepository $msg
+     * @param UserRepository    $user
      *
      * @return array
      */
@@ -44,15 +45,16 @@ class MessagesController extends Controller
      * Delete message for the current user.
      *
      * @param int               $message
-     * @param MessageRepository $repo
      * @param Request           $request
+     * @param MessageRepository $msg
+     * @param UserRepository    $user
      *
      * @return array
      */
-    public function destroy($message, MessageRepository $repo, Request $request, UserRepository $user)
+    public function destroy($message, Request $request, MessageRepository $msg, UserRepository $user)
     {
         $msg = Mercurius::model('message')->findOrFail($message);
 
-        return $repo->delete($msg, $request->user()->id);
+        return $msg->delete($msg, $request->user()->id);
     }
 }

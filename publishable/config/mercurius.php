@@ -13,22 +13,22 @@ return [
     */
 
     'models' => [
-        'conversation' => Launcher\Mercurius\Conversation::class,
-        'message'      => Launcher\Mercurius\Message::class,
+        'conversation' => Launcher\Mercurius\Models\Conversation::class,
+        'message'      => Launcher\Mercurius\Models\Message::class,
         'user'         => App\User::class,
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Table Names
+    | Mercurius Table Names
     |--------------------------------------------------------------------------
     |
     */
 
     'table_names' => [
-        'conversation_user' => 'conversation_user',
-        'conversations'     => 'conversations',
-        'messages'          => 'messages',
+        'conversation_user' => 'mercurius_conversation_user',
+        'conversations'     => 'mercurius_conversations',
+        'messages'          => 'mercurius_messages',
         'users'             => 'users',
     ],
 
@@ -41,12 +41,6 @@ return [
     | an array of fields, for building custom names with multiple columns.
     |
     */
-
-    'fields' => [
-        'name'   => 'name',
-        'slug'   => 'slug',
-        'avatar' => 'avatar',
-    ],
 
     'user_field_names' => [
         // e.g. using array of fields

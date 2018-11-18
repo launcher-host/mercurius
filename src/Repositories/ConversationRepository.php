@@ -85,8 +85,8 @@ class ConversationRepository
         $user = is_null($user) ? Auth::user()->id : $user;
         $tbl_users = Mercurius::model('user')->getTable();
         $tbl_messages = Mercurius::model('message')->getTable();
-        $slug = config('mercurius.fields.slug');
-        $name = config('mercurius.fields.name');
+        $slug = config('mercurius.user_field_names.slug');
+        $name = config('mercurius.user_field_names.name');
         $name = !is_array($name)
                     ? 'users.'.$name
                     : 'CONCAT(users.'.implode(", ' ', users.", $name).')';
@@ -95,7 +95,7 @@ class ConversationRepository
             'SELECT',
             '    users.'.$slug.' as slug,',
             '    '.$name.' as user,',
-            '    users.'.config('mercurius.fields.avatar').',',
+            '    users.'.config('mercurius.user_field_names.avatar').',',
             '    users.is_online,',
             '    sender.'.$slug.' as sender,',
             '    m.message,',
@@ -139,18 +139,17 @@ class ConversationRepository
     public function recipients($user = null): array
     {
         $user = is_null($user) ? Auth::user()->id : $user;
-        $tbl_users = Mercurius::model('user')->getTable();
-        $tbl_messages = Mercurius::model('message')->getTable();
+        $tbl_msg = config('mercurius.table_names.messages');
 
         $sql = implode(' ', array_map('trim', [
             'SELECT DISTINCT',
-            '    users.'.config('mercurius.fields.slug').' as slug',
-            'FROM '.$tbl_users.' users, ',
+            '    users.'.config('mercurius.user_field_names.slug').' as slug',
+            'FROM '.config('mercurius.table_names.users').' users, ',
             '(',
-            '    SELECT receiver_id as id FROM '.$tbl_messages,
+            '    SELECT receiver_id as id FROM '.$tbl_msg,
             '    WHERE sender_id ='.$user.' AND deleted_by_receiver IS FALSE',
             '    UNION ALL',
-            '    SELECT sender_id as id FROM '.$tbl_messages,
+            '    SELECT sender_id as id FROM '.$tbl_msg,
             '    WHERE receiver_id ='.$user.' AND deleted_by_sender IS FALSE',
             ') mr',
             'WHERE users.id = mr.id',

@@ -22,7 +22,7 @@ class MessageRepository
     {
         try {
             $msg = Mercurius::model('message');
-            $slug = config('mercurius.fields.slug');
+            $slug = config('mercurius.user_field_names.slug');
 
             $msg->sender_id = $sender->id;
             $msg->receiver_id = $receiver->id;

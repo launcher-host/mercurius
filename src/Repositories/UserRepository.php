@@ -20,7 +20,8 @@ class UserRepository
     {
         try {
             // expect a mixed value: string|array
-            $names = config('mercurius.fields.name');
+            $fields = config('mercurius.user_field_names');
+            $names = $fields['name'];
 
             $sqlName = !is_array($names)
                 ? $names
@@ -28,8 +29,8 @@ class UserRepository
 
             $rawSelect = implode(', ', [
                 $sqlName,
-                config('mercurius.fields.slug'),
-                config('mercurius.fields.avatar'),
+                $fields['slug'],
+                $fields['avatar'],
                 'is_online',
             ]);
 
@@ -58,14 +59,15 @@ class UserRepository
      */
     public function getSettings(): array
     {
-        $user = Auth::user();
-        $name = config('mercurius.fields.name');
-        $name = !is_array($name) ? $name : implode(' ', $user->only($name));
+        $user   = Auth::user();
+        $fields = config('mercurius.user_field_names');
+        $name   = $fields['name'];
+        $name   = !is_array($name) ? $name : implode(' ', $user->only($name));
 
         return [
-            'slug'        => $user->{config('mercurius.fields.slug')},
+            'slug'        => $user->{$fields['slug']},
             'name'        => $name,
-            'avatar'      => $user->{config('mercurius.fields.avatar')},
+            'avatar'      => $user->{$fields['avatar']},
             'is_online'   => (bool) $user->is_online,
             'be_notified' => (bool) $user->be_notified,
             'dark_mode'   => true,  // This is saved at LocalStorage
@@ -82,7 +84,7 @@ class UserRepository
     public function find(string $slug)
     {
         $user = Mercurius::user()
-            ->where(config('mercurius.fields.slug'), $slug)
+            ->where(config('mercurius.user_field_names.slug'), $slug)
             ->first();
 
         return $user ?: null;

@@ -24,7 +24,8 @@ class ProfileController extends Controller
     /**
      * Refresh user account returning settings.
      *
-     * @param Request $request
+     * @param Request        $request
+     * @param UserRepository $user
      *
      * @return \Illuminate\Http\Response
      */
@@ -47,12 +48,14 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         try {
+            $fields = config('mercurius.user_field_names');
+            $accepts_fields = $fields['is_online'].','.$fields['be_notified'];
+
             $request->validate([
-                'setting_key' => 'required|in:is_online,be_notified',
+                'setting_key' => 'required|in:'.$accepts_fields,
                 'setting_val' => 'required|boolean',
             ]);
 
-            $slug = config('mercurius.fields.slug');
             $_key = $request['setting_key'];
             $_val = $request['setting_val'];
             $user = $request->user();
@@ -65,12 +68,12 @@ class ProfileController extends Controller
             if ($_key === 'is_online') {
                 // Fire event with new User status
                 $eventName = $_val ? UserGoesActive::class : UserGoesInactive::class;
-                event(new $eventName($user->{$slug}));
+                event(new $eventName($user->{$fields['slug']}));
 
                 // Broadcast event to the Users holding conversations with the
                 // current User
                 $newStatus = ($_val ? 'active' : 'inactive');
-                broadcast(new UserStatusChanged($user->{$slug}, $newStatus))->toOthers();
+                broadcast(new UserStatusChanged($user->{$fields['slug']}, $newStatus))->toOthers();
             }
 
             return response([$result]);
