@@ -20,9 +20,7 @@ Route::group([
 ], function () {
 
     // Mercurius home
-    Route::get('/messages', function () {
-        return View('mercurius::mercurius');
-    })->name('home');
+    Route::get('/messages', ['as' => 'home', 'uses' => 'MessagesController@index']);
 
     // User Profile
     Route::get('/profile/refresh', 'ProfileController@refresh');
@@ -42,7 +40,5 @@ Route::group([
     Route::post('/receivers', 'ReceiversController@search');
 
     // Dummy page example
-    Route::get('/notification-page-sample', function () {
-        return View('mercurius::example');
-    })->name('example');
+    Route::get('/notification-page-sample', ['as' => 'example', 'uses' => 'PagesController@notificationPageSample']);
 });
