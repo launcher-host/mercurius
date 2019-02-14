@@ -20,6 +20,16 @@ class MessagesController extends Controller
     }
 
     /**
+     * Index all messages
+     *
+     * @return mixed
+     */
+    public function index()
+    {
+        return View('mercurius::mercurius');
+    }
+
+    /**
      * Send a message from the current user.
      *
      * @param MessageRepository $repo
